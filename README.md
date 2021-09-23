@@ -9,6 +9,11 @@ Mark Austin
 
 ## Packages Used
 
+``` r
+   library(tidyverse)
+   library(jsonlite)
+```
+
 ## API Functions
 
 ``` r

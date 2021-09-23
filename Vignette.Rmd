@@ -10,6 +10,13 @@ knitr::opts_chunk$set(fig.path = "images/")
 
 ## Packages Used
 
+```{r packages,message=FALSE}
+   library(tidyverse)
+   library(jsonlite)
+```
+
+
+
 
 ## API Functions 
 
