@@ -3,36 +3,47 @@ Vignette
 Mark Austin
 10/05/2021
 
--   [R Markdown](#r-markdown)
--   [Including Plots](#including-plots)
+-   [Packages Used](#packages-used)
+-   [API Functions](#api-functions)
+-   [Exploring Data](#exploring-data)
 
-## R Markdown
+## Packages Used
 
-This is an R Markdown document. Markdown is a simple formatting syntax
-for authoring HTML, PDF, and MS Word documents. For more details on
-using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that
-includes both content as well as the output of any embedded R code
-chunks within the document. You can embed an R code chunk like this:
+## API Functions
 
 ``` r
-summary(cars)
+getPokeNameID <- function(sortName=FALSE){
+  
+  apiData<-fromJSON("https://pokeapi.co/api/v2/pokemon/?limit=1222")
+  
+  allNames<-as_tibble(apiData$results)
+  
+  allNames<-allNames %>% mutate(ID=basename(url)) %>% select(-url)
+  
+  if (sortName) {
+    allNames<-allNames %>% arrange(name)
+  }
+  
+  return(allNames)
+  
+}
+
+getPokeNameID(sortName = TRUE)
 ```
 
-    ##      speed           dist       
-    ##  Min.   : 4.0   Min.   :  2.00  
-    ##  1st Qu.:12.0   1st Qu.: 26.00  
-    ##  Median :15.0   Median : 36.00  
-    ##  Mean   :15.4   Mean   : 42.98  
-    ##  3rd Qu.:19.0   3rd Qu.: 56.00  
-    ##  Max.   :25.0   Max.   :120.00
+    ## # A tibble: 1,118 x 2
+    ##    name             ID   
+    ##    <chr>            <chr>
+    ##  1 abomasnow        460  
+    ##  2 abomasnow-mega   10060
+    ##  3 abra             63   
+    ##  4 absol            359  
+    ##  5 absol-mega       10057
+    ##  6 accelgor         617  
+    ##  7 aegislash-blade  10026
+    ##  8 aegislash-shield 681  
+    ##  9 aerodactyl       142  
+    ## 10 aerodactyl-mega  10042
+    ## # ... with 1,108 more rows
 
-## Including Plots
-
-You can also embed plots, for example:
-
-![](images/pressure-1.png)<!-- -->
-
-Note that the `echo = FALSE` parameter was added to the code chunk to
-prevent printing of the R code that generated the plot.
+## Exploring Data
