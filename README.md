@@ -1,7 +1,6 @@
 Vignette
 ================
 Mark Austin
-9/23/2021
 
 -   [R Markdown](#r-markdown)
 -   [Including Plots](#including-plots)
