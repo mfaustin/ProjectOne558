@@ -32,7 +32,7 @@ getPokeNameID <- function(sortName=FALSE){
   
   allNames<-as_tibble(apiData$results)
   
-  allNames<-allNames %>% mutate(ID=basename(url)) %>% select(-url)
+  allNames<-allNames %>% mutate(ID=as.numeric(basename(url)))
   
   if (sortName) {
     allNames<-allNames %>% arrange(name)
