@@ -11,7 +11,7 @@ Mark Austin
 
 `tidyverse`
 
-’jsonlite\`
+`jsonlite`
 
 ``` r
    library(tidyverse)

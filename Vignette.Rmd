@@ -12,7 +12,7 @@ knitr::opts_chunk$set(fig.path = "images/")
 
 `tidyverse`
 
-'jsonlite`
+`jsonlite`
 
 ```{r packages,message=FALSE}
    library(tidyverse)
