@@ -10,6 +10,10 @@ knitr::opts_chunk$set(fig.path = "images/")
 
 ## Packages Used
 
+`tidyverse`
+
+'jsonlite`
+
 ```{r packages,message=FALSE}
    library(tidyverse)
    library(jsonlite)
@@ -44,3 +48,4 @@ getPokeNameID(sortName = TRUE)
 
 
 ## Exploring Data
+
