@@ -9,6 +9,10 @@ Mark Austin
 
 ## Packages Used
 
+`tidyverse`
+
+’jsonlite\`
+
 ``` r
    library(tidyverse)
    library(jsonlite)
