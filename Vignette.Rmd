@@ -54,9 +54,9 @@ getOnePokeData<-function(pokemon,basestat=FALSE,type=FALSE){
   ##Get list of pokemon and process user pokemon input
   PokeNameID<-getPokeNameID()
   
-  if (typeof(pokemon)=="double" | typeof(pokemon)=="integer"){
+  if (is.numeric(pokemon)){
     PokeNameID<-PokeNameID%>%filter(ID==pokemon)
-  } else if (typeof(pokemon)=="character"){
+  } else if (is.character(pokemon)){
     PokeNameID<-PokeNameID%>%filter(name==tolower(pokemon))
   } else {
     stop("Please enter either pokemon integer or quoated name value")
