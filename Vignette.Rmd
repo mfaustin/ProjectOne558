@@ -58,17 +58,17 @@ getPokeNameID(sortName = TRUE)
 getOnePokeData<-function(pokemon,basestat=FALSE,type=FALSE){
   
   ##Get list of pokemon and process user pokemon input
-  PokeNameID<-getPokeNameID()
+  pokeNameID<-getPokeNameID()
   
   if (is.numeric(pokemon)){
-    PokeNameID<-PokeNameID%>%filter(ID==pokemon)
+    pokeNameID<-pokeNameID%>%filter(ID==pokemon)
   } else if (is.character(pokemon)){
-    PokeNameID<-PokeNameID%>%filter(name==tolower(pokemon))
+    pokeNameID<-pokeNameID%>%filter(name==tolower(pokemon))
   } else {
     stop("Please enter either pokemon integer or quoated name value")
   }
   
-  PokeList<- fromJSON(PokeNameID$url,flatten = TRUE)
+  PokeList<- fromJSON(pokeNameID$url,flatten = TRUE)
   
   ###Function Default Data
   name<-PokeList$name
@@ -129,14 +129,10 @@ getOnePokeData(10032,basestat = TRUE,type = TRUE)
 getEveryPokeData<-function(basestat=FALSE,type=FALSE){
   
   ###Get current number of pokemon to process
-  PokeNameID<-getPokeNameID()
-  npoke<-nrow(PokeNameID)
-  idVals<-PokeNameID$ID
-  #print(idVals)
+  #getPokeNameID
+  pokeNameID<-getPokeNameID()
+  idVals<-pokeNameID$ID
   #idVals<-1:2
-  
-  print(basestat)
-  print(type)
   
   ###Loop through every pokemon and build data frame
   ###by adding new rows
@@ -144,12 +140,12 @@ getEveryPokeData<-function(basestat=FALSE,type=FALSE){
   ###   calls to API address since there are so many pokemon
   allPoke<-data.frame()
   for (i in idVals) {
-    #allPoke<-rbind(allPoke,getOnePokeData(i,basestat = TRUE,type = TRUE))
     allPoke<-rbind(allPoke,getOnePokeData(i,basestat,type))
   }
   
   return(allPoke)
 }
+getEveryPokeData()
 ```
 
 
