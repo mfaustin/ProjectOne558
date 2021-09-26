@@ -25,7 +25,7 @@ knitr::opts_chunk$set(fig.path = "images/")
 ## API Functions 
 
 
-```{r}
+```{r getPokeNameIDFunction}
 getPokeNameID <- function(sortName=FALSE){
   
   apiData<-fromJSON("https://pokeapi.co/api/v2/pokemon/?limit=1222")
@@ -41,13 +41,19 @@ getPokeNameID <- function(sortName=FALSE){
   return(allNames)
   
 }
+```
 
+
+Example usage with output
+
+```{r getPokeNameIDExample}
 getPokeNameID(sortName = TRUE)
 ```
 
 
 
-```{r}
+
+```{r getOnePokeDataFunction}
 
 getOnePokeData<-function(pokemon,basestat=FALSE,type=FALSE){
   
@@ -107,6 +113,17 @@ getOnePokeData<-function(pokemon,basestat=FALSE,type=FALSE){
   
 }
 ```
+
+Examples of ways to use getOnePokeData()
+
+```{r getOnePokeExample, eval=FALSE}
+getOnePokeData("Venusaur")
+getOnePokeData(pokemon=8,basestat = TRUE)
+getOnePokeData(435,type = TRUE)
+getOnePokeData(10032,basestat = TRUE,type = TRUE)
+```
+
+
 
 
 ## Exploring Data
