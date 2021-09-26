@@ -125,6 +125,34 @@ getOnePokeData(10032,basestat = TRUE,type = TRUE)
 
 
 
+```{r getEveryPokeDataFunction}
+getEveryPokeData<-function(basestat=FALSE,type=FALSE){
+  
+  ###Get current number of pokemon to process
+  PokeNameID<-getPokeNameID()
+  npoke<-nrow(PokeNameID)
+  idVals<-PokeNameID$ID
+  #print(idVals)
+  #idVals<-1:2
+  
+  print(basestat)
+  print(type)
+  
+  ###Loop through every pokemon and build data frame
+  ###by adding new rows
+  ###Most of the time spent here is in the numerous 
+  ###   calls to API address since there are so many pokemon
+  allPoke<-data.frame()
+  for (i in idVals) {
+    #allPoke<-rbind(allPoke,getOnePokeData(i,basestat = TRUE,type = TRUE))
+    allPoke<-rbind(allPoke,getOnePokeData(i,basestat,type))
+  }
+  
+  return(allPoke)
+}
+```
+
+
 
 ## Exploring Data
 
