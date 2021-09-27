@@ -145,10 +145,29 @@ getEveryPokeData<-function(basestat=FALSE,type=FALSE){
   
   return(allPoke)
 }
-getEveryPokeData()
+#getEveryPokeData()
 ```
 
 
 
 ## Exploring Data
+
+
+
+```{r getData}
+allPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
+```
+
+```{r plotheightweight}
+allPoke
+g<-ggplot(data = allPoke,aes(x=weight,y=height))
+g+geom_point(aes(color=type_one))
+
+```
+
+```{r summarystats}
+allPoke %>% group_by(type_one) %>% summarise(mweight=mean(weight),sdweight=sd(weight))
+allPoke %>% summary()
+```
+
 

@@ -148,176 +148,227 @@ getEveryPokeData<-function(basestat=FALSE,type=FALSE){
   
   return(allPoke)
 }
-getEveryPokeData()
+#getEveryPokeData()
 ```
 
-    ##           name  id    species height weight base_experience
-    ## 1    bulbasaur   1  bulbasaur      7     69              64
-    ## 2      ivysaur   2    ivysaur     10    130             142
-    ## 3     venusaur   3   venusaur     20   1000             236
-    ## 4   charmander   4 charmander      6     85              62
-    ## 5   charmeleon   5 charmeleon     11    190             142
-    ## 6    charizard   6  charizard     17    905             240
-    ## 7     squirtle   7   squirtle      5     90              63
-    ## 8    wartortle   8  wartortle     10    225             142
-    ## 9    blastoise   9  blastoise     16    855             239
-    ## 10    caterpie  10   caterpie      3     29              39
-    ## 11     metapod  11    metapod      7     99              72
-    ## 12  butterfree  12 butterfree     11    320             178
-    ## 13      weedle  13     weedle      3     32              39
-    ## 14      kakuna  14     kakuna      6    100              72
-    ## 15    beedrill  15   beedrill     10    295             178
-    ## 16      pidgey  16     pidgey      3     18              50
-    ## 17   pidgeotto  17  pidgeotto     11    300             122
-    ## 18     pidgeot  18    pidgeot     15    395             216
-    ## 19     rattata  19    rattata      3     35              51
-    ## 20    raticate  20   raticate      7    185             145
-    ## 21     spearow  21    spearow      3     20              52
-    ## 22      fearow  22     fearow     12    380             155
-    ## 23       ekans  23      ekans     20     69              58
-    ## 24       arbok  24      arbok     35    650             157
-    ## 25     pikachu  25    pikachu      4     60             112
-    ## 26      raichu  26     raichu      8    300             218
-    ## 27   sandshrew  27  sandshrew      6    120              60
-    ## 28   sandslash  28  sandslash     10    295             158
-    ## 29   nidoran-f  29  nidoran-f      4     70              55
-    ## 30    nidorina  30   nidorina      8    200             128
-    ## 31   nidoqueen  31  nidoqueen     13    600             227
-    ## 32   nidoran-m  32  nidoran-m      5     90              55
-    ## 33    nidorino  33   nidorino      9    195             128
-    ## 34    nidoking  34   nidoking     14    620             227
-    ## 35    clefairy  35   clefairy      6     75             113
-    ## 36    clefable  36   clefable     13    400             217
-    ## 37      vulpix  37     vulpix      6     99              60
-    ## 38   ninetales  38  ninetales     11    199             177
-    ## 39  jigglypuff  39 jigglypuff      5     55              95
-    ## 40  wigglytuff  40 wigglytuff     10    120             196
-    ## 41       zubat  41      zubat      8     75              49
-    ## 42      golbat  42     golbat     16    550             159
-    ## 43      oddish  43     oddish      5     54              64
-    ## 44       gloom  44      gloom      8     86             138
-    ## 45   vileplume  45  vileplume     12    186             221
-    ## 46       paras  46      paras      3     54              57
-    ## 47    parasect  47   parasect     10    295             142
-    ## 48     venonat  48    venonat     10    300              61
-    ## 49    venomoth  49   venomoth     15    125             158
-    ## 50     diglett  50    diglett      2      8              53
-    ## 51     dugtrio  51    dugtrio      7    333             149
-    ## 52      meowth  52     meowth      4     42              58
-    ## 53     persian  53    persian     10    320             154
-    ## 54     psyduck  54    psyduck      8    196              64
-    ## 55     golduck  55    golduck     17    766             175
-    ## 56      mankey  56     mankey      5    280              61
-    ## 57    primeape  57   primeape     10    320             159
-    ## 58   growlithe  58  growlithe      7    190              70
-    ## 59    arcanine  59   arcanine     19   1550             194
-    ## 60     poliwag  60    poliwag      6    124              60
-    ## 61   poliwhirl  61  poliwhirl     10    200             135
-    ## 62   poliwrath  62  poliwrath     13    540             230
-    ## 63        abra  63       abra      9    195              62
-    ## 64     kadabra  64    kadabra     13    565             140
-    ## 65    alakazam  65   alakazam     15    480             225
-    ## 66      machop  66     machop      8    195              61
-    ## 67     machoke  67    machoke     15    705             142
-    ## 68     machamp  68    machamp     16   1300             227
-    ## 69  bellsprout  69 bellsprout      7     40              60
-    ## 70  weepinbell  70 weepinbell     10     64             137
-    ## 71  victreebel  71 victreebel     17    155             221
-    ## 72   tentacool  72  tentacool      9    455              67
-    ## 73  tentacruel  73 tentacruel     16    550             180
-    ## 74     geodude  74    geodude      4    200              60
-    ## 75    graveler  75   graveler     10   1050             137
-    ## 76       golem  76      golem     14   3000             223
-    ## 77      ponyta  77     ponyta     10    300              82
-    ## 78    rapidash  78   rapidash     17    950             175
-    ## 79    slowpoke  79   slowpoke     12    360              63
-    ## 80     slowbro  80    slowbro     16    785             172
-    ## 81   magnemite  81  magnemite      3     60              65
-    ## 82    magneton  82   magneton     10    600             163
-    ## 83   farfetchd  83  farfetchd      8    150             132
-    ## 84       doduo  84      doduo     14    392              62
-    ## 85      dodrio  85     dodrio     18    852             165
-    ## 86        seel  86       seel     11    900              65
-    ## 87     dewgong  87    dewgong     17   1200             166
-    ## 88      grimer  88     grimer      9    300              65
-    ## 89         muk  89        muk     12    300             175
-    ## 90    shellder  90   shellder      3     40              61
-    ## 91    cloyster  91   cloyster     15   1325             184
-    ## 92      gastly  92     gastly     13      1              62
-    ## 93     haunter  93    haunter     16      1             142
-    ## 94      gengar  94     gengar     15    405             225
-    ## 95        onix  95       onix     88   2100              77
-    ## 96     drowzee  96    drowzee     10    324              66
-    ## 97       hypno  97      hypno     16    756             169
-    ## 98      krabby  98     krabby      4     65              65
-    ## 99     kingler  99    kingler     13    600             166
-    ## 100    voltorb 100    voltorb      5    104              66
-    ## 101  electrode 101  electrode     12    666             172
-    ## 102  exeggcute 102  exeggcute      4     25              65
-    ## 103  exeggutor 103  exeggutor     20   1200             186
-    ## 104     cubone 104     cubone      4     65              64
-    ## 105    marowak 105    marowak     10    450             149
-    ## 106  hitmonlee 106  hitmonlee     15    498             159
-    ## 107 hitmonchan 107 hitmonchan     14    502             159
-    ## 108  lickitung 108  lickitung     12    655              77
-    ## 109    koffing 109    koffing      6     10              68
-    ## 110    weezing 110    weezing     12     95             172
-    ## 111    rhyhorn 111    rhyhorn     10   1150              69
-    ## 112     rhydon 112     rhydon     19   1200             170
-    ## 113    chansey 113    chansey     11    346             395
-    ## 114    tangela 114    tangela     10    350              87
-    ## 115 kangaskhan 115 kangaskhan     22    800             172
-    ## 116     horsea 116     horsea      4     80              59
-    ## 117     seadra 117     seadra     12    250             154
-    ## 118    goldeen 118    goldeen      6    150              64
-    ## 119    seaking 119    seaking     13    390             158
-    ## 120     staryu 120     staryu      8    345              68
-    ## 121    starmie 121    starmie     11    800             182
-    ## 122    mr-mime 122    mr-mime     13    545             161
-    ## 123    scyther 123    scyther     15    560             100
-    ## 124       jynx 124       jynx     14    406             159
-    ## 125 electabuzz 125 electabuzz     11    300             172
-    ## 126     magmar 126     magmar     13    445             173
-    ## 127     pinsir 127     pinsir     15    550             175
-    ## 128     tauros 128     tauros     14    884             172
-    ## 129   magikarp 129   magikarp      9    100              40
-    ## 130   gyarados 130   gyarados     65   2350             189
-    ## 131     lapras 131     lapras     25   2200             187
-    ## 132      ditto 132      ditto      3     40             101
-    ## 133      eevee 133      eevee      3     65              65
-    ## 134   vaporeon 134   vaporeon     10    290             184
-    ## 135    jolteon 135    jolteon      8    245             184
-    ## 136    flareon 136    flareon      9    250             184
-    ## 137    porygon 137    porygon      8    365              79
-    ## 138    omanyte 138    omanyte      4     75              71
-    ## 139    omastar 139    omastar     10    350             173
-    ## 140     kabuto 140     kabuto      5    115              71
-    ## 141   kabutops 141   kabutops     13    405             173
-    ## 142 aerodactyl 142 aerodactyl     18    590             180
-    ## 143    snorlax 143    snorlax     21   4600             189
-    ## 144   articuno 144   articuno     17    554             261
-    ## 145     zapdos 145     zapdos     16    526             261
-    ## 146    moltres 146    moltres     20    600             261
-    ## 147    dratini 147    dratini     18     33              60
-    ## 148  dragonair 148  dragonair     40    165             147
-    ## 149  dragonite 149  dragonite     22   2100             270
-    ## 150     mewtwo 150     mewtwo     20   1220             306
-    ## 151        mew 151        mew      4     40             270
-    ## 152  chikorita 152  chikorita      9     64              64
-    ## 153    bayleef 153    bayleef     12    158             142
-    ## 154   meganium 154   meganium     18   1005             236
-    ## 155  cyndaquil 155  cyndaquil      5     79              62
-    ## 156    quilava 156    quilava      9    190             142
-    ## 157 typhlosion 157 typhlosion     17    795             240
-    ## 158   totodile 158   totodile      6     95              63
-    ## 159   croconaw 159   croconaw     11    250             142
-    ## 160 feraligatr 160 feraligatr     23    888             239
-    ## 161    sentret 161    sentret      8     60              43
-    ## 162     furret 162     furret     18    325             145
-    ## 163   hoothoot 163   hoothoot      7    212              52
-    ## 164    noctowl 164    noctowl     16    408             158
-    ## 165     ledyba 165     ledyba     10    108              53
-    ## 166     ledian 166     ledian     14    356             137
-    ##  [ reached 'max' / getOption("max.print") -- omitted 952 rows ]
-
 ## Exploring Data
+
+``` r
+allPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
+```
+
+``` r
+allPoke
+```
+
+    ##          name id    species height weight base_experience  hp attack defense
+    ## 1   bulbasaur  1  bulbasaur      7     69              64  45     49      49
+    ## 2     ivysaur  2    ivysaur     10    130             142  60     62      63
+    ## 3    venusaur  3   venusaur     20   1000             236  80     82      83
+    ## 4  charmander  4 charmander      6     85              62  39     52      43
+    ## 5  charmeleon  5 charmeleon     11    190             142  58     64      58
+    ## 6   charizard  6  charizard     17    905             240  78     84      78
+    ## 7    squirtle  7   squirtle      5     90              63  44     48      65
+    ## 8   wartortle  8  wartortle     10    225             142  59     63      80
+    ## 9   blastoise  9  blastoise     16    855             239  79     83     100
+    ## 10   caterpie 10   caterpie      3     29              39  45     30      35
+    ## 11    metapod 11    metapod      7     99              72  50     20      55
+    ## 12 butterfree 12 butterfree     11    320             178  60     45      50
+    ## 13     weedle 13     weedle      3     32              39  40     35      30
+    ## 14     kakuna 14     kakuna      6    100              72  45     25      50
+    ## 15   beedrill 15   beedrill     10    295             178  65     90      40
+    ## 16     pidgey 16     pidgey      3     18              50  40     45      40
+    ## 17  pidgeotto 17  pidgeotto     11    300             122  63     60      55
+    ## 18    pidgeot 18    pidgeot     15    395             216  83     80      75
+    ## 19    rattata 19    rattata      3     35              51  30     56      35
+    ## 20   raticate 20   raticate      7    185             145  55     81      60
+    ## 21    spearow 21    spearow      3     20              52  40     60      30
+    ## 22     fearow 22     fearow     12    380             155  65     90      65
+    ## 23      ekans 23      ekans     20     69              58  35     60      44
+    ## 24      arbok 24      arbok     35    650             157  60     95      69
+    ## 25    pikachu 25    pikachu      4     60             112  35     55      40
+    ## 26     raichu 26     raichu      8    300             218  60     90      55
+    ## 27  sandshrew 27  sandshrew      6    120              60  50     75      85
+    ## 28  sandslash 28  sandslash     10    295             158  75    100     110
+    ## 29  nidoran-f 29  nidoran-f      4     70              55  55     47      52
+    ## 30   nidorina 30   nidorina      8    200             128  70     62      67
+    ## 31  nidoqueen 31  nidoqueen     13    600             227  90     92      87
+    ## 32  nidoran-m 32  nidoran-m      5     90              55  46     57      40
+    ## 33   nidorino 33   nidorino      9    195             128  61     72      57
+    ## 34   nidoking 34   nidoking     14    620             227  81    102      77
+    ## 35   clefairy 35   clefairy      6     75             113  70     45      48
+    ## 36   clefable 36   clefable     13    400             217  95     70      73
+    ## 37     vulpix 37     vulpix      6     99              60  38     41      40
+    ## 38  ninetales 38  ninetales     11    199             177  73     76      75
+    ## 39 jigglypuff 39 jigglypuff      5     55              95 115     45      20
+    ## 40 wigglytuff 40 wigglytuff     10    120             196 140     70      45
+    ## 41      zubat 41      zubat      8     75              49  40     45      35
+    ## 42     golbat 42     golbat     16    550             159  75     80      70
+    ## 43     oddish 43     oddish      5     54              64  45     50      55
+    ## 44      gloom 44      gloom      8     86             138  60     65      70
+    ## 45  vileplume 45  vileplume     12    186             221  75     80      85
+    ## 46      paras 46      paras      3     54              57  35     70      55
+    ## 47   parasect 47   parasect     10    295             142  60     95      80
+    ## 48    venonat 48    venonat     10    300              61  60     55      50
+    ## 49   venomoth 49   venomoth     15    125             158  70     65      60
+    ## 50    diglett 50    diglett      2      8              53  10     55      25
+    ## 51    dugtrio 51    dugtrio      7    333             149  35    100      50
+    ## 52     meowth 52     meowth      4     42              58  40     45      35
+    ## 53    persian 53    persian     10    320             154  65     70      60
+    ## 54    psyduck 54    psyduck      8    196              64  50     52      48
+    ## 55    golduck 55    golduck     17    766             175  80     82      78
+    ## 56     mankey 56     mankey      5    280              61  40     80      35
+    ## 57   primeape 57   primeape     10    320             159  65    105      60
+    ## 58  growlithe 58  growlithe      7    190              70  55     70      45
+    ## 59   arcanine 59   arcanine     19   1550             194  90    110      80
+    ## 60    poliwag 60    poliwag      6    124              60  40     50      40
+    ## 61  poliwhirl 61  poliwhirl     10    200             135  65     65      65
+    ## 62  poliwrath 62  poliwrath     13    540             230  90     95      95
+    ## 63       abra 63       abra      9    195              62  25     20      15
+    ## 64    kadabra 64    kadabra     13    565             140  40     35      30
+    ## 65   alakazam 65   alakazam     15    480             225  55     50      45
+    ## 66     machop 66     machop      8    195              61  70     80      50
+    ## 67    machoke 67    machoke     15    705             142  80    100      70
+    ## 68    machamp 68    machamp     16   1300             227  90    130      80
+    ## 69 bellsprout 69 bellsprout      7     40              60  50     75      35
+    ## 70 weepinbell 70 weepinbell     10     64             137  65     90      50
+    ## 71 victreebel 71 victreebel     17    155             221  80    105      65
+    ##    special_attack special_defense speed type_one type_two
+    ## 1              65              65    45    grass   poison
+    ## 2              80              80    60    grass   poison
+    ## 3             100             100    80    grass   poison
+    ## 4              60              50    65     fire     None
+    ## 5              80              65    80     fire     None
+    ## 6             109              85   100     fire   flying
+    ## 7              50              64    43    water     None
+    ## 8              65              80    58    water     None
+    ## 9              85             105    78    water     None
+    ## 10             20              20    45      bug     None
+    ## 11             25              25    30      bug     None
+    ## 12             90              80    70      bug   flying
+    ## 13             20              20    50      bug   poison
+    ## 14             25              25    35      bug   poison
+    ## 15             45              80    75      bug   poison
+    ## 16             35              35    56   normal   flying
+    ## 17             50              50    71   normal   flying
+    ## 18             70              70   101   normal   flying
+    ## 19             25              35    72   normal     None
+    ## 20             50              70    97   normal     None
+    ## 21             31              31    70   normal   flying
+    ## 22             61              61   100   normal   flying
+    ## 23             40              54    55   poison     None
+    ## 24             65              79    80   poison     None
+    ## 25             50              50    90 electric     None
+    ## 26             90              80   110 electric     None
+    ## 27             20              30    40   ground     None
+    ## 28             45              55    65   ground     None
+    ## 29             40              40    41   poison     None
+    ## 30             55              55    56   poison     None
+    ## 31             75              85    76   poison   ground
+    ## 32             40              40    50   poison     None
+    ## 33             55              55    65   poison     None
+    ## 34             85              75    85   poison   ground
+    ## 35             60              65    35    fairy     None
+    ## 36             95              90    60    fairy     None
+    ## 37             50              65    65     fire     None
+    ## 38             81             100   100     fire     None
+    ## 39             45              25    20   normal    fairy
+    ## 40             85              50    45   normal    fairy
+    ## 41             30              40    55   poison   flying
+    ## 42             65              75    90   poison   flying
+    ## 43             75              65    30    grass   poison
+    ## 44             85              75    40    grass   poison
+    ## 45            110              90    50    grass   poison
+    ## 46             45              55    25      bug    grass
+    ## 47             60              80    30      bug    grass
+    ## 48             40              55    45      bug   poison
+    ## 49             90              75    90      bug   poison
+    ## 50             35              45    95   ground     None
+    ## 51             50              70   120   ground     None
+    ## 52             40              40    90   normal     None
+    ## 53             65              65   115   normal     None
+    ## 54             65              50    55    water     None
+    ## 55             95              80    85    water     None
+    ## 56             35              45    70 fighting     None
+    ## 57             60              70    95 fighting     None
+    ## 58             70              50    60     fire     None
+    ## 59            100              80    95     fire     None
+    ## 60             40              40    90    water     None
+    ## 61             50              50    90    water     None
+    ## 62             70              90    70    water fighting
+    ## 63            105              55    90  psychic     None
+    ## 64            120              70   105  psychic     None
+    ## 65            135              95   120  psychic     None
+    ## 66             35              35    35 fighting     None
+    ## 67             50              60    45 fighting     None
+    ## 68             65              85    55 fighting     None
+    ## 69             70              30    40    grass   poison
+    ## 70             85              45    55    grass   poison
+    ## 71            100              70    70    grass   poison
+    ##  [ reached 'max' / getOption("max.print") -- omitted 1047 rows ]
+
+``` r
+g<-ggplot(data = allPoke,aes(x=weight,y=height))
+g+geom_point(aes(color=type_one))
+```
+
+![](images/plotheightweight-1.png)<!-- -->
+
+``` r
+allPoke %>% group_by(type_one) %>% summarise(mweight=mean(weight),sdweight=sd(weight))
+```
+
+    ## # A tibble: 18 x 3
+    ##    type_one mweight sdweight
+    ##    <chr>      <dbl>    <dbl>
+    ##  1 bug         576.    1560.
+    ##  2 dark        786.    1874.
+    ##  3 dragon     1331.    1385.
+    ##  4 electric    705.    1936.
+    ##  5 fairy       788.    2128.
+    ##  6 fighting   1399.    2617.
+    ##  7 fire       1061.    2071.
+    ##  8 flying     1478.    3211.
+    ##  9 ghost       802.    2025.
+    ## 10 grass       800.    2032.
+    ## 11 ground     1540.    2777.
+    ## 12 ice        1095.    1571.
+    ## 13 normal      683.    1659.
+    ## 14 poison     1051.    2456.
+    ## 15 psychic     892.    1925.
+    ## 16 rock       1111.    1718.
+    ## 17 steel      2850.    3479.
+    ## 18 water       926.    1915.
+
+``` r
+allPoke %>% summary()
+```
+
+    ##      name                 id            species              height       
+    ##  Length:1118        Min.   :    1.0   Length:1118        Min.   :   1.00  
+    ##  Class :character   1st Qu.:  280.2   Class :character   1st Qu.:   5.00  
+    ##  Mode  :character   Median :  559.5   Mode  :character   Median :  10.00  
+    ##                     Mean   : 2350.6                      Mean   :  21.43  
+    ##                     3rd Qu.:  838.8                      3rd Qu.:  16.00  
+    ##                     Max.   :10220.0                      Max.   :1000.00  
+    ##      weight        base_experience       hp             attack      
+    ##  Min.   :    1.0   Min.   : 36     Min.   :  1.00   Min.   :  5.00  
+    ##  1st Qu.:   88.0   1st Qu.: 70     1st Qu.: 50.00   1st Qu.: 55.00  
+    ##  Median :  302.5   Median :162     Median : 68.00   Median : 78.50  
+    ##  Mean   :  993.3   Mean   :157     Mean   : 70.03   Mean   : 80.68  
+    ##  3rd Qu.:  800.0   3rd Qu.:207     3rd Qu.: 80.75   3rd Qu.:100.00  
+    ##  Max.   :10000.0   Max.   :608     Max.   :255.00   Max.   :190.00  
+    ##     defense       special_attack   special_defense      speed       
+    ##  Min.   :  5.00   Min.   : 10.00   Min.   : 20.00   Min.   :  5.00  
+    ##  1st Qu.: 50.25   1st Qu.: 50.00   1st Qu.: 50.00   1st Qu.: 45.00  
+    ##  Median : 70.00   Median : 65.00   Median : 70.00   Median : 67.00  
+    ##  Mean   : 74.76   Mean   : 73.23   Mean   : 72.57   Mean   : 69.48  
+    ##  3rd Qu.: 90.00   3rd Qu.: 95.00   3rd Qu.: 90.00   3rd Qu.: 90.00  
+    ##  Max.   :250.00   Max.   :194.00   Max.   :250.00   Max.   :200.00  
+    ##    type_one           type_two        
+    ##  Length:1118        Length:1118       
+    ##  Class :character   Class :character  
+    ##  Mode  :character   Mode  :character  
+    ##                                       
+    ##                                       
+    ## 
