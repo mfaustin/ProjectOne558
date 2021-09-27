@@ -159,7 +159,7 @@ allPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
 ```
 
 ```{r plotheightweight}
-allPoke
+head(allPoke)
 g<-ggplot(data = allPoke,aes(x=weight,y=height))
 g+geom_point(aes(color=type_one))
 
@@ -168,6 +168,17 @@ g+geom_point(aes(color=type_one))
 ```{r summarystats}
 allPoke %>% group_by(type_one) %>% summarise(mweight=mean(weight),sdweight=sd(weight))
 allPoke %>% summary()
+summary(allPoke$weight)
+cor(allPoke$hp,allPoke$weight)
+cor(allPoke$height,allPoke$weight)
+shortPoke<-allPoke %>% filter(height<500) 
+cor(shortPoke$height,shortPoke$weight)
+
+summary(shortPoke$height)
+
+g<-ggplot(data = shortPoke,aes(x=weight,y=height))
+g+geom_point(aes(color=type_one))
+
 ```
 
 
