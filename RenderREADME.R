@@ -18,6 +18,7 @@ rmarkdown::render("Vignette.Rmd",
                   output_file = "README.md",
                   output_options = list(
                     html_preview = FALSE,
+                    df_print = "kable",
                     toc = TRUE
                   )
 )

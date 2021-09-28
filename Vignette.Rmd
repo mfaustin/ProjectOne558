@@ -10,13 +10,16 @@ knitr::opts_chunk$set(fig.path = "images/")
 
 ## Packages Used
 
-`tidyverse`
+`tidyverse`  
 
-`jsonlite`
+`jsonlite`  
+
+`knitr`  
 
 ```{r packages,message=FALSE}
    library(tidyverse)
    library(jsonlite)
+   library(knitr)
 ```
 
 
@@ -250,7 +253,7 @@ combinePoke<-inner_join(allPoke,evolveStages,by="species") %>% select(name,stage
 
 tOne<-table(combinePoke$stages,combinePoke$type_one )
 tOne<-table(combinePoke$type_one,combinePoke$stages )
-addmargins(tOne)
+kable(addmargins(tOne),caption = "Contingency Table of Type by Stage")
 
 ```
 
