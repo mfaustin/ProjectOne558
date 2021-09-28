@@ -187,7 +187,46 @@ getAllEvolveSeries<-function(){
 }
 
 resultsEvolve<-getAllEvolveSeries()
-resultsEvolve
+head(resultsEvolve)
+
+```
+```{r getAllEvolveStages}
+
+getAllEvolveStages<-function(){
+  
+  resultsEvolve<-getAllEvolveSeries()
+  
+  ###Handles the first one which they all have
+  ###Now can do stageTwo and three
+  allEvolve<-data.frame()
+  species<-resultsEvolve$stageOne
+  stages<-ifelse(resultsEvolve$stageTwo=="None",stage<-"noEvolve",stage<-"one")
+  stages
+  allEvolve<-data.frame(species,stages)
+  ###Need to use rbind to add other parts after this part
+  species<-resultsEvolve$stageTwo
+  stages<-ifelse(resultsEvolve$stageTwo=="None",stage<-"noEvolve",stage<-"two")
+  twoEvolve<-data.frame(species,stages)
+  twoEvolve<-twoEvolve %>% filter(species!="None")
+  allEvolve<-rbind(allEvolve,twoEvolve)
+  
+  species<-resultsEvolve$stageThree
+  stages<-ifelse(resultsEvolve$stageThree=="None",stage<-"noEvolve",stage<-"three")
+  threeEvolve<-data.frame(species,stages)
+  threeEvolve<-threeEvolve %>% filter(species!="None")
+  allEvolve<-rbind(allEvolve,threeEvolve)
+  ###Later use distinct function to remove duplicate rows
+  allEvolve<-allEvolve %>% distinct(species,.keep_all = TRUE)
+  
+  allEvolve$stages<-as.factor(allEvolve$stages)
+  allEvolve$stages<-ordered(allEvolve$stages,levels=c("one","two","three","noEvolve"))
+  
+  return(allEvolve)
+}
+
+evolveStages<-getAllEvolveStages()
+head(evolveStages)
+str(evolveStages)
 
 ```
 
@@ -200,6 +239,21 @@ resultsEvolve
 ```{r getData}
 allPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
 ```
+
+
+```{r contingencytables}
+#table(allPoke$type_one,allPoke$species)
+#allPoke %>% distinct()
+#inner_join(allPoke,evolveStages,by="species") %>% select(name,stages,everything())
+
+combinePoke<-inner_join(allPoke,evolveStages,by="species") %>% select(name,stages,everything())
+
+tOne<-table(combinePoke$stages,combinePoke$type_one )
+tOne<-table(combinePoke$type_one,combinePoke$stages )
+addmargins(tOne)
+
+```
+
 
 ```{r plotheightweight}
 head(allPoke)
