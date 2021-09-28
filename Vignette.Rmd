@@ -149,6 +149,49 @@ getEveryPokeData<-function(basestat=FALSE,type=FALSE){
 ```
 
 
+```{r getOneEvolveData}
+getOneEvolveData<-function(queryURL){
+  queryResult<-fromJSON(queryURL)
+  #print(queryResult)
+  #print(queryResult$chain$species$name)
+  stageOne<-queryResult$chain$species$name
+  stageTwo<-queryResult[["chain"]][["evolves_to"]][["species"]][["name"]]
+  stageThree<-queryResult[["chain"]][["evolves_to"]][["evolves_to"]][[1]][["species"]][["name"]] 
+  if (is.null(stageTwo)){
+    stageTwo<-"None"
+  }
+  if (is.null(stageThree)){
+    stageThree<-"None"
+  }
+  #print(stageThree)
+  
+  localDF<-data.frame(stageOne,stageTwo,stageThree)
+  return(localDF)
+}
+```
+
+
+```{r getAllEvolveSeries}
+getAllEvolveSeries<-function(){
+  
+  metaEvolve<-fromJSON("https://pokeapi.co/api/v2/evolution-chain/?limit=600")
+  
+  allEvolve<-data.frame()
+  for (loopURL in metaEvolve$results$url) {
+    #print(loopURL)
+    allEvolve<-rbind(allEvolve,getOneEvolveData(loopURL))
+    
+  } 
+  
+  return(allEvolve)
+}
+
+resultsEvolve<-getAllEvolveSeries()
+resultsEvolve
+
+```
+
+
 
 ## Exploring Data
 

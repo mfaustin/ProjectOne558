@@ -151,6 +151,382 @@ getEveryPokeData<-function(basestat=FALSE,type=FALSE){
 #getEveryPokeData()
 ```
 
+``` r
+getOneEvolveData<-function(queryURL){
+  queryResult<-fromJSON(queryURL)
+  #print(queryResult)
+  #print(queryResult$chain$species$name)
+  stageOne<-queryResult$chain$species$name
+  stageTwo<-queryResult[["chain"]][["evolves_to"]][["species"]][["name"]]
+  stageThree<-queryResult[["chain"]][["evolves_to"]][["evolves_to"]][[1]][["species"]][["name"]] 
+  if (is.null(stageTwo)){
+    stageTwo<-"None"
+  }
+  if (is.null(stageThree)){
+    stageThree<-"None"
+  }
+  #print(stageThree)
+  
+  localDF<-data.frame(stageOne,stageTwo,stageThree)
+  return(localDF)
+}
+```
+
+``` r
+getAllEvolveSeries<-function(){
+  
+  metaEvolve<-fromJSON("https://pokeapi.co/api/v2/evolution-chain/?limit=600")
+  
+  allEvolve<-data.frame()
+  for (loopURL in metaEvolve$results$url) {
+    #print(loopURL)
+    allEvolve<-rbind(allEvolve,getOneEvolveData(loopURL))
+    
+  } 
+  
+  return(allEvolve)
+}
+
+resultsEvolve<-getAllEvolveSeries()
+resultsEvolve
+```
+
+    ##       stageOne   stageTwo stageThree
+    ## 1    bulbasaur    ivysaur   venusaur
+    ## 2   charmander charmeleon  charizard
+    ## 3     squirtle  wartortle  blastoise
+    ## 4     caterpie    metapod butterfree
+    ## 5       weedle     kakuna   beedrill
+    ## 6       pidgey  pidgeotto    pidgeot
+    ## 7      rattata   raticate       None
+    ## 8      spearow     fearow       None
+    ## 9        ekans      arbok       None
+    ## 10       pichu    pikachu     raichu
+    ## 11   sandshrew  sandslash       None
+    ## 12   nidoran-f   nidorina  nidoqueen
+    ## 13   nidoran-m   nidorino   nidoking
+    ## 14      cleffa   clefairy   clefable
+    ## 15      vulpix  ninetales       None
+    ## 16   igglybuff jigglypuff wigglytuff
+    ## 17       zubat     golbat     crobat
+    ## 18      oddish      gloom  vileplume
+    ## 19      oddish      gloom  bellossom
+    ## 20       paras   parasect       None
+    ## 21     venonat   venomoth       None
+    ## 22     diglett    dugtrio       None
+    ## 23      meowth    persian       None
+    ## 24      meowth perrserker       None
+    ## 25     psyduck    golduck       None
+    ## 26      mankey   primeape       None
+    ## 27   growlithe   arcanine       None
+    ## 28     poliwag  poliwhirl  poliwrath
+    ## 29     poliwag  poliwhirl   politoed
+    ## 30        abra    kadabra   alakazam
+    ## 31      machop    machoke    machamp
+    ## 32  bellsprout weepinbell victreebel
+    ## 33   tentacool tentacruel       None
+    ## 34     geodude   graveler      golem
+    ## 35      ponyta   rapidash       None
+    ## 36    slowpoke    slowbro       None
+    ## 37    slowpoke   slowking       None
+    ## 38   magnemite   magneton  magnezone
+    ## 39   farfetchd  sirfetchd       None
+    ## 40       doduo     dodrio       None
+    ## 41        seel    dewgong       None
+    ## 42      grimer        muk       None
+    ## 43    shellder   cloyster       None
+    ## 44      gastly    haunter     gengar
+    ## 45        onix    steelix       None
+    ## 46     drowzee      hypno       None
+    ## 47      krabby    kingler       None
+    ## 48     voltorb  electrode       None
+    ## 49   exeggcute  exeggutor       None
+    ## 50      cubone    marowak       None
+    ## 51     tyrogue  hitmonlee       None
+    ## 52     tyrogue hitmonchan       None
+    ## 53     tyrogue  hitmontop       None
+    ## 54   lickitung lickilicky       None
+    ## 55     koffing    weezing       None
+    ## 56     rhyhorn     rhydon  rhyperior
+    ## 57     happiny    chansey    blissey
+    ## 58     tangela  tangrowth       None
+    ## 59  kangaskhan       None       None
+    ## 60      horsea     seadra    kingdra
+    ## 61     goldeen    seaking       None
+    ## 62      staryu    starmie       None
+    ## 63     mime-jr    mr-mime    mr-rime
+    ## 64     scyther     scizor       None
+    ## 65    smoochum       jynx       None
+    ## 66      elekid electabuzz electivire
+    ## 67       magby     magmar  magmortar
+    ## 68      pinsir       None       None
+    ## 69      tauros       None       None
+    ## 70    magikarp   gyarados       None
+    ## 71      lapras       None       None
+    ## 72       ditto       None       None
+    ## 73       eevee   vaporeon       None
+    ## 74       eevee    jolteon       None
+    ## 75       eevee    flareon       None
+    ## 76       eevee     espeon       None
+    ## 77       eevee    umbreon       None
+    ## 78       eevee    leafeon       None
+    ## 79       eevee    glaceon       None
+    ## 80       eevee    sylveon       None
+    ## 81     porygon   porygon2  porygon-z
+    ## 82     omanyte    omastar       None
+    ## 83      kabuto   kabutops       None
+    ## 84  aerodactyl       None       None
+    ## 85    munchlax    snorlax       None
+    ## 86    articuno       None       None
+    ## 87      zapdos       None       None
+    ## 88     moltres       None       None
+    ## 89     dratini  dragonair  dragonite
+    ## 90      mewtwo       None       None
+    ## 91         mew       None       None
+    ## 92   chikorita    bayleef   meganium
+    ## 93   cyndaquil    quilava typhlosion
+    ## 94    totodile   croconaw feraligatr
+    ## 95     sentret     furret       None
+    ## 96    hoothoot    noctowl       None
+    ## 97      ledyba     ledian       None
+    ## 98    spinarak    ariados       None
+    ## 99    chinchou    lanturn       None
+    ## 100     togepi    togetic   togekiss
+    ## 101       natu       xatu       None
+    ## 102     mareep    flaaffy   ampharos
+    ## 103    azurill     marill  azumarill
+    ## 104     bonsly  sudowoodo       None
+    ## 105     hoppip   skiploom   jumpluff
+    ## 106      aipom    ambipom       None
+    ## 107    sunkern   sunflora       None
+    ## 108      yanma    yanmega       None
+    ## 109     wooper   quagsire       None
+    ## 110    murkrow  honchkrow       None
+    ## 111 misdreavus  mismagius       None
+    ## 112      unown       None       None
+    ## 113     wynaut  wobbuffet       None
+    ## 114  girafarig       None       None
+    ## 115     pineco forretress       None
+    ## 116  dunsparce       None       None
+    ## 117     gligar    gliscor       None
+    ## 118   snubbull   granbull       None
+    ## 119   qwilfish       None       None
+    ## 120    shuckle       None       None
+    ## 121  heracross       None       None
+    ## 122    sneasel    weavile       None
+    ## 123  teddiursa   ursaring       None
+    ## 124     slugma   magcargo       None
+    ## 125     swinub  piloswine  mamoswine
+    ## 126    corsola    cursola       None
+    ## 127   remoraid  octillery       None
+    ## 128   delibird       None       None
+    ## 129    mantyke    mantine       None
+    ## 130   skarmory       None       None
+    ## 131   houndour   houndoom       None
+    ## 132     phanpy    donphan       None
+    ## 133   stantler       None       None
+    ## 134   smeargle       None       None
+    ## 135    miltank       None       None
+    ## 136     raikou       None       None
+    ## 137      entei       None       None
+    ## 138    suicune       None       None
+    ## 139   larvitar    pupitar  tyranitar
+    ## 140      lugia       None       None
+    ## 141      ho-oh       None       None
+    ## 142     celebi       None       None
+    ## 143    treecko    grovyle   sceptile
+    ## 144    torchic  combusken   blaziken
+    ## 145     mudkip  marshtomp   swampert
+    ## 146  poochyena  mightyena       None
+    ## 147  zigzagoon    linoone  obstagoon
+    ## 148    wurmple    silcoon  beautifly
+    ## 149    wurmple    cascoon  beautifly
+    ## 150      lotad     lombre   ludicolo
+    ## 151     seedot    nuzleaf    shiftry
+    ## 152    taillow    swellow       None
+    ## 153    wingull   pelipper       None
+    ## 154      ralts     kirlia  gardevoir
+    ## 155      ralts     kirlia    gallade
+    ## 156    surskit masquerain       None
+    ## 157  shroomish    breloom       None
+    ## 158    slakoth   vigoroth    slaking
+    ## 159    nincada    ninjask       None
+    ## 160    nincada   shedinja       None
+    ## 161    whismur    loudred    exploud
+    ## 162   makuhita   hariyama       None
+    ## 163   nosepass  probopass       None
+    ## 164     skitty   delcatty       None
+    ## 165    sableye       None       None
+    ## 166     mawile       None       None
+    ## 167       aron     lairon     aggron
+    ## 168   meditite   medicham       None
+    ## 169  electrike  manectric       None
+    ## 170     plusle       None       None
+    ## 171      minun       None       None
+    ## 172    volbeat       None       None
+    ## 173   illumise       None       None
+    ## 174      budew    roselia   roserade
+    ## 175     gulpin     swalot       None
+    ## 176   carvanha   sharpedo       None
+    ## 177    wailmer    wailord       None
+    ## 178      numel   camerupt       None
+    ## 179    torkoal       None       None
+    ## 180     spoink    grumpig       None
+    ## 181     spinda       None       None
+    ## 182   trapinch    vibrava     flygon
+    ## 183     cacnea   cacturne       None
+    ## 184     swablu    altaria       None
+    ## 185   zangoose       None       None
+    ## 186    seviper       None       None
+    ## 187   lunatone       None       None
+    ## 188    solrock       None       None
+    ## 189   barboach   whiscash       None
+    ## 190   corphish  crawdaunt       None
+    ## 191     baltoy    claydol       None
+    ## 192     lileep    cradily       None
+    ## 193    anorith    armaldo       None
+    ## 194     feebas    milotic       None
+    ## 195   castform       None       None
+    ## 196    kecleon       None       None
+    ## 197    shuppet    banette       None
+    ## 198    duskull   dusclops   dusknoir
+    ## 199    tropius       None       None
+    ## 200  chingling   chimecho       None
+    ## 201      absol       None       None
+    ## 202    snorunt     glalie       None
+    ## 203    snorunt   froslass       None
+    ## 204     spheal     sealeo    walrein
+    ## 205   clamperl    huntail       None
+    ## 206   clamperl   gorebyss       None
+    ## 207  relicanth       None       None
+    ## 208    luvdisc       None       None
+    ## 209      bagon    shelgon  salamence
+    ## 210     beldum     metang  metagross
+    ## 211   regirock       None       None
+    ## 212     regice       None       None
+    ## 213  registeel       None       None
+    ## 214     latias       None       None
+    ## 215     latios       None       None
+    ## 216     kyogre       None       None
+    ## 217    groudon       None       None
+    ## 218   rayquaza       None       None
+    ## 219    jirachi       None       None
+    ## 220     deoxys       None       None
+    ## 221    turtwig     grotle   torterra
+    ## 222   chimchar   monferno  infernape
+    ## 223     piplup   prinplup   empoleon
+    ## 224     starly   staravia  staraptor
+    ## 225     bidoof    bibarel       None
+    ## 226  kricketot kricketune       None
+    ## 227      shinx      luxio     luxray
+    ## 228   cranidos  rampardos       None
+    ## 229   shieldon  bastiodon       None
+    ## 230      burmy   wormadam       None
+    ## 231      burmy     mothim       None
+    ## 232     combee  vespiquen       None
+    ## 233  pachirisu       None       None
+    ## 234     buizel   floatzel       None
+    ## 235    cherubi    cherrim       None
+    ## 236    shellos  gastrodon       None
+    ## 237   drifloon   drifblim       None
+    ## 238    buneary    lopunny       None
+    ## 239    glameow    purugly       None
+    ## 240     stunky   skuntank       None
+    ## 241    bronzor   bronzong       None
+    ## 242     chatot       None       None
+    ## 243  spiritomb       None       None
+    ## 244      gible     gabite   garchomp
+    ## 245      riolu    lucario       None
+    ## 246 hippopotas  hippowdon       None
+    ## 247    skorupi    drapion       None
+    ## 248   croagunk  toxicroak       None
+    ## 249  carnivine       None       None
+    ## 250    finneon   lumineon       None
+    ## 251     snover  abomasnow       None
+    ## 252      rotom       None       None
+    ## 253       uxie       None       None
+    ## 254    mesprit       None       None
+    ## 255      azelf       None       None
+    ## 256     dialga       None       None
+    ## 257     palkia       None       None
+    ## 258    heatran       None       None
+    ## 259  regigigas       None       None
+    ## 260   giratina       None       None
+    ## 261  cresselia       None       None
+    ## 262     phione    manaphy       None
+    ## 263    darkrai       None       None
+    ## 264    shaymin       None       None
+    ## 265     arceus       None       None
+    ## 266    victini       None       None
+    ## 267      snivy    servine  serperior
+    ## 268      tepig    pignite     emboar
+    ## 269   oshawott     dewott   samurott
+    ## 270     patrat    watchog       None
+    ## 271   lillipup    herdier  stoutland
+    ## 272   purrloin    liepard       None
+    ## 273    pansage   simisage       None
+    ## 274    pansear   simisear       None
+    ## 275    panpour   simipour       None
+    ## 276      munna   musharna       None
+    ## 277     pidove  tranquill   unfezant
+    ## 278    blitzle  zebstrika       None
+    ## 279 roggenrola    boldore   gigalith
+    ## 280     woobat    swoobat       None
+    ## 281    drilbur  excadrill       None
+    ## 282     audino       None       None
+    ## 283    timburr    gurdurr conkeldurr
+    ## 284    tympole  palpitoad seismitoad
+    ## 285      throh       None       None
+    ## 286       sawk       None       None
+    ## 287   sewaddle   swadloon   leavanny
+    ## 288   venipede whirlipede  scolipede
+    ## 289   cottonee whimsicott       None
+    ## 290    petilil  lilligant       None
+    ## 291   basculin       None       None
+    ## 292    sandile   krokorok krookodile
+    ## 293   darumaka darmanitan       None
+    ## 294   maractus       None       None
+    ## 295    dwebble    crustle       None
+    ## 296    scraggy    scrafty       None
+    ## 297   sigilyph       None       None
+    ## 298     yamask cofagrigus       None
+    ## 299     yamask  runerigus       None
+    ## 300   tirtouga carracosta       None
+    ## 301     archen   archeops       None
+    ## 302   trubbish   garbodor       None
+    ## 303      zorua    zoroark       None
+    ## 304   minccino   cinccino       None
+    ## 305    gothita  gothorita gothitelle
+    ## 306    solosis    duosion  reuniclus
+    ## 307   ducklett     swanna       None
+    ## 308  vanillite  vanillish  vanilluxe
+    ## 309   deerling   sawsbuck       None
+    ## 310     emolga       None       None
+    ## 311 karrablast escavalier       None
+    ## 312    foongus  amoonguss       None
+    ## 313   frillish  jellicent       None
+    ## 314  alomomola       None       None
+    ## 315     joltik galvantula       None
+    ## 316  ferroseed ferrothorn       None
+    ## 317      klink      klang  klinklang
+    ## 318     tynamo  eelektrik eelektross
+    ## 319     elgyem   beheeyem       None
+    ## 320    litwick    lampent chandelure
+    ## 321       axew    fraxure    haxorus
+    ## 322    cubchoo    beartic       None
+    ## 323  cryogonal       None       None
+    ## 324    shelmet   accelgor       None
+    ## 325   stunfisk       None       None
+    ## 326    mienfoo   mienshao       None
+    ## 327  druddigon       None       None
+    ## 328     golett     golurk       None
+    ## 329   pawniard    bisharp       None
+    ## 330 bouffalant       None       None
+    ## 331    rufflet   braviary       None
+    ## 332    vullaby  mandibuzz       None
+    ## 333    heatmor       None       None
+    ##  [ reached 'max' / getOption("max.print") -- omitted 156 rows ]
+
 ## Exploring Data
 
 ``` r
