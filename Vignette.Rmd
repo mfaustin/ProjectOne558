@@ -50,7 +50,7 @@ getPokeNameID <- function(sortName=FALSE){
 Example usage with output
 
 ```{r getPokeNameIDExample}
-getPokeNameID(sortName = TRUE)
+head(getPokeNameID(sortName = TRUE))
 ```
 
 
