@@ -187,7 +187,7 @@ getOneSpeciesData<-function(species){
    
    PokeList<- fromJSON(pokeSpeciesID$url,flatten = TRUE)
    
-   ###Function Default Data
+   ###Function Data to return
    species<-PokeList$name
    shape<-PokeList$shape$name
    generation<-PokeList$generation$name
