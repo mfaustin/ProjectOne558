@@ -25,7 +25,7 @@ knitr::opts_chunk$set(fig.path = "images/")
 
 
 
-## API Functions 
+## Pokemon API Functions 
 
 
 ```{r getPokeNameIDFunction}
