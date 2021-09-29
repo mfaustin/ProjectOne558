@@ -345,6 +345,7 @@ str(evolveStages)
 
 ``` r
 allPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
+allSpecies<-getEverySpeciesData()
 ```
 
 ``` r

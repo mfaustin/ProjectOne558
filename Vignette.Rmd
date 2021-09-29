@@ -258,7 +258,7 @@ getOneEvolveData<-function(queryURL){
 ```
 
 
-```{r getAllEvolveSeries Function}
+```{r getAllEvolveSeries Function, cache=TRUE}
 getAllEvolveSeries<-function(){
   
   metaEvolve<-fromJSON("https://pokeapi.co/api/v2/evolution-chain/?limit=600")
@@ -277,7 +277,7 @@ resultsEvolve<-getAllEvolveSeries()
 head(resultsEvolve)
 
 ```
-```{r getAllEvolveStages Function}
+```{r getAllEvolveStages Function, cache=TRUE}
 
 getAllEvolveStages<-function(){
   
@@ -325,6 +325,7 @@ str(evolveStages)
 
 ```{r getData, cache=TRUE}
 allPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
+allSpecies<-getEverySpeciesData()
 ```
 
 
