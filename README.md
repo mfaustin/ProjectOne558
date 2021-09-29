@@ -4,7 +4,7 @@ Mark Austin
 10/05/2021
 
 -   [Packages Used](#packages-used)
--   [API Functions](#api-functions)
+-   [Pokemon API Functions](#pokemon-api-functions)
 -   [Exploring Data](#exploring-data)
 
 ## Packages Used
@@ -21,7 +21,7 @@ Mark Austin
    library(knitr)
 ```
 
-## API Functions
+## Pokemon API Functions
 
 ``` r
 getPokeNameID <- function(sortName=FALSE){
