@@ -153,6 +153,84 @@ getEveryPokeData<-function(basestat=FALSE,type=FALSE){
 ```
 
 ``` r
+getSpeciesNameID <- function(sortName=FALSE){
+  
+  apiData<-fromJSON("https://pokeapi.co/api/v2/pokemon-species/?limit=1222")
+  
+  allNames<-as_tibble(apiData$results)
+  
+  allNames<-allNames %>% mutate(ID=as.numeric(basename(url)))
+  
+  if (sortName) {
+    allNames<-allNames %>% arrange(name)
+  }
+  
+  return(allNames)
+  
+}
+```
+
+``` r
+getOneSpeciesData<-function(species){
+   
+   ##Get list of species and process user species input
+   pokeSpeciesID<-getSpeciesNameID()
+   
+   if (is.numeric(species)){
+     pokeSpeciesID<-pokeSpeciesID%>%filter(ID==species)
+   } else if (is.character(species)){
+     pokeSpeciesID<-pokeSpeciesID%>%filter(name==tolower(species))
+   } else {
+     stop("Please enter either species integer or quoated name value")
+   }
+   
+   PokeList<- fromJSON(pokeSpeciesID$url,flatten = TRUE)
+   
+   ###Function Default Data
+   species<-PokeList$name
+   shape<-PokeList$shape$name
+   generation<-PokeList$generation$name
+   base_happiness<-PokeList$base_happiness
+   capture_rate<-PokeList$capture_rate
+   gender_rate<-PokeList$gender_rate
+   hatch_counter<-PokeList$hatch_counter
+   is_baby<-PokeList$is_baby
+   is_legendary<-PokeList$is_legendary
+   is_mythical<-PokeList$is_mythical
+
+   
+   LocalDF<-data.frame(species,shape,generation,base_happiness,capture_rate,gender_rate,hatch_counter,is_baby,is_legendary,is_mythical)
+   
+
+   
+   return(LocalDF)
+   
+ }
+```
+
+``` r
+getEverySpeciesData<-function(){
+   
+   ###Get current number of pokemon to process
+   #getPokeNameID
+   pokeSpeciesID<-getSpeciesNameID()
+   idVals<-pokeSpeciesID$ID
+   
+   
+   ###Loop through every species and build data frame
+   ###by adding new rows
+   ###Most of the time spent here is in the numerous 
+   ###   calls to API address since there are so many species
+   allPoke<-data.frame()
+   for (i in idVals) {
+     allPoke<-rbind(allPoke,getOneSpeciesData(i))
+   }
+   
+   return(allPoke)
+ }
+```
+
+``` r
 getOneEvolveData<-function(queryURL){
   queryResult<-fromJSON(queryURL)
   #print(queryResult)
