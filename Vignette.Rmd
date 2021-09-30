@@ -167,7 +167,7 @@ getEveryPokeData<-function(basestat=FALSE,type=FALSE){
 ```
 
 
-###Species Endpoint Functions  
+### Species Endpoint Functions  
 
 
 ```{r getSpeciesNameID Function}
@@ -253,7 +253,7 @@ getEverySpeciesData<-function(){
 ```
 
 
-###Evolution Endpoint Functions.  
+### Evolution Endpoint Functions.  
 
 
 ```{r getOneEvolveData Function}

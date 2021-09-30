@@ -7,6 +7,8 @@ Mark Austin
 -   [Pokemon API Query and Data Proccessing
     Functions](#pokemon-api-query-and-data-proccessing-functions)
     -   [Pokemon Endpoint Functions.](#pokemon-endpoint-functions)
+    -   [Species Endpoint Functions](#species-endpoint-functions)
+    -   [Evolution Endpoint Functions.](#evolution-endpoint-functions)
 -   [Exploring Data](#exploring-data)
 
 ## Required R Packages
@@ -188,7 +190,7 @@ getEveryPokeData<-function(basestat=FALSE,type=FALSE){
 #getEveryPokeData()
 ```
 
-\#\#\#Species Endpoint Functions
+### Species Endpoint Functions
 
 ``` r
 getSpeciesNameID <- function(sortName=FALSE){
@@ -268,7 +270,7 @@ getEverySpeciesData<-function(){
  }
 ```
 
-\#\#\#Evolution Endpoint Functions.
+### Evolution Endpoint Functions.
 
 ``` r
 getOneEvolveData<-function(queryURL){
