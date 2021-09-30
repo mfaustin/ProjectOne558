@@ -1,19 +1,21 @@
-Vignette
+Pokemon API Vignette
 ================
 Mark Austin
 10/05/2021
 
--   [Packages Used](#packages-used)
+-   [R Packages Used](#r-packages-used)
 -   [Pokemon API Functions](#pokemon-api-functions)
 -   [Exploring Data](#exploring-data)
 
-## Packages Used
+## R Packages Used
 
 `tidyverse`
 
 `jsonlite`
 
 `knitr`
+
+`rmarkdown`
 
 ``` r
    library(tidyverse)

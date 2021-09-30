@@ -1,5 +1,5 @@
 ---
-title: "Vignette"
+title: "Pokemon API Vignette"
 author: "Mark Austin"
 date: "10/05/2021"
 ---
@@ -8,13 +8,15 @@ date: "10/05/2021"
 knitr::opts_chunk$set(fig.path = "images/")
 ```
 
-## Packages Used
+## R Packages Used
 
 `tidyverse`  
 
 `jsonlite`  
 
 `knitr`  
+
+`rmarkdown`  
 
 ```{r packages,message=FALSE}
    library(tidyverse)
