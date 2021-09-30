@@ -211,6 +211,19 @@ head(everyPoke)
 
 ### Species Endpoint Functions
 
+Most pokemon species map to one individual pokemon but there are some
+species that map to several indidual pokemon. Collective species data is
+obtained from the [Pokemon Species
+endpoint](https://pokeapi.co/docs/v2#pokemon-species). Because species
+data is less complex, I was able to return more default data from this
+endpoint than the pokemon endpoint. I’ve provided three functions to
+query and process pokemon endpoint data. The functions all return data
+frames.
+
+1.  `getSpeciesNameID` This function returns a data frame with a list of
+    possible species names and id values so that the user will know what
+    is available. Optional sorting my name is provided.
+
 ``` r
 getSpeciesNameID <- function(sortName=FALSE){
   
@@ -228,6 +241,10 @@ getSpeciesNameID <- function(sortName=FALSE){
   
 }
 ```
+
+2.  `getOneSpeciesData` Given species name or id this function returns a
+    data frame for one species with the following data.
+    `species,shape,generation,base_happiness,capture_rate,gender_rate,hatch_counter,is_baby,is_legendary,is_mythical`.
 
 ``` r
 getOneSpeciesData<-function(species){
@@ -258,7 +275,7 @@ getOneSpeciesData<-function(species){
    is_mythical<-PokeList$is_mythical
 
    
-   LocalDF<-data.frame(species,shape,generation,base_happiness,capture_rate,gender_rate,hatch_counter,is_baby,is_legendary,is_mythical)
+   LocalDF<-data.frame(species,shape,generation,base_happiness,capture_rate,           gender_rate,hatch_counter,is_baby,is_legendary,is_mythical)
    
 
    
@@ -266,6 +283,8 @@ getOneSpeciesData<-function(species){
    
  }
 ```
+
+3.  `getEverySpeciesData`
 
 ``` r
 getEverySpeciesData<-function(){
