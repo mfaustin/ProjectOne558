@@ -3,19 +3,22 @@ Pokemon API Vignette
 Mark Austin
 10/05/2021
 
--   [R Packages Used](#r-packages-used)
+-   [Required R Packages](#required-r-packages)
 -   [Pokemon API Functions](#pokemon-api-functions)
 -   [Exploring Data](#exploring-data)
 
-## R Packages Used
+## Required R Packages
 
-`tidyverse`
+The following R packages are required to run R code used in this
+Vignette and/or create this document.
 
-`jsonlite`
+-   `tidyverse`
 
-`knitr`
+-   `jsonlite`
 
-`rmarkdown`
+-   `knitr`
+
+-   `rmarkdown`
 
 ``` r
    library(tidyverse)

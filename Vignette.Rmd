@@ -8,15 +8,17 @@ date: "10/05/2021"
 knitr::opts_chunk$set(fig.path = "images/")
 ```
 
-## R Packages Used
+## Required R Packages 
 
-`tidyverse`  
+The following R packages are required to run R code used in this Vignette and/or create this document.  
 
-`jsonlite`  
+* `tidyverse`  
 
-`knitr`  
+* `jsonlite`  
 
-`rmarkdown`  
+* `knitr`  
+
+* `rmarkdown`  
 
 ```{r packages,message=FALSE}
    library(tidyverse)
