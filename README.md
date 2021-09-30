@@ -286,7 +286,10 @@ getOneSpeciesData<-function(species){
  }
 ```
 
-3.  `getEverySpeciesData` This function returns
+3.  `getEverySpeciesData` This function returns data for every species
+    as a data frame with optional sorting of the data based on the
+    sortName option. The following data is returned  
+    `species,shape,generation,base_happiness,capture_rate,gender_rate,hatch_counter,is_baby,is_legendary,is_mythical`.
 
 ``` r
 getEverySpeciesData<-function(sortName=FALSE){
