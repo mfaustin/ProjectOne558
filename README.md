@@ -286,13 +286,12 @@ getOneSpeciesData<-function(species){
  }
 ```
 
-3.  `getEverySpeciesData`
+3.  `getEverySpeciesData` This function returns
 
 ``` r
-getEverySpeciesData<-function(){
+getEverySpeciesData<-function(sortName=FALSE){
    
-   ###Get current number of pokemon to process
-   #getPokeNameID
+   ###Get current number of species to process
    pokeSpeciesID<-getSpeciesNameID()
    idVals<-pokeSpeciesID$ID
    
@@ -306,9 +305,33 @@ getEverySpeciesData<-function(){
      allPoke<-rbind(allPoke,getOneSpeciesData(i))
    }
    
+   if (sortName) {
+     allPoke<-allPoke %>% arrange(species)
+   }
+   
    return(allPoke)
  }
 ```
+
+Example of `getEverySpeciesData` data frame data.
+
+``` r
+everyPokeSpecies<-getEverySpeciesData(sortName = TRUE)
+head(everyPokeSpecies)
+```
+
+<div class="kable-table">
+
+| species    | shape     | generation     | base\_happiness | capture\_rate | gender\_rate | hatch\_counter | is\_baby | is\_legendary | is\_mythical |
+|:-----------|:----------|:---------------|----------------:|--------------:|-------------:|---------------:|:---------|:--------------|:-------------|
+| abomasnow  | upright   | generation-iv  |              70 |            60 |            4 |             20 | FALSE    | FALSE         | FALSE        |
+| abra       | upright   | generation-i   |              70 |           200 |            2 |             20 | FALSE    | FALSE         | FALSE        |
+| absol      | quadruped | generation-iii |              35 |            30 |            4 |             25 | FALSE    | FALSE         | FALSE        |
+| accelgor   | arms      | generation-v   |              70 |            75 |            4 |             15 | FALSE    | FALSE         | FALSE        |
+| aegislash  | blob      | generation-vi  |              70 |            45 |            4 |             20 | FALSE    | FALSE         | FALSE        |
+| aerodactyl | wings     | generation-i   |              70 |            45 |            1 |             35 | FALSE    | FALSE         | FALSE        |
+
+</div>
 
 ### Evolution Endpoint Functions.
 

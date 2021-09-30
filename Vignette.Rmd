@@ -241,13 +241,12 @@ getOneSpeciesData<-function(species){
  
 ```
 
-3. `getEverySpeciesData`
+3. `getEverySpeciesData`  This function returns 
 
 ```{r getEverySpeciesData Function}
-getEverySpeciesData<-function(){
+getEverySpeciesData<-function(sortName=FALSE){
    
-   ###Get current number of pokemon to process
-   #getPokeNameID
+   ###Get current number of species to process
    pokeSpeciesID<-getSpeciesNameID()
    idVals<-pokeSpeciesID$ID
    
@@ -261,8 +260,18 @@ getEverySpeciesData<-function(){
      allPoke<-rbind(allPoke,getOneSpeciesData(i))
    }
    
+   if (sortName) {
+     allPoke<-allPoke %>% arrange(species)
+   }
+   
    return(allPoke)
  }
+```
+
+Example of `getEverySpeciesData` data frame data.  
+```{r getEverySpeciesData output,cache=TRUE}
+everyPokeSpecies<-getEverySpeciesData(sortName = TRUE)
+head(everyPokeSpecies)
 ```
 
 
