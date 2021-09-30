@@ -8,7 +8,8 @@ Mark Austin
     Functions](#pokemon-api-query-and-data-proccessing-functions)
     -   [Pokemon Endpoint Functions.](#pokemon-endpoint-functions)
     -   [Species Endpoint Functions](#species-endpoint-functions)
-    -   [Evolution Endpoint Functions.](#evolution-endpoint-functions)
+    -   [Evolution Chain Endpoint
+        Functions.](#evolution-chain-endpoint-functions)
 -   [Exploring Data](#exploring-data)
 
 ## Required R Packages
@@ -336,13 +337,28 @@ head(everyPokeSpecies)
 
 </div>
 
-### Evolution Endpoint Functions.
+### Evolution Chain Endpoint Functions.
+
+Many pokemon can [evolve](https://pokemondb.net/evolution) into another
+more powerful pokemon. Evolution chain data is obtained from the
+[Pokemon Evolution Chain
+Endpoint](https://pokeapi.co/docs/v2#evolution-chains). This endpoint
+only takes ID and those IDs are linked to one part of a chain.
+
+I’ve provided two functions to query and process pokemon evolution chain
+endpoint data. The functions both return data frames.
+
+1.  `getOneEvolveData`
 
 ``` r
-getOneEvolveData<-function(queryURL){
+getOneEvolveData<-function(ID){
+  
+  ###Construct URL from the given ID and call API
+  basicURL<-"https://pokeapi.co/api/v2/evolution-chain/"
+  queryURL<-paste0(basicURL,ID)
   queryResult<-fromJSON(queryURL)
-  #print(queryResult)
-  #print(queryResult$chain$species$name)
+  
+  ###Parse results into stages or no evolve categories
   stageOne<-queryResult$chain$species$name
   stageTwo<-queryResult[["chain"]][["evolves_to"]][["species"]][["name"]]
   stageThree<-queryResult[["chain"]][["evolves_to"]][["evolves_to"]][[1]][["species"]][["name"]] 
@@ -352,7 +368,6 @@ getOneEvolveData<-function(queryURL){
   if (is.null(stageThree)){
     stageThree<-"None"
   }
-  #print(stageThree)
   
   localDF<-data.frame(stageOne,stageTwo,stageThree)
   return(localDF)
@@ -360,39 +375,61 @@ getOneEvolveData<-function(queryURL){
 ```
 
 ``` r
-getAllEvolveSeries<-function(){
+  getOneEvolveData(57)
+```
+
+<div class="kable-table">
+
+| stageOne | stageTwo | stageThree |
+|:---------|:---------|:-----------|
+| mime-jr  | mr-mime  | mr-rime    |
+
+</div>
+
+2.  `getAllEvolveSeries`
+
+``` r
+getAllEvolveSeries<-function(sortName=FALSE){
   
   metaEvolve<-fromJSON("https://pokeapi.co/api/v2/evolution-chain/?limit=600")
   
+  metaEvolveDF<-as_tibble(metaEvolve$results)
+  
+  metaEvolveDF<-metaEvolveDF %>% mutate(ID=as.numeric(basename(url)))
+  
   allEvolve<-data.frame()
-  for (loopURL in metaEvolve$results$url) {
-    #print(loopURL)
-    allEvolve<-rbind(allEvolve,getOneEvolveData(loopURL))
-    
+  for (loopID in metaEvolveDF$ID) {
+    allEvolve<-rbind(allEvolve,getOneEvolveData(loopID))
   } 
+  
+   if (sortName) {
+     allEvolve<-allEvolve %>% arrange(stageOne)
+   }
   
   return(allEvolve)
 }
 
-resultsEvolve<-getAllEvolveSeries()
+resultsEvolve<-getAllEvolveSeries(sortName = TRUE)
 head(resultsEvolve)
 ```
 
 <div class="kable-table">
 
-| stageOne   | stageTwo   | stageThree |
-|:-----------|:-----------|:-----------|
-| bulbasaur  | ivysaur    | venusaur   |
-| charmander | charmeleon | charizard  |
-| squirtle   | wartortle  | blastoise  |
-| caterpie   | metapod    | butterfree |
-| weedle     | kakuna     | beedrill   |
-| pidgey     | pidgeotto  | pidgeot    |
+| stageOne   | stageTwo | stageThree |
+|:-----------|:---------|:-----------|
+| abra       | kadabra  | alakazam   |
+| absol      | None     | None       |
+| aerodactyl | None     | None       |
+| aipom      | ambipom  | None       |
+| alomomola  | None     | None       |
+| amaura     | aurorus  | None       |
 
 </div>
 
+3.  `getAllEvolveStages`
+
 ``` r
-getAllEvolveStages<-function(){
+getAllEvolveStages<-function(sortName=FALSE){
   
   resultsEvolve<-getAllEvolveSeries()
   
@@ -421,33 +458,31 @@ getAllEvolveStages<-function(){
   allEvolve$stages<-as.factor(allEvolve$stages)
   allEvolve$stages<-ordered(allEvolve$stages,levels=c("one","two","three","noEvolve"))
   
+  if (sortName) {
+     allEvolve<-allEvolve %>% arrange(species)
+   }
+  
   return(allEvolve)
 }
+```
 
-evolveStages<-getAllEvolveStages()
-head(evolveStages)
+``` r
+  evolveStages<-getAllEvolveStages(sortName = TRUE)
+  head(evolveStages)
 ```
 
 <div class="kable-table">
 
-| species    | stages |
-|:-----------|:-------|
-| bulbasaur  | one    |
-| charmander | one    |
-| squirtle   | one    |
-| caterpie   | one    |
-| weedle     | one    |
-| pidgey     | one    |
+| species    | stages   |
+|:-----------|:---------|
+| abomasnow  | two      |
+| abra       | one      |
+| absol      | noEvolve |
+| accelgor   | two      |
+| aegislash  | three    |
+| aerodactyl | noEvolve |
 
 </div>
-
-``` r
-str(evolveStages)
-```
-
-    ## 'data.frame':    897 obs. of  2 variables:
-    ##  $ species: chr  "bulbasaur" "charmander" "squirtle" "caterpie" ...
-    ##  $ stages : Ord.factor w/ 4 levels "one"<"two"<"three"<..: 1 1 1 1 1 1 1 1 1 1 ...
 
 ## Exploring Data
 

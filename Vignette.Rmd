@@ -276,14 +276,25 @@ head(everyPokeSpecies)
 ```
 
 
-### Evolution Endpoint Functions.  
+### Evolution Chain Endpoint Functions.  
 
+Many pokemon can [evolve](https://pokemondb.net/evolution) into another more powerful pokemon.  Evolution chain data is obtained from the [Pokemon Evolution Chain Endpoint](https://pokeapi.co/docs/v2#evolution-chains).  This endpoint only takes ID and those IDs are linked to one part of a chain.
+
+I've provided two functions to query and process pokemon evolution chain endpoint data.  The functions both return data frames.  
+
+
+
+1. `getOneEvolveData`  
 
 ```{r getOneEvolveData Function}
-getOneEvolveData<-function(queryURL){
+getOneEvolveData<-function(ID){
+  
+  ###Construct URL from the given ID and call API
+  basicURL<-"https://pokeapi.co/api/v2/evolution-chain/"
+  queryURL<-paste0(basicURL,ID)
   queryResult<-fromJSON(queryURL)
-  #print(queryResult)
-  #print(queryResult$chain$species$name)
+  
+  ###Parse results into stages or no evolve categories
   stageOne<-queryResult$chain$species$name
   stageTwo<-queryResult[["chain"]][["evolves_to"]][["species"]][["name"]]
   stageThree<-queryResult[["chain"]][["evolves_to"]][["evolves_to"]][[1]][["species"]][["name"]] 
@@ -293,36 +304,56 @@ getOneEvolveData<-function(queryURL){
   if (is.null(stageThree)){
     stageThree<-"None"
   }
-  #print(stageThree)
   
   localDF<-data.frame(stageOne,stageTwo,stageThree)
   return(localDF)
 }
+
+
 ```
 
 
+```{r getOneEvolveData Example}
+  getOneEvolveData(57)
+```
+
+
+
+2. `getAllEvolveSeries`  
+
 ```{r getAllEvolveSeries Function, cache=TRUE}
-getAllEvolveSeries<-function(){
+getAllEvolveSeries<-function(sortName=FALSE){
   
   metaEvolve<-fromJSON("https://pokeapi.co/api/v2/evolution-chain/?limit=600")
   
+  metaEvolveDF<-as_tibble(metaEvolve$results)
+  
+  metaEvolveDF<-metaEvolveDF %>% mutate(ID=as.numeric(basename(url)))
+  
   allEvolve<-data.frame()
-  for (loopURL in metaEvolve$results$url) {
-    #print(loopURL)
-    allEvolve<-rbind(allEvolve,getOneEvolveData(loopURL))
-    
+  for (loopID in metaEvolveDF$ID) {
+    allEvolve<-rbind(allEvolve,getOneEvolveData(loopID))
   } 
+  
+   if (sortName) {
+     allEvolve<-allEvolve %>% arrange(stageOne)
+   }
   
   return(allEvolve)
 }
 
-resultsEvolve<-getAllEvolveSeries()
+resultsEvolve<-getAllEvolveSeries(sortName = TRUE)
 head(resultsEvolve)
 
 ```
-```{r getAllEvolveStages Function, cache=TRUE}
 
-getAllEvolveStages<-function(){
+
+
+3. `getAllEvolveStages`  
+
+```{r getAllEvolveStages Function}
+
+getAllEvolveStages<-function(sortName=FALSE){
   
   resultsEvolve<-getAllEvolveSeries()
   
@@ -351,13 +382,20 @@ getAllEvolveStages<-function(){
   allEvolve$stages<-as.factor(allEvolve$stages)
   allEvolve$stages<-ordered(allEvolve$stages,levels=c("one","two","three","noEvolve"))
   
+  if (sortName) {
+     allEvolve<-allEvolve %>% arrange(species)
+   }
+  
   return(allEvolve)
 }
 
-evolveStages<-getAllEvolveStages()
-head(evolveStages)
-str(evolveStages)
 
+```
+
+
+```{r getAllEvolveStages Example}
+  evolveStages<-getAllEvolveStages(sortName = TRUE)
+  head(evolveStages)
 ```
 
 
