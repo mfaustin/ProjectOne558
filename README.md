@@ -36,9 +36,14 @@ Documentation](https://pokeapi.co/docs/v2).
 Most data relevant to individual pokemon is obtained from the [Pokemon
 endpoint](https://pokeapi.co/docs/v2#pokemon). This endpoint returns a
 complex list of lists with more data than most users would need. I’ve
-provided three functions to query and process pokemon endpoint data.
+provided three functions to query and process pokemon endpoint data. The
+functions all return data frames.
 
-1.  `getPokeNameIDFunction`
+1.  `getPokeNameIDFunction` In order to query individual pokemon, the
+    user must provide either a name or id value. This function returns a
+    list of all possible pokemon for this endpoint so that the user will
+    know what pokemon are available. The names can be sorted as an
+    option.
 
 ``` r
 getPokeNameID <- function(sortName=FALSE){
@@ -58,7 +63,7 @@ getPokeNameID <- function(sortName=FALSE){
 }
 ```
 
-Example usage with output
+Example `getPokeNameIDFunction` usage with output.
 
 ``` r
 head(getPokeNameID(sortName = TRUE))
@@ -76,6 +81,17 @@ head(getPokeNameID(sortName = TRUE))
 | accelgor       | <https://pokeapi.co/api/v2/pokemon/617/>   |   617 |
 
 </div>
+
+2.  `getOnePokeData` Given a pokemon name or id, this function returns a
+    data frame with data for that pokemon. Given how much data is
+    available and the complexity of processing data, I give the user a
+    few options for the amount of data returned. The default option
+    returns top level data including
+    `species,height,weight,base_experience`. Turning the basestat
+    function additionally returns
+    `hp,attack,defense,special_attack,special_defense ,speed`. Finally,
+    turning the type option on additionally returns primary and
+    secondary types `type_one,type_two`.
 
 ``` r
 getOnePokeData<-function(pokemon,basestat=FALSE,type=FALSE){
@@ -137,7 +153,7 @@ getOnePokeData<-function(pokemon,basestat=FALSE,type=FALSE){
 }
 ```
 
-Examples of ways to use getOnePokeData()
+Examples of ways to use `getOnePokeData`.
 
 ``` r
 getOnePokeData("Venusaur")
@@ -146,6 +162,10 @@ getOnePokeData(435,type = TRUE)
 getOnePokeData(10032,basestat = TRUE,type = TRUE)
 ```
 
+3.  `getEveryPokeData` This function returns data for ALL pokemon and
+    returns one data frame. The amount of data returned is dependent on
+    the basetat and type options as described in `getOnePokeData`.
+
 ``` r
 getEveryPokeData<-function(basestat=FALSE,type=FALSE){
   
@@ -153,7 +173,6 @@ getEveryPokeData<-function(basestat=FALSE,type=FALSE){
   #getPokeNameID
   pokeNameID<-getPokeNameID()
   idVals<-pokeNameID$ID
-  #idVals<-1:2
   
   ###Loop through every pokemon and build data frame
   ###by adding new rows
@@ -248,6 +267,8 @@ getEverySpeciesData<-function(){
    return(allPoke)
  }
 ```
+
+\#\#\#Evolution Endpoint Functions.
 
 ``` r
 getOneEvolveData<-function(queryURL){
