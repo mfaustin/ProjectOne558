@@ -345,10 +345,13 @@ more powerful pokemon. Evolution chain data is obtained from the
 Endpoint](https://pokeapi.co/docs/v2#evolution-chains). This endpoint
 only takes ID and those IDs are linked to one part of a chain.
 
-I’ve provided two functions to query and process pokemon evolution chain
-endpoint data. The functions both return data frames.
+I’ve provided three functions to query and process pokemon evolution
+chain endpoint data. The functions both return data frames.
 
-1.  `getOneEvolveData`
+1.  `getOneEvolveData` This function takes an ID number for one of the
+    chains and returns the chain data for that chain as data frame. Each
+    data frame row has a value for a chain level or None if that chain
+    does not have all three stages.
 
 ``` r
 getOneEvolveData<-function(ID){
@@ -374,6 +377,8 @@ getOneEvolveData<-function(ID){
 }
 ```
 
+An example of data frame returned from `getOneEvolveData`
+
 ``` r
   getOneEvolveData(57)
 ```
@@ -397,6 +402,8 @@ getAllEvolveSeries<-function(sortName=FALSE){
   
   metaEvolveDF<-metaEvolveDF %>% mutate(ID=as.numeric(basename(url)))
   
+  ##Loop through all the ID values and build a data frame
+  ## for all the evolution chain data
   allEvolve<-data.frame()
   for (loopID in metaEvolveDF$ID) {
     allEvolve<-rbind(allEvolve,getOneEvolveData(loopID))
@@ -408,23 +415,7 @@ getAllEvolveSeries<-function(sortName=FALSE){
   
   return(allEvolve)
 }
-
-resultsEvolve<-getAllEvolveSeries(sortName = TRUE)
-head(resultsEvolve)
 ```
-
-<div class="kable-table">
-
-| stageOne   | stageTwo | stageThree |
-|:-----------|:---------|:-----------|
-| abra       | kadabra  | alakazam   |
-| absol      | None     | None       |
-| aerodactyl | None     | None       |
-| aipom      | ambipom  | None       |
-| alomomola  | None     | None       |
-| amaura     | aurorus  | None       |
-
-</div>
 
 3.  `getAllEvolveStages`
 
