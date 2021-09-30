@@ -6,6 +6,7 @@ Mark Austin
 -   [Required R Packages](#required-r-packages)
 -   [Pokemon API Query and Data Proccessing
     Functions](#pokemon-api-query-and-data-proccessing-functions)
+    -   [Pokemon Endpoint Functions.](#pokemon-endpoint-functions)
 -   [Exploring Data](#exploring-data)
 
 ## Required R Packages
@@ -29,6 +30,15 @@ Vignette and/or create this document.
 I created the following functions to query and process data from the
 [Pokemon API](https://pokeapi.co/) using [Pokemon API
 Documentation](https://pokeapi.co/docs/v2).
+
+### Pokemon Endpoint Functions.
+
+Most data relevant to individual pokemon is obtained from the [Pokemon
+endpoint](https://pokeapi.co/docs/v2#pokemon). This endpoint returns a
+complex list of lists with more data than most users would need. I’ve
+provided three functions to query and process pokemon endpoint data.
+
+1.  `getPokeNameIDFunction`
 
 ``` r
 getPokeNameID <- function(sortName=FALSE){
@@ -158,6 +168,8 @@ getEveryPokeData<-function(basestat=FALSE,type=FALSE){
 }
 #getEveryPokeData()
 ```
+
+\#\#\#Species Endpoint Functions
 
 ``` r
 getSpeciesNameID <- function(sortName=FALSE){
