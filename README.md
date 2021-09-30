@@ -4,7 +4,8 @@ Mark Austin
 10/05/2021
 
 -   [Required R Packages](#required-r-packages)
--   [Pokemon API Functions](#pokemon-api-functions)
+-   [Pokemon API Query and Data Proccessing
+    Functions](#pokemon-api-query-and-data-proccessing-functions)
 -   [Exploring Data](#exploring-data)
 
 ## Required R Packages
@@ -12,21 +13,22 @@ Mark Austin
 The following R packages are required to run R code used in this
 Vignette and/or create this document.
 
--   `tidyverse`
+-   `tidyverse` The tidyverse package is used for data handling and
+    plotting.
 
--   `jsonlite`
+-   `jsonlite` The jsonlite package is used to contact the API and
+    return data.
 
--   `knitr`
+-   `knitr` The knitr package is used for document image handling.
 
--   `rmarkdown`
+-   `rmarkdown` The rmarkdown package is used by a render program to
+    render this document.
 
-``` r
-   library(tidyverse)
-   library(jsonlite)
-   library(knitr)
-```
+## Pokemon API Query and Data Proccessing Functions
 
-## Pokemon API Functions
+I created the following functions to query and process data from the
+[Pokemon API](https://pokeapi.co/) using [Pokemon API
+Documentation](https://pokeapi.co/docs/v2).
 
 ``` r
 getPokeNameID <- function(sortName=FALSE){
