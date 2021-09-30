@@ -11,6 +11,8 @@ Mark Austin
     -   [Evolution Chain Endpoint
         Functions.](#evolution-chain-endpoint-functions)
 -   [Exploring Data](#exploring-data)
+    -   [Get Full Data Frames](#get-full-data-frames)
+    -   [Contingency Tables](#contingency-tables)
 
 ## Required R Packages
 
@@ -391,7 +393,9 @@ An example of data frame returned from `getOneEvolveData`
 
 </div>
 
-2.  `getAllEvolveSeries`
+2.  `getAllEvolveSeries` This function returns a data frame of all the
+    evolve stage items. The function will optionally sort on the first
+    stage value.
 
 ``` r
 getAllEvolveSeries<-function(sortName=FALSE){
@@ -417,7 +421,10 @@ getAllEvolveSeries<-function(sortName=FALSE){
 }
 ```
 
-3.  `getAllEvolveStages`
+3.  `getAllEvolveStages` This function takes data parsed by chain and
+    converts the data into a data frame containing species name and
+    stage value for that species. The function will optionally sort on
+    species.
 
 ``` r
 getAllEvolveStages<-function(sortName=FALSE){
@@ -457,6 +464,8 @@ getAllEvolveStages<-function(sortName=FALSE){
 }
 ```
 
+An example of output from `getAllEvolveStages`.
+
 ``` r
   evolveStages<-getAllEvolveStages(sortName = TRUE)
   head(evolveStages)
@@ -477,10 +486,15 @@ getAllEvolveStages<-function(sortName=FALSE){
 
 ## Exploring Data
 
+### Get Full Data Frames
+
 ``` r
 allPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
 allSpecies<-getEverySpeciesData()
+allStages<-getAllEvolveStages()
 ```
+
+### Contingency Tables
 
 ``` r
 #table(allPoke$type_one,allPoke$species)
