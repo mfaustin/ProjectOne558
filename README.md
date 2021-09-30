@@ -275,7 +275,7 @@ getOneSpeciesData<-function(species){
    is_mythical<-PokeList$is_mythical
 
    
-   LocalDF<-data.frame(species,shape,generation,base_happiness,capture_rate,           gender_rate,hatch_counter,is_baby,is_legendary,is_mythical)
+   LocalDF<-data.frame(species,shape,generation,base_happiness,capture_rate,        gender_rate,hatch_counter,is_baby,is_legendary,is_mythical)
    
 
    
