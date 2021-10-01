@@ -430,6 +430,14 @@ summary(moreAllPoke)
 moreAllPoke<-moreAllPoke %>%mutate(hgtwgt_ratio=height/weight)
 head(moreAllPoke)
 ###mythic,legendary, regular,baby
+###Create new factor variable that assigns one of these values
+moreAllSpecies<-allSpecies %>% 
+  mutate(common=if_else(is_baby, "baby",
+              if_else(is_mythical,"mythical",
+                    if_else(is_legendary,"legendary","regular"))))
+
+
+
 
 ```
 
@@ -453,9 +461,12 @@ kable(addmargins(tOne),caption = "Contingency Table of Type by Stage")
 
 
 ```{r more contingency work}
-table(allSpecies$shape)
-table(allSpecies$generation,allSpecies$shape)
+#table(allSpecies$shape)
+#table(allSpecies$generation,allSpecies$shape)
 #table(allSpecies$shape,combinePoke$type_one)
+tTwo<-table(moreAllSpecies$generation,moreAllSpecies$common)
+kable(addmargins(tTwo),
+      caption = "Contingency Table of Generation by Common Status")
 ```
 
 ### Box Plot  

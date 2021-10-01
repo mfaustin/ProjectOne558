@@ -602,6 +602,11 @@ head(moreAllPoke)
 
 ``` r
 ###mythic,legendary, regular,baby
+###Create new factor variable that assigns one of these values
+moreAllSpecies<-allSpecies %>% 
+  mutate(common=if_else(is_baby, "baby",
+              if_else(is_mythical,"mythical",
+                    if_else(is_legendary,"legendary","regular"))))
 ```
 
 ### Contingency Tables
@@ -643,43 +648,27 @@ kable(addmargins(tOne),caption = "Contingency Table of Type by Stage")
 Contingency Table of Type by Stage
 
 ``` r
-table(allSpecies$shape)
-```
-
-    ## 
-    ##     armor      arms      ball      blob bug-wings      fish     heads  humanoid 
-    ##        40        47        42        38        20        39        16       137 
-    ##      legs quadruped  squiggle tentacles   upright     wings 
-    ##        23       167        37        23       189        80
-
-``` r
-table(allSpecies$generation,allSpecies$shape)
-```
-
-    ##                  
-    ##                   armor arms ball blob bug-wings fish heads humanoid legs
-    ##   generation-i        7    5    7    7         4    6     4       21    7
-    ##   generation-ii       4    0    5    2         3    4     0       15    2
-    ##   generation-iii      8    8    8    4         5   12     1       27    4
-    ##   generation-iv       2    8    3    3         4    2     3       16    2
-    ##   generation-v        9   12    7    7         1    7     4       25    1
-    ##   generation-vi       2    7    3    7         1    0     3        6    1
-    ##   generation-vii      6    5    5    3         1    5     0       15    2
-    ##   generation-viii     2    2    4    5         1    3     1       12    4
-    ##                  
-    ##                   quadruped squiggle tentacles upright wings
-    ##   generation-i           25        8         4      34    12
-    ##   generation-ii          22        5         1      24    13
-    ##   generation-iii         20        5         0      24     9
-    ##   generation-iv          25        3         2      26     8
-    ##   generation-v           29        1         5      33    15
-    ##   generation-vi          14        4         2      16     6
-    ##   generation-vii         16        6         4      11     9
-    ##   generation-viii        16        5         5      21     8
-
-``` r
+#table(allSpecies$shape)
+#table(allSpecies$generation,allSpecies$shape)
 #table(allSpecies$shape,combinePoke$type_one)
+tTwo<-table(moreAllSpecies$generation,moreAllSpecies$common)
+kable(addmargins(tTwo),
+      caption = "Contingency Table of Generation by Common Status")
 ```
+
+|                 | baby | legendary | mythical | regular | Sum |
+|:----------------|-----:|----------:|---------:|--------:|----:|
+| generation-i    |    0 |         4 |        1 |     146 | 151 |
+| generation-ii   |    8 |         5 |        1 |      86 | 100 |
+| generation-iii  |    2 |         8 |        2 |     123 | 135 |
+| generation-iv   |    8 |         9 |        5 |      85 | 107 |
+| generation-v    |    0 |         9 |        4 |     143 | 156 |
+| generation-vi   |    0 |         3 |        3 |      66 |  72 |
+| generation-vii  |    0 |         9 |        5 |      74 |  88 |
+| generation-viii |    0 |        10 |        1 |      78 |  89 |
+| Sum             |   18 |        57 |       22 |     801 | 898 |
+
+Contingency Table of Generation by Common Status
 
 ### Box Plot
 
