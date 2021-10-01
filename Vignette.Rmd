@@ -399,10 +399,12 @@ An example of output from `getAllEvolveStages`.
 
 
 
-## Exploring Data
+## Exploratory Data Analysis  
 
 
 ### Get Full Data Frames  
+
+I started by pulling data from the three endpoints I wrote functions for earlier.  I pull all the data here so that I'll have it stored in objects for later use.  
 
 ```{r getData, cache=TRUE}
 allPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
@@ -411,24 +413,24 @@ allStages<-getAllEvolveStages()
 ```
 
 
-```{r}
-str(allPoke)
-str(allSpecies)
-str(allStages)
-```
-
 ### Creating New Variables  
 
-[Total Point Example](https://bulbapedia.bulbagarden.net/wiki/Kricketot_(Pok%C3%A9mon)#Base_stats)
+In this section I create new variables that I plan to use in later analysis.  
+First, I create a `totalPts` quantitative variable based on adding related point based variables.  In pokemon references different pokemon are often compared based on total points. Here is a reference showing total poins for one paritular pokemon  [Total Point Example](https://bulbapedia.bulbagarden.net/wiki/Kricketot_(Pok%C3%A9mon)#Base_stats)  
+
+Second, I create a `hgtwgt_ratio` quantitative variable based on the basic height to weight raio.  This ratio is often used in biology.  
+
+Third, I create a `common` categorical variable based on other species categorical variables.  I wanted every species to be in one `common` category that eventually will show whether the species is in one of the rare categories like legendary or mythical.   
 
 ```{r create new vars}
 ###total points
 moreAllPoke<-allPoke %>% mutate(totalPts=(hp+attack+defense+special_attack   +special_defense +speed)) %>% select(name,id,species,height,weight,base_experience,totalPts,everything()) 
+
 summary(moreAllPoke)
-#sort(moreAllPoke$totalPts,decreasing = TRUE) 
+
 ###height to weight ratio
 moreAllPoke<-moreAllPoke %>%mutate(hgtwgt_ratio=height/weight)
-head(moreAllPoke)
+
 ###mythic,legendary, regular,baby
 ###Create new factor variable that assigns one of these values
 moreAllSpecies<-allSpecies %>% 
@@ -436,21 +438,19 @@ moreAllSpecies<-allSpecies %>%
               if_else(is_mythical,"mythical",
                     if_else(is_legendary,"legendary","regular"))))
 
-
-
-
 ```
 
 
 
 ### Contingency Tables  
 
-```{r contingencytables}
-#table(allPoke$type_one,allPoke$species)
-#allPoke %>% distinct()
-#inner_join(allPoke,evolveStages,by="species") %>% select(name,stages,everything())
 
-combinePoke<-inner_join(allPoke,evolveStages,by="species") %>% select(name,stages,everything())
+
+
+```{r contingencytables}
+##anti_join(allPoke,evolveStages,by="species")
+##Note that species dustox is not part of the evolution data endpoint
+combinePoke<-inner_join(moreAllPoke,allStages,by="species") %>% select(name,stages,everything())
 
 tOne<-table(combinePoke$stages,combinePoke$type_one )
 tOne<-table(combinePoke$type_one,combinePoke$stages )
@@ -469,6 +469,11 @@ kable(addmargins(tTwo),
       caption = "Contingency Table of Generation by Common Status")
 ```
 
+
+### Numerical Summaries  
+
+
+
 ### Box Plot  
 
 
@@ -476,6 +481,12 @@ kable(addmargins(tTwo),
 ```{r Box Plot}
 
 ###Total hit points versus evolution stages
+
+###Need to inner join more species and stages 
+
+
+g <- ggplot(combinePoke, aes(x = stages, y = totalPts))
+g + geom_boxplot() + geom_point((aes(color = stages)), size=1,position = "jitter",alpha = 0.1) + labs(title = "Boxplot for Total Points for Different Stages")
 
 ```
 

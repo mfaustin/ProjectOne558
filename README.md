@@ -10,10 +10,11 @@ Mark Austin
     -   [Species Endpoint Functions](#species-endpoint-functions)
     -   [Evolution Chain Endpoint
         Functions.](#evolution-chain-endpoint-functions)
--   [Exploring Data](#exploring-data)
+-   [Exploratory Data Analysis](#exploratory-data-analysis)
     -   [Get Full Data Frames](#get-full-data-frames)
     -   [Creating New Variables](#creating-new-variables)
     -   [Contingency Tables](#contingency-tables)
+    -   [Numerical Summaries](#numerical-summaries)
     -   [Box Plot](#box-plot)
 
 ## Required R Packages
@@ -486,9 +487,13 @@ An example of output from `getAllEvolveStages`.
 
 </div>
 
-## Exploring Data
+## Exploratory Data Analysis
 
 ### Get Full Data Frames
+
+I started by pulling data from the three endpoints I wrote functions for
+earlier. I pull all the data here so that I’ll have it stored in objects
+for later use.
 
 ``` r
 allPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
@@ -496,58 +501,28 @@ allSpecies<-getEverySpeciesData()
 allStages<-getAllEvolveStages()
 ```
 
-``` r
-str(allPoke)
-```
-
-    ## 'data.frame':    1118 obs. of  14 variables:
-    ##  $ name           : chr  "bulbasaur" "ivysaur" "venusaur" "charmander" ...
-    ##  $ id             : int  1 2 3 4 5 6 7 8 9 10 ...
-    ##  $ species        : chr  "bulbasaur" "ivysaur" "venusaur" "charmander" ...
-    ##  $ height         : int  7 10 20 6 11 17 5 10 16 3 ...
-    ##  $ weight         : int  69 130 1000 85 190 905 90 225 855 29 ...
-    ##  $ base_experience: int  64 142 236 62 142 240 63 142 239 39 ...
-    ##  $ hp             : int  45 60 80 39 58 78 44 59 79 45 ...
-    ##  $ attack         : int  49 62 82 52 64 84 48 63 83 30 ...
-    ##  $ defense        : int  49 63 83 43 58 78 65 80 100 35 ...
-    ##  $ special_attack : int  65 80 100 60 80 109 50 65 85 20 ...
-    ##  $ special_defense: int  65 80 100 50 65 85 64 80 105 20 ...
-    ##  $ speed          : int  45 60 80 65 80 100 43 58 78 45 ...
-    ##  $ type_one       : chr  "grass" "grass" "grass" "fire" ...
-    ##  $ type_two       : chr  "poison" "poison" "poison" "None" ...
-
-``` r
-str(allSpecies)
-```
-
-    ## 'data.frame':    898 obs. of  10 variables:
-    ##  $ species       : chr  "bulbasaur" "ivysaur" "venusaur" "charmander" ...
-    ##  $ shape         : chr  "quadruped" "quadruped" "quadruped" "upright" ...
-    ##  $ generation    : chr  "generation-i" "generation-i" "generation-i" "generation-i" ...
-    ##  $ base_happiness: int  70 70 70 70 70 70 70 70 70 70 ...
-    ##  $ capture_rate  : int  45 45 45 45 45 45 45 45 45 255 ...
-    ##  $ gender_rate   : int  1 1 1 1 1 1 1 1 1 4 ...
-    ##  $ hatch_counter : int  20 20 20 20 20 20 20 20 20 15 ...
-    ##  $ is_baby       : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
-    ##  $ is_legendary  : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
-    ##  $ is_mythical   : logi  FALSE FALSE FALSE FALSE FALSE FALSE ...
-
-``` r
-str(allStages)
-```
-
-    ## 'data.frame':    897 obs. of  2 variables:
-    ##  $ species: chr  "bulbasaur" "charmander" "squirtle" "caterpie" ...
-    ##  $ stages : Ord.factor w/ 4 levels "one"<"two"<"three"<..: 1 1 1 1 1 1 1 1 1 1 ...
-
 ### Creating New Variables
 
-[Total Point
+In this section I create new variables that I plan to use in later
+analysis.  
+First, I create a `totalPts` quantitative variable based on adding
+related point based variables. In pokemon references different pokemon
+are often compared based on total points. Here is a reference showing
+total poins for one paritular pokemon [Total Point
 Example](https://bulbapedia.bulbagarden.net/wiki/Kricketot_(Pok%C3%A9mon)#Base_stats)
+
+Second, I create a `hgtwgt_ratio` quantitative variable based on the
+basic height to weight raio. This ratio is often used in biology.
+
+Third, I create a `common` categorical variable based on other species
+categorical variables. I wanted every species to be in one `common`
+category that eventually will show whether the species is in one of the
+rare categories like legendary or mythical.
 
 ``` r
 ###total points
 moreAllPoke<-allPoke %>% mutate(totalPts=(hp+attack+defense+special_attack   +special_defense +speed)) %>% select(name,id,species,height,weight,base_experience,totalPts,everything()) 
+
 summary(moreAllPoke)
 ```
 
@@ -581,26 +556,9 @@ summary(moreAllPoke)
     ##  Max.   :200.00
 
 ``` r
-#sort(moreAllPoke$totalPts,decreasing = TRUE) 
 ###height to weight ratio
 moreAllPoke<-moreAllPoke %>%mutate(hgtwgt_ratio=height/weight)
-head(moreAllPoke)
-```
 
-<div class="kable-table">
-
-| name       |  id | species    | height | weight | base\_experience | totalPts |  hp | attack | defense | special\_attack | special\_defense | speed | type\_one | type\_two | hgtwgt\_ratio |
-|:-----------|----:|:-----------|-------:|-------:|-----------------:|---------:|----:|-------:|--------:|----------------:|-----------------:|------:|:----------|:----------|--------------:|
-| bulbasaur  |   1 | bulbasaur  |      7 |     69 |               64 |      318 |  45 |     49 |      49 |              65 |               65 |    45 | grass     | poison    |     0.1014493 |
-| ivysaur    |   2 | ivysaur    |     10 |    130 |              142 |      405 |  60 |     62 |      63 |              80 |               80 |    60 | grass     | poison    |     0.0769231 |
-| venusaur   |   3 | venusaur   |     20 |   1000 |              236 |      525 |  80 |     82 |      83 |             100 |              100 |    80 | grass     | poison    |     0.0200000 |
-| charmander |   4 | charmander |      6 |     85 |               62 |      309 |  39 |     52 |      43 |              60 |               50 |    65 | fire      | None      |     0.0705882 |
-| charmeleon |   5 | charmeleon |     11 |    190 |              142 |      405 |  58 |     64 |      58 |              80 |               65 |    80 | fire      | None      |     0.0578947 |
-| charizard  |   6 | charizard  |     17 |    905 |              240 |      534 |  78 |     84 |      78 |             109 |               85 |   100 | fire      | flying    |     0.0187845 |
-
-</div>
-
-``` r
 ###mythic,legendary, regular,baby
 ###Create new factor variable that assigns one of these values
 moreAllSpecies<-allSpecies %>% 
@@ -612,11 +570,9 @@ moreAllSpecies<-allSpecies %>%
 ### Contingency Tables
 
 ``` r
-#table(allPoke$type_one,allPoke$species)
-#allPoke %>% distinct()
-#inner_join(allPoke,evolveStages,by="species") %>% select(name,stages,everything())
-
-combinePoke<-inner_join(allPoke,evolveStages,by="species") %>% select(name,stages,everything())
+##anti_join(allPoke,evolveStages,by="species")
+##Note that species dustox is not part of the evolution data endpoint
+combinePoke<-inner_join(moreAllPoke,allStages,by="species") %>% select(name,stages,everything())
 
 tOne<-table(combinePoke$stages,combinePoke$type_one )
 tOne<-table(combinePoke$type_one,combinePoke$stages )
@@ -670,11 +626,21 @@ kable(addmargins(tTwo),
 
 Contingency Table of Generation by Common Status
 
+### Numerical Summaries
+
 ### Box Plot
 
 ``` r
 ###Total hit points versus evolution stages
+
+###Need to inner join more species and stages 
+
+
+g <- ggplot(combinePoke, aes(x = stages, y = totalPts))
+g + geom_boxplot() + geom_point((aes(color = stages)), size=1,position = "jitter",alpha = 0.1) + labs(title = "Boxplot for Total Points for Different Stages")
 ```
+
+![](images/Box%20Plot-1.png)<!-- -->
 
 ``` r
 head(allPoke)
