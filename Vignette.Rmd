@@ -411,6 +411,25 @@ allStages<-getAllEvolveStages()
 ```
 
 
+```{r}
+str(allPoke)
+str(allSpecies)
+str(allStages)
+```
+
+### Creating New Variables  
+
+[Total Point Example](https://bulbapedia.bulbagarden.net/wiki/Kricketot_(Pok%C3%A9mon)#Base_stats)
+
+```{r create new vars}
+###total points
+allPoke %>% mutate(totalPts=(hp+attack+defense+special_attack   +special_defense +speed)) %>% select(name,id,species,height,weight,base_experience,totalPts,everything())
+###height to weight ratio
+allPoke %>%mutate(hgtwgt_ratio=height/weight)%>%summary(hgtwgt_ratio)
+```
+
+
+
 ### Contingency Tables  
 
 ```{r contingencytables}
@@ -425,6 +444,26 @@ tOne<-table(combinePoke$type_one,combinePoke$stages )
 kable(addmargins(tOne),caption = "Contingency Table of Type by Stage")
 
 ```
+
+
+
+```{r more contingency work}
+table(allSpecies$shape)
+table(allSpecies$generation,allSpecies$shape)
+#table(allSpecies$shape,combinePoke$type_one)
+```
+
+### Box Plot  
+
+
+
+```{r Box Plot}
+
+###Total hit points versus evolution stages
+
+```
+
+
 
 
 ```{r plotheightweight}
