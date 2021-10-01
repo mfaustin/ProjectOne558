@@ -637,10 +637,16 @@ Contingency Table of Generation by Common Status
 
 
 g <- ggplot(combinePoke, aes(x = stages, y = totalPts))
-g + geom_boxplot() + geom_point((aes(color = stages)), size=1,position = "jitter",alpha = 0.1) + labs(title = "Boxplot for Total Points for Different Stages")
+g + geom_boxplot(fill="green1") + geom_point((aes(color = stages)), size=1,position = "jitter",alpha = 0.2) + labs(x="Evolution Stages", y="Total Points",  title = "Boxplot for Total Points for Different Evolution Stages")
 ```
 
 ![](images/Box%20Plot-1.png)<!-- -->
+
+``` r
+g + geom_boxplot(fill="green1") + labs(x="Evolution Stages", y="Total Points",  title = "Boxplot for Total Points for Different Evolution Stages")
+```
+
+![](images/Box%20Plot-2.png)<!-- -->
 
 ``` r
 head(allPoke)
