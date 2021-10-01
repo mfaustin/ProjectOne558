@@ -428,7 +428,7 @@ summary(moreAllPoke)
 #sort(moreAllPoke$totalPts,decreasing = TRUE) 
 ###height to weight ratio
 moreAllPoke<-moreAllPoke %>%mutate(hgtwgt_ratio=height/weight)
-moreAllPoke
+head(moreAllPoke)
 ###mythic,legendary, regular,baby
 
 ```
