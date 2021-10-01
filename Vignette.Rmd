@@ -423,9 +423,14 @@ str(allStages)
 
 ```{r create new vars}
 ###total points
-allPoke %>% mutate(totalPts=(hp+attack+defense+special_attack   +special_defense +speed)) %>% select(name,id,species,height,weight,base_experience,totalPts,everything())
+moreAllPoke<-allPoke %>% mutate(totalPts=(hp+attack+defense+special_attack   +special_defense +speed)) %>% select(name,id,species,height,weight,base_experience,totalPts,everything()) 
+summary(moreAllPoke)
+#sort(moreAllPoke$totalPts,decreasing = TRUE) 
 ###height to weight ratio
-allPoke %>%mutate(hgtwgt_ratio=height/weight)%>%summary(hgtwgt_ratio)
+moreAllPoke<-moreAllPoke %>%mutate(hgtwgt_ratio=height/weight)
+moreAllPoke
+###mythic,legendary, regular,baby
+
 ```
 
 
