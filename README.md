@@ -572,7 +572,7 @@ moreAllSpecies<-allSpecies %>%
 Every individual pokemon has one of 18 different [pokemon
 types](https://bulbapedia.bulbagarden.net/wiki/Type). I created my first
 contingency table to examine how many pokemon were part of each type by
-the evolution stage for that pokemon. I included non evoling pokemon
+the evolution stage for that pokemon. I included non evolving pokemon
 because many pokemon do not evolve.
 
 ``` r
@@ -607,6 +607,11 @@ kable(addmargins(tOne),caption = "Contingency Table of Type by Stage")
 | Sum      | 325 | 402 |   148 |      242 | 1117 |
 
 Contingency Table of Type by Stage
+
+What stood out to me from the first table in regard to evolution stages
+was that there were many more first and second stage pokemon than third
+stage. That outcome made sense because players go from lower to higher
+stages over time so fewer third stage were expected.
 
 ``` r
 #table(allSpecies$shape)
@@ -648,10 +653,8 @@ g + geom_boxplot(fill="green1") + geom_point((aes(color = stages)), size=1,posit
 ![](images/Box%20Plot-1.png)<!-- -->
 
 ``` r
-g + geom_boxplot(fill="green1") + labs(x="Evolution Stages", y="Total Points",  title = "Boxplot for Total Points for Different Evolution Stages")
+#g + geom_boxplot(fill="green1") + labs(x="Evolution Stages", y="Total Points",  title = "Boxplot for Total Points for Different Evolution Stages")
 ```
-
-![](images/Box%20Plot-2.png)<!-- -->
 
 ``` r
 head(allPoke)
