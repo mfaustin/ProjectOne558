@@ -444,15 +444,15 @@ moreAllSpecies<-allSpecies %>%
 
 ### Contingency Tables  
 
-
+Every individual pokemon  has one of 18 different [pokemon types](https://bulbapedia.bulbagarden.net/wiki/Type).  I created my first contingency table to examine how many pokemon were part of each type by the evolution stage for that pokemon.  I included non evoling pokemon because many pokemon do not evolve.  
 
 
 ```{r contingencytables}
-##anti_join(allPoke,evolveStages,by="species")
-##Note that species dustox is not part of the evolution data endpoint
+
+###combine needed tables to get data together for table
 combinePoke<-inner_join(moreAllPoke,allStages,by="species") %>% select(name,stages,everything())
 
-tOne<-table(combinePoke$stages,combinePoke$type_one )
+###Create table then add margins to include sums
 tOne<-table(combinePoke$type_one,combinePoke$stages )
 kable(addmargins(tOne),caption = "Contingency Table of Type by Stage")
 
