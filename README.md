@@ -37,7 +37,9 @@ Vignette and/or create this document.
 
 I created the following functions to query and process data from the
 [Pokemon API](https://pokeapi.co/) using [Pokemon API
-Documentation](https://pokeapi.co/docs/v2).
+Documentation](https://pokeapi.co/docs/v2). I found that I could use
+`fromJSON()` directly with the Pokemon API and directly assign API
+calls.
 
 ### Pokemon Endpoint Functions.
 
@@ -569,6 +571,8 @@ moreAllSpecies<-allSpecies %>%
 
 ### Contingency Tables
 
+**Contingency Table One**
+
 Every individual pokemon has one of 18 different [pokemon
 types](https://bulbapedia.bulbagarden.net/wiki/Type). I created my first
 contingency table to examine how many pokemon were part of each type by
@@ -611,12 +615,15 @@ Contingency Table of Type by Stage
 What stood out to me from the first table in regard to evolution stages
 was that there were many more first and second stage pokemon than third
 stage. That outcome made sense because players go from lower to higher
-stages over time so fewer third stage were expected.
+stages over time so fewer third stage were expected.  
+As for pokemon types, I immediately notice there are very few flying
+types. I also noticed water, normal, and grass were most numerous. The
+other trend I saw was that each type tends to follow the overall pattern
+of more first and second stage pokemon.
+
+**Contingency Table Two**
 
 ``` r
-#table(allSpecies$shape)
-#table(allSpecies$generation,allSpecies$shape)
-#table(allSpecies$shape,combinePoke$type_one)
 tTwo<-table(moreAllSpecies$generation,moreAllSpecies$common)
 kable(addmargins(tTwo),
       caption = "Contingency Table of Generation by Common Status")
@@ -640,21 +647,26 @@ Contingency Table of Generation by Common Status
 
 ### Box Plot
 
+I was interested in investigating the relationship between pokemon total
+points and evolution stage in a box plot. I needed to manually adjust
+the colors because the automatic colors were blending into the
+background.
+
 ``` r
-###Total hit points versus evolution stages
-
-###Need to inner join more species and stages 
-
-
+###Create a boxplot with added points for stage and total points  
 g <- ggplot(combinePoke, aes(x = stages, y = totalPts))
-g + geom_boxplot(fill="green1") + geom_point((aes(color = stages)), size=1,position = "jitter",alpha = 0.2) + labs(x="Evolution Stages", y="Total Points",  title = "Boxplot for Total Points for Different Evolution Stages")
+g + geom_boxplot(fill="green1") + 
+  geom_point((aes(color = stages)), size=1,position = "jitter",alpha = 0.1)    + labs(x="Evolution Stages", y="Total Points",  
+  title = "Boxplot of Total Points for Different Evolution Stages")  + 
+  scale_color_manual(values = c("red", "blue", "orangered","purple"),name =    "Evolution\nStages") 
 ```
 
-![](images/Box%20Plot-1.png)<!-- -->
-
-``` r
-#g + geom_boxplot(fill="green1") + labs(x="Evolution Stages", y="Total Points",  title = "Boxplot for Total Points for Different Evolution Stages")
-```
+![](images/Box%20Plot-1.png)<!-- --> The boxplot confirmed my
+expectation that total points would be higher for higher pokemon
+evolution stages. This outcome makes sense because more evolved pokemon
+are more powerful and power is quantified by total points. In addition,
+I could see that the no evolving pokemon are also mainly very powerful
+too.
 
 ``` r
 head(allPoke)
