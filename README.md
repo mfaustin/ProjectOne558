@@ -659,13 +659,16 @@ rare with baby being especially uncommon.
 
 ### Numerical Summaries
 
-[capture rate](https://bulbapedia.bulbagarden.net/wiki/Catch_rate) where
-higher numbers mean easier to catch.
+**Capture Rate By Generation**  
+I learned that [capture
+rate](https://bulbapedia.bulbagarden.net/wiki/Catch_rate) is a key value
+where higher numbers mean easier to catch. I summarized by generation to
+see whether capture rate was changing over time.
 
 ``` r
 allSpecies %>% group_by(generation) %>% 
   summarise(Avg = mean(capture_rate), Sd = sd(capture_rate), 
-    Median =             median(capture_rate), IQR =IQR(capture_rate))
+    Median = median(capture_rate), IQR =IQR(capture_rate))
 ```
 
 <div class="kable-table">
@@ -682,6 +685,8 @@ allSpecies %>% group_by(generation) %>%
 | generation-viii |  97.28090 | 82.43262 |   60.0 |  82.0 |
 
 </div>
+
+**Speed by Generation**
 
 ``` r
 ##moreallpoke and species
@@ -705,6 +710,8 @@ comboSpeciesPoke %>% group_by(generation) %>%
 | generation-viii | 71.66102 | 34.88987 |   70.0 | 43.50 |
 
 </div>
+
+**Total Points by Common Status**
 
 ``` r
 comboSpeciesPoke %>% group_by(common) %>% 
