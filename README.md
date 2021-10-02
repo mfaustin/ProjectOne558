@@ -623,6 +623,14 @@ of more first and second stage pokemon.
 
 **Contingency Table Two**
 
+I learned [pokemon
+generations](https://bulbapedia.bulbagarden.net/wiki/Generation) are
+used to group pokemon over time with i being oldest and viii being most
+recent. For the second table, I looked at generation versus what I
+called common status meaning whether a pokemon is regular or in rare
+category. I added margin sums again to help spot patterns. Note this
+data is from species data and there are fewer species than pokemon.
+
 ``` r
 tTwo<-table(moreAllSpecies$generation,moreAllSpecies$common)
 kable(addmargins(tTwo),
@@ -642,6 +650,12 @@ kable(addmargins(tTwo),
 | Sum             |   18 |        57 |       22 |     801 | 898 |
 
 Contingency Table of Generation by Common Status
+
+<br>  
+What stood out to me in the second table was there were more pokemon
+species created in the i to V earlier generations than the more recent
+generations. In addition, I did confirm that the rare types are indeed
+rare with baby being especially uncommon.
 
 ### Numerical Summaries
 
