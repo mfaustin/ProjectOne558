@@ -477,10 +477,13 @@ What stood out to me in the second table was there were more pokemon species cre
 
 ### Numerical Summaries  
 
+[capture rate](https://bulbapedia.bulbagarden.net/wiki/Catch_rate) where higher numbers mean easier to catch.  
+
 
 ```{r capture rate by generation}
 allSpecies %>% group_by(generation) %>% 
-  summarise(Avg = mean(capture_rate), Sd = sd(capture_rate), Median =             median(capture_rate), IQR =IQR(capture_rate))
+  summarise(Avg = mean(capture_rate), Sd = sd(capture_rate), 
+    Median =             median(capture_rate), IQR =IQR(capture_rate))
 ```
 
 ```{r speed by generation}

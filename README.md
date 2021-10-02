@@ -659,9 +659,13 @@ rare with baby being especially uncommon.
 
 ### Numerical Summaries
 
+[capture rate](https://bulbapedia.bulbagarden.net/wiki/Catch_rate) where
+higher numbers mean easier to catch.
+
 ``` r
 allSpecies %>% group_by(generation) %>% 
-  summarise(Avg = mean(capture_rate), Sd = sd(capture_rate), Median =             median(capture_rate), IQR =IQR(capture_rate))
+  summarise(Avg = mean(capture_rate), Sd = sd(capture_rate), 
+    Median =             median(capture_rate), IQR =IQR(capture_rate))
 ```
 
 <div class="kable-table">
