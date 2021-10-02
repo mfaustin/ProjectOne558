@@ -486,11 +486,12 @@ I was interested in investigating the relationship between pokemon total points 
 ###Create a boxplot with added points for stage and total points  
 g <- ggplot(combinePoke, aes(x = stages, y = totalPts))
 g + geom_boxplot(fill="green1") + 
-  geom_point((aes(color = stages)), size=1,position = "jitter",alpha = 0.1)    + labs(x="Evolution Stages", y="Total Points",  
-  title = "Boxplot of Total Points for Different Evolution Stages")  + 
+  geom_point((aes(color = stages)), size=1,position = "jitter",alpha = 0.1)    + labs(x="Evolution Stages", y="Total Points",
+  title = "Boxplot of Total Points for Different Evolution Stages") + 
   scale_color_manual(values = c("red", "blue", "orangered","purple"),name =    "Evolution\nStages") 
 
-```
+```  
+  
 The boxplot confirmed my expectation that total points would be higher for higher pokemon evolution stages.  This outcome makes sense because more evolved pokemon are more powerful and power is quantified by total points.  In addition, I could see that the no evolving pokemon are also mainly very powerful too.  
 
 
