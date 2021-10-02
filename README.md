@@ -661,8 +661,7 @@ g + geom_boxplot(fill="green1") +
   scale_color_manual(values = c("red", "blue", "orangered","purple"),name =    "Evolution\nStages") 
 ```
 
-![](images/Box%20Plot-1.png)<!-- -->
-
+![](images/Box%20Plot-1.png)<!-- --> <br>  
 The boxplot confirmed my expectation that total points would be higher
 for higher pokemon evolution stages. This outcome makes sense because
 more evolved pokemon are more powerful and power is quantified by total
