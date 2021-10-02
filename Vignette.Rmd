@@ -527,7 +527,21 @@ g + geom_boxplot(fill="green1") +
 <br>  
 The boxplot confirmed my expectation that total points would be higher for higher pokemon evolution stages.  This outcome makes sense because more evolved pokemon are more powerful and power is quantified by total points.  In addition, I could see that the no evolving pokemon are also mainly very powerful too.  
 
+### Bar Plot  
 
+```{r bar plot}
+
+```
+
+### Histogram  
+
+```{r histogram}
+
+```
+
+
+
+### Scatter Plot  
 
 ```{r plotheightweight}
 head(allPoke)
@@ -535,6 +549,14 @@ g<-ggplot(data = allPoke,aes(x=weight,y=height))
 g+geom_point(aes(color=type_one))
 
 ```
+
+
+### Fifth Plot  
+
+```{r fifth plot}
+
+```
+
 
 ```{r summarystats}
 allPoke %>% group_by(type_one) %>% summarise(mweight=mean(weight),sdweight=sd(weight))

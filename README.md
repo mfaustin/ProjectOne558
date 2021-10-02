@@ -16,6 +16,10 @@ Mark Austin
     -   [Contingency Tables](#contingency-tables)
     -   [Numerical Summaries](#numerical-summaries)
     -   [Box Plot](#box-plot)
+    -   [Bar Plot](#bar-plot)
+    -   [Histogram](#histogram)
+    -   [Scatter Plot](#scatter-plot)
+    -   [Fifth Plot](#fifth-plot)
 
 ## Required R Packages
 
@@ -753,6 +757,12 @@ more evolved pokemon are more powerful and power is quantified by total
 points. In addition, I could see that the no evolving pokemon are also
 mainly very powerful too.
 
+### Bar Plot
+
+### Histogram
+
+### Scatter Plot
+
 ``` r
 head(allPoke)
 ```
@@ -776,6 +786,8 @@ g+geom_point(aes(color=type_one))
 ```
 
 ![](images/plotheightweight-1.png)<!-- -->
+
+### Fifth Plot
 
 ``` r
 allPoke %>% group_by(type_one) %>% summarise(mweight=mean(weight),sdweight=sd(weight))
