@@ -659,6 +659,66 @@ rare with baby being especially uncommon.
 
 ### Numerical Summaries
 
+``` r
+allSpecies %>% group_by(generation) %>% 
+  summarise(Avg = mean(capture_rate), Sd = sd(capture_rate), Median =             median(capture_rate), IQR =IQR(capture_rate))
+```
+
+<div class="kable-table">
+
+| generation      |       Avg |       Sd | Median |   IQR |
+|:----------------|----------:|---------:|-------:|------:|
+| generation-i    | 106.18543 | 77.10654 |   75.0 | 145.0 |
+| generation-ii   |  91.90000 | 71.67611 |   60.0 |  75.0 |
+| generation-iii  | 113.35556 | 83.82003 |   90.0 | 145.0 |
+| generation-iv   |  78.85981 | 69.46174 |   45.0 |  75.0 |
+| generation-v    | 103.10256 | 76.61131 |   75.0 | 145.0 |
+| generation-vi   | 100.40278 | 72.47664 |   62.5 | 120.0 |
+| generation-vii  |  77.72727 | 67.96918 |   45.0 |  47.5 |
+| generation-viii |  97.28090 | 82.43262 |   60.0 |  82.0 |
+
+</div>
+
+``` r
+##moreallpoke and species
+comboSpeciesPoke<-inner_join(moreAllPoke,moreAllSpecies,by="species")
+comboSpeciesPoke %>% group_by(generation) %>% 
+  summarise(Avg = mean(speed), Sd = sd(speed), Median =       
+              median(speed), IQR =IQR(speed))
+```
+
+<div class="kable-table">
+
+| generation      |      Avg |       Sd | Median |   IQR |
+|:----------------|---------:|---------:|-------:|------:|
+| generation-i    | 73.16216 | 28.91587 |   73.5 | 40.00 |
+| generation-ii   | 61.22222 | 27.34868 |   60.0 | 45.00 |
+| generation-iii  | 67.38182 | 31.02624 |   65.0 | 40.00 |
+| generation-iv   | 71.33884 | 28.47500 |   77.0 | 45.00 |
+| generation-v    | 68.30233 | 29.07464 |   65.0 | 50.00 |
+| generation-vi   | 69.19318 | 27.19781 |   66.0 | 40.00 |
+| generation-vii  | 70.81452 | 31.73656 |   65.0 | 50.75 |
+| generation-viii | 71.66102 | 34.88987 |   70.0 | 43.50 |
+
+</div>
+
+``` r
+comboSpeciesPoke %>% group_by(common) %>% 
+    summarise(Avg = mean(totalPts), Sd = sd(totalPts), Median =       
+              median(totalPts), IQR =IQR(totalPts))
+```
+
+<div class="kable-table">
+
+| common    |      Avg |        Sd | Median |    IQR |
+|:----------|---------:|----------:|-------:|-------:|
+| baby      | 276.2778 |  61.34263 |  282.5 |  90.25 |
+| legendary | 627.3333 | 103.11584 |  600.0 | 100.00 |
+| mythical  | 595.0000 |  66.04007 |  600.0 |   0.00 |
+| regular   | 422.1835 | 102.83936 |  440.0 | 175.00 |
+
+</div>
+
 ### Box Plot
 
 I was interested in investigating the relationship between pokemon total

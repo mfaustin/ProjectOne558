@@ -478,6 +478,26 @@ What stood out to me in the second table was there were more pokemon species cre
 ### Numerical Summaries  
 
 
+```{r capture rate by generation}
+allSpecies %>% group_by(generation) %>% 
+  summarise(Avg = mean(capture_rate), Sd = sd(capture_rate), Median =             median(capture_rate), IQR =IQR(capture_rate))
+```
+
+```{r speed by generation}
+##moreallpoke and species
+comboSpeciesPoke<-inner_join(moreAllPoke,moreAllSpecies,by="species")
+comboSpeciesPoke %>% group_by(generation) %>% 
+  summarise(Avg = mean(speed), Sd = sd(speed), Median =       
+              median(speed), IQR =IQR(speed))
+```
+
+```{r total points by common status}
+comboSpeciesPoke %>% group_by(common) %>% 
+    summarise(Avg = mean(totalPts), Sd = sd(totalPts), Median =       
+              median(totalPts), IQR =IQR(totalPts))
+```
+
+
 
 ### Box Plot  
 
