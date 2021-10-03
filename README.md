@@ -739,6 +739,16 @@ mainly very powerful too.
 ##create a new regular/special variable then 
 ##do a geom_bar of evolution stages with dodge of regular/special
 #like following crab example
+combineSpeciesStage<-inner_join(moreAllSpecies,allStages,by="species")
+
+
+g <- ggplot(combineSpeciesStage, aes(x = stages))
+g + geom_bar(aes(fill=(rare)),position = "dodge")
+```
+
+![](images/bar%20plot-1.png)<!-- -->
+
+``` r
 #g<-ggplot(data=crabs,aes(x=color))
 #g + geom_bar(aes(fill=(y)),position = "dodge") + labs(x="Female Crab Color") + scale_fill_discrete(name="") + coord_flip()  + theme(axis.title.x = element_text(size = 14),axis.title.y = element_text(size = 14))
 ```
