@@ -771,9 +771,14 @@ g + geom_histogram(binwidth=8,color = "brown", fill = "green",
 ###Try total points by capture rate
 ###Add correlation as text
 
+cor(comboSpeciesPoke$capture_rate,comboSpeciesPoke$totalPts)
+```
 
+    ## [1] -0.6869356
+
+``` r
 g<-ggplot(data = comboSpeciesPoke,aes(x=capture_rate,y=totalPts))
-g+geom_point(aes(color=common))
+g+geom_point(aes(color=common))  + labs(x="Capture Rate",y="Total Points",color='Species\nCategories',title = "Scatter Plot of Pokemon Total Points Versus Capture Rate ") 
 ```
 
 ![](images/scatter%20plotpointsbyCapture-1.png)<!-- -->
