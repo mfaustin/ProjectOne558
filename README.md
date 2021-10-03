@@ -743,15 +743,11 @@ combineSpeciesStage<-inner_join(moreAllSpecies,allStages,by="species")
 
 
 g <- ggplot(combineSpeciesStage, aes(x = stages))
-g + geom_bar(aes(fill=(rare)),position = "dodge")
+g + geom_bar(aes(fill=(rare)),position = "dodge") + scale_fill_discrete(name="Species\nCategories")   + labs(x="Evolution Stages", y="Count",
+  title = "Bar Plot of Evolution Stages for Rare and Regular Species")
 ```
 
 ![](images/bar%20plot-1.png)<!-- -->
-
-``` r
-#g<-ggplot(data=crabs,aes(x=color))
-#g + geom_bar(aes(fill=(y)),position = "dodge") + labs(x="Female Crab Color") + scale_fill_discrete(name="") + coord_flip()  + theme(axis.title.x = element_text(size = 14),axis.title.y = element_text(size = 14))
-```
 
 ### Histogram
 
@@ -762,7 +758,7 @@ Body’s.”
 ``` r
 ###creating histogam of hatch_counter data 
 g <- ggplot(moreAllSpecies, aes(x = hatch_counter))
-g + geom_histogram(binwidth=8,color = "blue", fill = "green", 
+g + geom_histogram(binwidth=8,color = "brown", fill = "green", 
                                      size = 1)  + labs(x="Hatch Counter", y="Count",
   title = "Histogram of Pokemon Hatch Counter")
 ```
@@ -776,8 +772,8 @@ g + geom_histogram(binwidth=8,color = "blue", fill = "green",
 ###Add correlation as text
 
 
-g<-ggplot(data = comboSpeciesPoke,aes(x=weight,y=height))
-g+geom_point(aes(color=type_one))
+g<-ggplot(data = comboSpeciesPoke,aes(x=capture_rate,y=totalPts))
+g+geom_point(aes(color=common))
 ```
 
 ![](images/scatter%20plotpointsbyCapture-1.png)<!-- -->
