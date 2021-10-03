@@ -737,6 +737,23 @@ mainly very powerful too.
 
 ### Histogram
 
+“Initial hatch counter: one must walk 255 × (hatch\_counter + 1) steps
+before this Pokémon’s egg hatches, unless utilizing bonuses like Flame
+Body’s.”
+
+``` r
+###maybe try gender_rate 
+g <- ggplot(moreAllSpecies, aes(x = hatch_counter))
+g + geom_histogram(binwidth=8,color = "blue", fill = "green", 
+                                     size = 1) 
+```
+
+![](images/histogram-1.png)<!-- -->
+
+``` r
+#+ scale_x_continuous(limits = c(0, 3))
+```
+
 ### Scatter Plot
 
 ``` r

@@ -538,7 +538,15 @@ The boxplot confirmed my expectation that total points would be higher for highe
 
 ### Histogram  
 
+"Initial hatch counter: one must walk 255 × (hatch_counter + 1) steps before this Pokémon's egg hatches, unless utilizing bonuses like Flame Body's."
+
+
 ```{r histogram}
+###maybe try gender_rate 
+g <- ggplot(moreAllSpecies, aes(x = hatch_counter))
+g + geom_histogram(binwidth=8,color = "blue", fill = "green", 
+									 size = 1) 
+#+ scale_x_continuous(limits = c(0, 3))
 
 ```
 
