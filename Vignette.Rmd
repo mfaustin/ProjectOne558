@@ -530,7 +530,12 @@ The boxplot confirmed my expectation that total points would be higher for highe
 ### Bar Plot  
 
 ```{r bar plot}
-
+###evolution stages and generations  
+##create a new regular/special variable then 
+##do a geom_bar of evolution stages with dodge of regular/special
+#like following crab example
+#g<-ggplot(data=crabs,aes(x=color))
+#g + geom_bar(aes(fill=(y)),position = "dodge") + labs(x="Female Crab Color") + scale_fill_discrete(name="") + coord_flip()  + theme(axis.title.x = element_text(size = 14),axis.title.y = element_text(size = 14))
 ```
 
 ### Histogram  
@@ -543,33 +548,24 @@ The boxplot confirmed my expectation that total points would be higher for highe
 
 ### Scatter Plot  
 
-```{r plotheightweight}
-head(allPoke)
-g<-ggplot(data = allPoke,aes(x=weight,y=height))
+```{r  scatter plotpointsbyCapture}
+
+###Try total points by capture rate
+###Add correlation as text
+
+
+g<-ggplot(data = comboSpeciesPoke,aes(x=weight,y=height))
 g+geom_point(aes(color=type_one))
 
 ```
 
 
-### Fifth Plot  
+### Facet Scatter Plot  
 
-```{r fifth plot}
-
-```
-
-
-```{r summarystats}
-allPoke %>% group_by(type_one) %>% summarise(mweight=mean(weight),sdweight=sd(weight))
-allPoke %>% summary()
-summary(allPoke$weight)
-cor(allPoke$hp,allPoke$weight)
-cor(allPoke$height,allPoke$weight)
-shortPoke<-allPoke %>% filter(height<500) 
-cor(shortPoke$height,shortPoke$weight)
-
-summary(shortPoke$height)
-
-g<-ggplot(data = shortPoke,aes(x=weight,y=height))
+```{r facet scatter plot }
+#height weight with facet of common categorial 
+# to see if different by mythical etc
+g<-ggplot(data = comboSpeciesPoke,aes(x=weight,y=height))
 g+geom_point(aes(color=type_one))
 
 ```

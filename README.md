@@ -19,7 +19,7 @@ Mark Austin
     -   [Bar Plot](#bar-plot)
     -   [Histogram](#histogram)
     -   [Scatter Plot](#scatter-plot)
-    -   [Fifth Plot](#fifth-plot)
+    -   [Facet Scatter Plot](#facet-scatter-plot)
 
 ## Required R Packages
 
@@ -759,134 +759,37 @@ mainly very powerful too.
 
 ### Bar Plot
 
+``` r
+###evolution stages and generations  
+##create a new regular/special variable then 
+##do a geom_bar of evolution stages with dodge of regular/special
+#like following crab example
+#g<-ggplot(data=crabs,aes(x=color))
+#g + geom_bar(aes(fill=(y)),position = "dodge") + labs(x="Female Crab Color") + scale_fill_discrete(name="") + coord_flip()  + theme(axis.title.x = element_text(size = 14),axis.title.y = element_text(size = 14))
+```
+
 ### Histogram
 
 ### Scatter Plot
 
 ``` r
-head(allPoke)
-```
+###Try total points by capture rate
+###Add correlation as text
 
-<div class="kable-table">
 
-| name       |  id | species    | height | weight | base\_experience |  hp | attack | defense | special\_attack | special\_defense | speed | type\_one | type\_two |
-|:-----------|----:|:-----------|-------:|-------:|-----------------:|----:|-------:|--------:|----------------:|-----------------:|------:|:----------|:----------|
-| bulbasaur  |   1 | bulbasaur  |      7 |     69 |               64 |  45 |     49 |      49 |              65 |               65 |    45 | grass     | poison    |
-| ivysaur    |   2 | ivysaur    |     10 |    130 |              142 |  60 |     62 |      63 |              80 |               80 |    60 | grass     | poison    |
-| venusaur   |   3 | venusaur   |     20 |   1000 |              236 |  80 |     82 |      83 |             100 |              100 |    80 | grass     | poison    |
-| charmander |   4 | charmander |      6 |     85 |               62 |  39 |     52 |      43 |              60 |               50 |    65 | fire      | None      |
-| charmeleon |   5 | charmeleon |     11 |    190 |              142 |  58 |     64 |      58 |              80 |               65 |    80 | fire      | None      |
-| charizard  |   6 | charizard  |     17 |    905 |              240 |  78 |     84 |      78 |             109 |               85 |   100 | fire      | flying    |
-
-</div>
-
-``` r
-g<-ggplot(data = allPoke,aes(x=weight,y=height))
+g<-ggplot(data = comboSpeciesPoke,aes(x=weight,y=height))
 g+geom_point(aes(color=type_one))
 ```
 
-![](images/plotheightweight-1.png)<!-- -->
+![](images/scatter%20plotpointsbyCapture-1.png)<!-- -->
 
-### Fifth Plot
-
-``` r
-allPoke %>% group_by(type_one) %>% summarise(mweight=mean(weight),sdweight=sd(weight))
-```
-
-<div class="kable-table">
-
-| type\_one |   mweight | sdweight |
-|:----------|----------:|---------:|
-| bug       |  576.4471 | 1560.404 |
-| dark      |  786.3750 | 1874.439 |
-| dragon    | 1331.1628 | 1384.587 |
-| electric  |  704.8442 | 1936.162 |
-| fairy     |  787.7917 | 2128.368 |
-| fighting  | 1398.5111 | 2617.478 |
-| fire      | 1061.4928 | 2071.127 |
-| flying    | 1477.5556 | 3211.211 |
-| ghost     |  802.0870 | 2024.955 |
-| grass     |  800.3542 | 2032.037 |
-| ground    | 1540.1905 | 2777.023 |
-| ice       | 1094.7692 | 1570.560 |
-| normal    |  682.6271 | 1659.021 |
-| poison    | 1050.6279 | 2456.101 |
-| psychic   |  891.5750 | 1925.071 |
-| rock      | 1111.0548 | 1718.358 |
-| steel     | 2850.1500 | 3478.657 |
-| water     |  926.2199 | 1914.515 |
-
-</div>
+### Facet Scatter Plot
 
 ``` r
-allPoke %>% summary()
-```
-
-    ##      name                 id            species              height       
-    ##  Length:1118        Min.   :    1.0   Length:1118        Min.   :   1.00  
-    ##  Class :character   1st Qu.:  280.2   Class :character   1st Qu.:   5.00  
-    ##  Mode  :character   Median :  559.5   Mode  :character   Median :  10.00  
-    ##                     Mean   : 2350.6                      Mean   :  21.43  
-    ##                     3rd Qu.:  838.8                      3rd Qu.:  16.00  
-    ##                     Max.   :10220.0                      Max.   :1000.00  
-    ##      weight        base_experience       hp             attack      
-    ##  Min.   :    1.0   Min.   : 36     Min.   :  1.00   Min.   :  5.00  
-    ##  1st Qu.:   88.0   1st Qu.: 70     1st Qu.: 50.00   1st Qu.: 55.00  
-    ##  Median :  302.5   Median :162     Median : 68.00   Median : 78.50  
-    ##  Mean   :  993.3   Mean   :157     Mean   : 70.03   Mean   : 80.68  
-    ##  3rd Qu.:  800.0   3rd Qu.:207     3rd Qu.: 80.75   3rd Qu.:100.00  
-    ##  Max.   :10000.0   Max.   :608     Max.   :255.00   Max.   :190.00  
-    ##     defense       special_attack   special_defense      speed       
-    ##  Min.   :  5.00   Min.   : 10.00   Min.   : 20.00   Min.   :  5.00  
-    ##  1st Qu.: 50.25   1st Qu.: 50.00   1st Qu.: 50.00   1st Qu.: 45.00  
-    ##  Median : 70.00   Median : 65.00   Median : 70.00   Median : 67.00  
-    ##  Mean   : 74.76   Mean   : 73.23   Mean   : 72.57   Mean   : 69.48  
-    ##  3rd Qu.: 90.00   3rd Qu.: 95.00   3rd Qu.: 90.00   3rd Qu.: 90.00  
-    ##  Max.   :250.00   Max.   :194.00   Max.   :250.00   Max.   :200.00  
-    ##    type_one           type_two        
-    ##  Length:1118        Length:1118       
-    ##  Class :character   Class :character  
-    ##  Mode  :character   Mode  :character  
-    ##                                       
-    ##                                       
-    ## 
-
-``` r
-summary(allPoke$weight)
-```
-
-    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##     1.0    88.0   302.5   993.3   800.0 10000.0
-
-``` r
-cor(allPoke$hp,allPoke$weight)
-```
-
-    ## [1] 0.3641855
-
-``` r
-cor(allPoke$height,allPoke$weight)
-```
-
-    ## [1] 0.7527635
-
-``` r
-shortPoke<-allPoke %>% filter(height<500) 
-cor(shortPoke$height,shortPoke$weight)
-```
-
-    ## [1] 0.8344578
-
-``` r
-summary(shortPoke$height)
-```
-
-    ##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
-    ##     1.0     5.0    10.0    19.9    16.0   430.0
-
-``` r
-g<-ggplot(data = shortPoke,aes(x=weight,y=height))
+#height weight with facet of common categorial 
+# to see if different by mythical etc
+g<-ggplot(data = comboSpeciesPoke,aes(x=weight,y=height))
 g+geom_point(aes(color=type_one))
 ```
 
-![](images/summarystats-1.png)<!-- -->
+![](images/facet%20scatter%20plot-1.png)<!-- -->
