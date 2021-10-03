@@ -742,17 +742,14 @@ before this Pokémon’s egg hatches, unless utilizing bonuses like Flame
 Body’s.”
 
 ``` r
-###maybe try gender_rate 
+###creating histogam of hatch_counter data 
 g <- ggplot(moreAllSpecies, aes(x = hatch_counter))
 g + geom_histogram(binwidth=8,color = "blue", fill = "green", 
-                                     size = 1) 
+                                     size = 1)  + labs(x="Hatch Counter", y="Count",
+  title = "Histogram of Pokemon Hatch Counter")
 ```
 
 ![](images/histogram-1.png)<!-- -->
-
-``` r
-#+ scale_x_continuous(limits = c(0, 3))
-```
 
 ### Scatter Plot
 
