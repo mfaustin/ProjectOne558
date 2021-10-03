@@ -525,6 +525,9 @@ categorical variables. I wanted every species to be in one `common`
 category that eventually will show whether the species is in one of the
 rare categories like legendary or mythical.
 
+Fourth, I create a related `rare` categorical variable that assigns each
+species to either rare of regular status.
+
 ``` r
 ###total points
 moreAllPoke<-allPoke %>% mutate(totalPts=(hp+attack+defense+special_attack   +special_defense +speed)) %>% select(name,id,species,height,weight,base_experience,totalPts,everything()) 
@@ -533,11 +536,16 @@ moreAllPoke<-allPoke %>% mutate(totalPts=(hp+attack+defense+special_attack   +sp
 moreAllPoke<-moreAllPoke %>%mutate(hgtwgt_ratio=height/weight)
 
 ###mythic,legendary, regular,baby
-###Create new variable that assigns one of these values
+###Create new common variable that assigns one of these values
 moreAllSpecies<-allSpecies %>% 
   mutate(common=if_else(is_baby, "baby",
               if_else(is_mythical,"mythical",
                     if_else(is_legendary,"legendary","regular"))))
+
+###Create new rare variable to more broadly categorize rare and regular 
+moreAllSpecies<-moreAllSpecies %>% 
+  mutate(rare=if_else(is_baby |is_mythical |is_legendary, "rare",
+                      "regular")) 
 ```
 
 ### Contingency Tables
