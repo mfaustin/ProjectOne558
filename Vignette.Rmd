@@ -426,13 +426,11 @@ Third, I create a `common` categorical variable based on other species categoric
 ###total points
 moreAllPoke<-allPoke %>% mutate(totalPts=(hp+attack+defense+special_attack   +special_defense +speed)) %>% select(name,id,species,height,weight,base_experience,totalPts,everything()) 
 
-summary(moreAllPoke)
-
 ###height to weight ratio
 moreAllPoke<-moreAllPoke %>%mutate(hgtwgt_ratio=height/weight)
 
 ###mythic,legendary, regular,baby
-###Create new factor variable that assigns one of these values
+###Create new variable that assigns one of these values
 moreAllSpecies<-allSpecies %>% 
   mutate(common=if_else(is_baby, "baby",
               if_else(is_mythical,"mythical",

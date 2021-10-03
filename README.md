@@ -529,44 +529,11 @@ rare categories like legendary or mythical.
 ###total points
 moreAllPoke<-allPoke %>% mutate(totalPts=(hp+attack+defense+special_attack   +special_defense +speed)) %>% select(name,id,species,height,weight,base_experience,totalPts,everything()) 
 
-summary(moreAllPoke)
-```
-
-    ##      name                 id            species              height       
-    ##  Length:1118        Min.   :    1.0   Length:1118        Min.   :   1.00  
-    ##  Class :character   1st Qu.:  280.2   Class :character   1st Qu.:   5.00  
-    ##  Mode  :character   Median :  559.5   Mode  :character   Median :  10.00  
-    ##                     Mean   : 2350.6                      Mean   :  21.43  
-    ##                     3rd Qu.:  838.8                      3rd Qu.:  16.00  
-    ##                     Max.   :10220.0                      Max.   :1000.00  
-    ##      weight        base_experience    totalPts            hp        
-    ##  Min.   :    1.0   Min.   : 36     Min.   : 175.0   Min.   :  1.00  
-    ##  1st Qu.:   88.0   1st Qu.: 70     1st Qu.: 330.0   1st Qu.: 50.00  
-    ##  Median :  302.5   Median :162     Median : 460.0   Median : 68.00  
-    ##  Mean   :  993.3   Mean   :157     Mean   : 440.7   Mean   : 70.03  
-    ##  3rd Qu.:  800.0   3rd Qu.:207     3rd Qu.: 515.0   3rd Qu.: 80.75  
-    ##  Max.   :10000.0   Max.   :608     Max.   :1125.0   Max.   :255.00  
-    ##      attack          defense       special_attack   special_defense 
-    ##  Min.   :  5.00   Min.   :  5.00   Min.   : 10.00   Min.   : 20.00  
-    ##  1st Qu.: 55.00   1st Qu.: 50.25   1st Qu.: 50.00   1st Qu.: 50.00  
-    ##  Median : 78.50   Median : 70.00   Median : 65.00   Median : 70.00  
-    ##  Mean   : 80.68   Mean   : 74.76   Mean   : 73.23   Mean   : 72.57  
-    ##  3rd Qu.:100.00   3rd Qu.: 90.00   3rd Qu.: 95.00   3rd Qu.: 90.00  
-    ##  Max.   :190.00   Max.   :250.00   Max.   :194.00   Max.   :250.00  
-    ##      speed          type_one           type_two        
-    ##  Min.   :  5.00   Length:1118        Length:1118       
-    ##  1st Qu.: 45.00   Class :character   Class :character  
-    ##  Median : 67.00   Mode  :character   Mode  :character  
-    ##  Mean   : 69.48                                        
-    ##  3rd Qu.: 90.00                                        
-    ##  Max.   :200.00
-
-``` r
 ###height to weight ratio
 moreAllPoke<-moreAllPoke %>%mutate(hgtwgt_ratio=height/weight)
 
 ###mythic,legendary, regular,baby
-###Create new factor variable that assigns one of these values
+###Create new variable that assigns one of these values
 moreAllSpecies<-allSpecies %>% 
   mutate(common=if_else(is_baby, "baby",
               if_else(is_mythical,"mythical",
