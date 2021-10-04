@@ -737,11 +737,13 @@ comboSpeciesPoke %>% group_by(common) %>%
 
 ### Bar Plot
 
+I was curious to learn more about the pokemon species that do not
+evolve. I first needed to join data so I’d have what I needed together
+for a bar plot.
+
 ``` r
-###evolution stages and generations  
-##create a new regular/special variable then 
-##do a geom_bar of evolution stages with dodge of regular/special
-#like following crab example
+###combine data framesso to give access to rare and species data
+###Then create bar plot of this data.  
 combineSpeciesStage<-inner_join(moreAllSpecies,allStages,by="species")
 
 
@@ -753,6 +755,11 @@ g + geom_bar(aes(fill=(rare)),position = "dodge") +
 ```
 
 ![](images/bar%20plot-1.png)<!-- -->
+
+The bar plot gave me new insight about non evolving pokemon species. The
+plots shows many of the non evolving species are one of the rare groups
+like mythical or legendary. It made sense to me that rare species would
+not evole or otherwise they would not be so uncommon.
 
 ### Box Plot
 
@@ -780,9 +787,11 @@ mainly very powerful too.
 
 ### Histogram
 
-“Initial hatch counter: one must walk 255 × (hatch\_counter + 1) steps
-before this Pokémon’s egg hatches, unless utilizing bonuses like Flame
-Body’s.”
+I learned that the pokemon hatch counter variable determines how long it
+takes for pokemon eggs to hatch. Per the doc, “Initial hatch counter:
+one must walk 255 × (hatch\_counter + 1) steps before this Pokémon’s egg
+hatches, unless utilizing bonuses like Flame Body’s.” I wanted to get an
+idea what of the distribution of hatch count is by doing a histogram.
 
 ``` r
 ###creating histogram of hatch_counter data 
@@ -794,7 +803,15 @@ g + geom_histogram(binwidth=8,color = "brown", fill = "green",
 
 ![](images/histogram-1.png)<!-- -->
 
+The histogram of hatch counter appears to be right skewed with most
+hatch counter values being smaller but a smaller number being larger
+values.
+
 ### Histogram Plus Density
+
+After I completed the histogram, I was curious what might explain the
+higher hatch counter values being so infrequent? To address this
+question, I created a density overlay by type of pokemon.
 
 ``` r
 ###creating histogram of hatch_counter data plus density 
@@ -809,7 +826,17 @@ g + geom_histogram(binwidth=8,color = "brown", fill = "green",
 
 ![](images/histogramplusdensity-1.png)<!-- -->
 
+Adding the density plots did help explain the larger hatch counter
+values. The density plots show that the larger hatch counter values go
+with the rare legendary and mythical pokemon. Part of being rare would
+be that those types would not hatch as often as other types.
+
 ### Scatter Plot One
+
+Base experience is the number of experience points awarded when a
+pokemon is defeated. I created a scatter plot of total points (a measure
+of total power) and base experience to see whether players are rewarded
+in propoption to the power of a pokemon opponent.
 
 ``` r
 #Setup for a scatter plot of base_experience and total points
@@ -827,12 +854,23 @@ g+geom_point(aes(color=rare)) +
 
 ![](images/scatter%20plot%20experience%20by%20points-1.png)<!-- -->
 
+Although I was not surprised to see a linear relationship, I was
+surprised to see just how strong the postie correlation was between
+these variables. This did confirm players are rewarded based in
+proportion to total power. The other interesting trend in this graph was
+how there are four almost straight lines with very similar slopes.
+
 ### Scatter Plot Two
 
-``` r
-###Try total points by capture rate
-###Add correlation as text
+Next I wanted to do a scatter plot for variables that I suspected to
+have a negative correlation. The capture rate variable measures how hard
+or easy it is to capture a pokemon with lower values being harder and
+higher values being easier to catch. I created a scatter plot of total
+points (a measure of total power) and and capture rate to see whether
+these would be negatively correlated as I expected.
 
+``` r
+#Setup for a scatter plot of  total points and capture_rate
 corrCapPts<-cor(comboSpeciesPoke$capture_rate,comboSpeciesPoke$totalPts)
 
 g<-ggplot(data = comboSpeciesPoke,aes(x=capture_rate,y=totalPts))
@@ -846,7 +884,17 @@ g+geom_point(aes(color=common))  +
 
 ![](images/scatter%20plotpointsbyCapture-1.png)<!-- -->
 
+From the scatter plot, I did confirm these variables are moderately
+negatively correlated as I expected. It made sense that more power
+(higher points) pokemon would be harder to capture (lower capture
+rates). This trend was specially true for the more common regular
+pokemon group.
+
 ### Facet Wrapped Scatter Plot
+
+From the previous scatter plot, I was curious what the scatter plot
+would show if it were separately drawn for each category. I created a
+facet wrap version to examine this question.
 
 ``` r
 ##
@@ -858,3 +906,9 @@ g+geom_point() + facet_wrap(~common) +
 ```
 
 ![](images/facet%20scatter%20plot-1.png)<!-- -->
+
+The first part of the facet wrap graph that stood out to me is that the
+regular type most clearly shows the negative correlation. The second
+part that stood out to me is that the legendary type might actually be
+positively correlated or not be very correlated at all. The other types
+did not show clear patterns.
