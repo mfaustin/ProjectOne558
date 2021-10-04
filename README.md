@@ -503,8 +503,8 @@ An example of output from `getAllEvolveStages`.
 
 ### Berries Endpoint Functions.
 
-[Berries](https://pokeapi.co/docs/v2#berries-section)can provide various
-benefits to pokemon when they eat berries.
+[Berries](https://pokeapi.co/docs/v2#berries-section) can provide
+various benefits to pokemon when they eat berries.
 
 I’ve provided two functions to query and process berries data. The
 functions both return data frames.
@@ -583,6 +583,36 @@ head(getOneBerryData(34))
 | durin |           15 |           15 |                   80 |  280 |         35 |            8 |
 
 </div>
+
+3.  `getEveryBerryData` This function returns data for every berry as a
+    data frame with optional sorting of the data based on the sortName
+    option. The following data is returned  
+    `name`,`growth_time`,`max_harvest`,`natural_gift_power`,
+    `size`,`smoothness`,`soil_drynes`
+
+``` r
+getEveryBerryData<-function(sortName=FALSE){
+  
+  ###Get current number of berries to process
+  pokeBerryID<-getSpeciesNameID()
+  idVals<-pokeBerryID$ID
+  
+  ###Loop through every berry and build data frame
+  ###by adding new rows
+  ###Most of the time spent here is in the numerous 
+  ###   calls to API address since there are so many species
+  allBerry<-data.frame()
+  for (i in idVals) {
+    allBerry<-rbind(allBerry,getOneBerryData(i))
+  }
+  
+  if (sortName) {
+    allBerry<-allBerry %>% arrange(name)
+  }
+  
+  return(allBerry)
+}
+```
 
 <br>
 
