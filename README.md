@@ -10,6 +10,7 @@ Mark Austin
     -   [Species Endpoint Functions](#species-endpoint-functions)
     -   [Evolution Chain Endpoint
         Functions.](#evolution-chain-endpoint-functions)
+    -   [Berries Endpoint Functions.](#berries-endpoint-functions)
 -   [Exploratory Data Analysis](#exploratory-data-analysis)
     -   [Get Full Data Frames](#get-full-data-frames)
     -   [Creating New Variables](#creating-new-variables)
@@ -46,6 +47,11 @@ I created the following functions to query and process data from the
 Documentation](https://pokeapi.co/docs/v2). I found that I could use
 `fromJSON()` directly with the Pokemon API and directly assign API calls
 to list of list objects.
+
+For each endpoint, users can customize their query to return specific
+data based on names or ids relevant to that endpoint. I provide metadata
+functions so that users will know what names and ids are valid for a
+given endpoint.
 
 ### Pokemon Endpoint Functions.
 
@@ -495,6 +501,91 @@ An example of output from `getAllEvolveStages`.
 
 </div>
 
+### Berries Endpoint Functions.
+
+[Berries](https://pokeapi.co/docs/v2#berries-section)can provide various
+benefits to pokemon when they eat berries.
+
+I’ve provided two functions to query and process berries data. The
+functions both return data frames.
+
+1.  `getBerryNameID` This function returns a data frame with a list of
+    possible berry names and id values so that the user will know what
+    is available. Optional sorting my name is provided.
+
+``` r
+getBerryNameID <- function(sortName=FALSE){
+  
+  apiData<-fromJSON("https://pokeapi.co/api/v2/berry/?limit=1222")
+  
+  allNames<-as_tibble(apiData$results)
+  
+  allNames<-allNames %>% mutate(ID=as.numeric(basename(url)))
+  
+  if (sortName) {
+    allNames<-allNames %>% arrange(name)
+  }
+  
+  return(allNames)
+  
+}
+```
+
+2.  `getOneBerryData` Given species name or id this function returns a
+    data frame for one species with the following data.
+
+``` r
+getOneBerryData<-function(berry){
+  
+  ##Get list of berries and process user berry input
+  pokeBerryID<-getBerryNameID()
+  
+  if (is.numeric(berry)){
+    pokeBerryID<-pokeBerryID%>%filter(ID==berry)
+  } else if (is.character(species)){
+    pokeBerryID<-pokeBerryID%>%filter(name==tolower(berry))
+  } else {
+    stop("Please enter either species integer or quoated name value")
+  }
+  
+  BerryList<- fromJSON(pokeBerryID$url,flatten = TRUE)
+  
+  ###Function Data to return
+  name<-BerryList$name
+  growth_time<-BerryList$growth_time
+  max_harvest<-BerryList$max_harvest
+  natural_gift_power<-BerryList$natural_gift_power
+  size<-BerryList$size
+  smoothness<-BerryList$smoothness
+  soil_drynes<-BerryList$soil_dryness
+  
+  
+  
+  LocalDF<-data.frame(name,growth_time,max_harvest,natural_gift_power,
+                      size,smoothness,soil_drynes)
+  
+  
+  return(LocalDF)
+  
+}
+```
+
+Example `getOneBerryData` usage with output.
+
+``` r
+head(getOneBerryData(34))
+```
+
+<div class="kable-table">
+
+| name  | growth\_time | max\_harvest | natural\_gift\_power | size | smoothness | soil\_drynes |
+|:------|-------------:|-------------:|---------------------:|-----:|-----------:|-------------:|
+| durin |           15 |           15 |                   80 |  280 |         35 |            8 |
+
+</div>
+
+<br>
+
 ## Exploratory Data Analysis
 
 ### Get Full Data Frames
@@ -726,7 +817,7 @@ comboSpeciesPoke %>% group_by(common) %>%
 </div>
 
 As expected the legendary and mythical types have much higher total
-points(a meansure of power) than the other types with baby having the
+points(a measure of power) than the other types with baby having the
 least points.
 
 ### Bar Plot
