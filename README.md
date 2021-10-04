@@ -594,7 +594,7 @@ head(getOneBerryData(34))
 getEveryBerryData<-function(sortName=FALSE){
   
   ###Get current number of berries to process
-  pokeBerryID<-getSpeciesNameID()
+  pokeBerryID<-getBerryNameID()
   idVals<-pokeBerryID$ID
   
   ###Loop through every berry and build data frame
