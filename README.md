@@ -504,6 +504,7 @@ earlier. I pull all the data here so that I’ll have it stored in objects
 for later use.
 
 ``` r
+###Get all the data needed for data exploration
 allPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
 allSpecies<-getEverySpeciesData()
 allStages<-getAllEvolveStages()
@@ -516,11 +517,11 @@ analysis.
 First, I create a `totalPts` quantitative variable based on adding
 related point based variables. In pokemon references different pokemon
 are often compared based on total points. Here is a reference showing
-total poins for one paritular pokemon [Total Point
+total poins for one particular pokemon [Total Point
 Example](https://bulbapedia.bulbagarden.net/wiki/Kricketot_(Pok%C3%A9mon)#Base_stats)
 
 Second, I create a `hgtwgt_ratio` quantitative variable based on the
-basic height to weight raio. This ratio is often used in biology.
+basic height to weight ratio. This ratio is often used in biology.
 
 Third, I create a `common` categorical variable based on other species
 categorical variables. I wanted every species to be in one `common`
@@ -616,6 +617,7 @@ category. I added margin sums again to help spot patterns. Note this
 data is from species data and there are fewer species than pokemon.
 
 ``` r
+#Create table for generation and common categories
 tTwo<-table(moreAllSpecies$generation,moreAllSpecies$common)
 kable(addmargins(tTwo),
       caption = "Contingency Table of Generation by Common Status")
@@ -670,32 +672,13 @@ allSpecies %>% group_by(generation) %>%
 
 </div>
 
-**Speed by Generation**
-
-``` r
-##moreallpoke and species
-comboSpeciesPoke<-inner_join(moreAllPoke,moreAllSpecies,by="species")
-comboSpeciesPoke %>% group_by(generation) %>% 
-  summarise(Avg = mean(speed), Sd = sd(speed), Median =       
-              median(speed), IQR =IQR(speed))
-```
-
-<div class="kable-table">
-
-| generation      |      Avg |       Sd | Median |   IQR |
-|:----------------|---------:|---------:|-------:|------:|
-| generation-i    | 73.16216 | 28.91587 |   73.5 | 40.00 |
-| generation-ii   | 61.22222 | 27.34868 |   60.0 | 45.00 |
-| generation-iii  | 67.38182 | 31.02624 |   65.0 | 40.00 |
-| generation-iv   | 71.33884 | 28.47500 |   77.0 | 45.00 |
-| generation-v    | 68.30233 | 29.07464 |   65.0 | 50.00 |
-| generation-vi   | 69.19318 | 27.19781 |   66.0 | 40.00 |
-| generation-vii  | 70.81452 | 31.73656 |   65.0 | 50.75 |
-| generation-viii | 71.66102 | 34.88987 |   70.0 | 43.50 |
-
-</div>
+I did not spot a clear pattern over time in the capture rates. I did
+notice the IQR varied a lot from year to year meaning variability of
+capture rate did change a lot over time but in no clear pattern.
 
 **Height to Weight Ration by Common Status**
+
+I next looked at height to weight ratio by the common categories.
 
 ``` r
 #using hgtwgt_ratio
@@ -716,7 +699,14 @@ comboSpeciesPoke %>% group_by(common)  %>%
 
 </div>
 
+From this summary, I noticed the regular category had the highest
+average but the regular median was not too different from mythical. I’d
+really hoped to see more with this particular summary.
+
 **Total Points by Common Status**
+
+For my third numerical summary, I looked at total points by common
+types.
 
 ``` r
 comboSpeciesPoke %>% group_by(common) %>% 
@@ -734,6 +724,10 @@ comboSpeciesPoke %>% group_by(common) %>%
 | regular   | 422.1835 | 102.83936 |  440.0 | 175.00 |
 
 </div>
+
+As expected the legendary and mythical types have much higher total
+points(a meansure of power) than the other types with baby having the
+least points.
 
 ### Bar Plot
 

@@ -407,6 +407,7 @@ An example of output from `getAllEvolveStages`.
 I started by pulling data from the three endpoints I wrote functions for earlier.  I pull all the data here so that I'll have it stored in objects for later use.  
 
 ```{r getData, cache=TRUE}
+###Get all the data needed for data exploration
 allPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
 allSpecies<-getEverySpeciesData()
 allStages<-getAllEvolveStages()
@@ -416,9 +417,9 @@ allStages<-getAllEvolveStages()
 ### Creating New Variables  
 
 In this section I create new variables that I plan to use in later analysis.  
-First, I create a `totalPts` quantitative variable based on adding related point based variables.  In pokemon references different pokemon are often compared based on total points. Here is a reference showing total poins for one paritular pokemon  [Total Point Example](https://bulbapedia.bulbagarden.net/wiki/Kricketot_(Pok%C3%A9mon)#Base_stats)  
+First, I create a `totalPts` quantitative variable based on adding related point based variables.  In pokemon references different pokemon are often compared based on total points. Here is a reference showing total poins for one particular pokemon  [Total Point Example](https://bulbapedia.bulbagarden.net/wiki/Kricketot_(Pok%C3%A9mon)#Base_stats)  
 
-Second, I create a `hgtwgt_ratio` quantitative variable based on the basic height to weight raio.  This ratio is often used in biology.  
+Second, I create a `hgtwgt_ratio` quantitative variable based on the basic height to weight ratio.  This ratio is often used in biology.  
 
 Third, I create a `common` categorical variable based on other species categorical variables.  I wanted every species to be in one `common` category that eventually will show whether the species is in one of the rare categories like legendary or mythical.  
 
@@ -476,6 +477,7 @@ As for pokemon types, I immediately notice there are very few flying types.  I a
 I learned [pokemon generations](https://bulbapedia.bulbagarden.net/wiki/Generation) are used to group pokemon over time with i being oldest and viii being most recent.  For the second table, I looked at generation versus what I called common status meaning whether a pokemon is regular or in rare category.  I added margin sums again to help spot patterns.  Note this data is from species data and there are fewer species than pokemon.  
 
 ```{r more contingency work}
+#Create table for generation and common categories
 tTwo<-table(moreAllSpecies$generation,moreAllSpecies$common)
 kable(addmargins(tTwo),
       caption = "Contingency Table of Generation by Common Status")
@@ -496,19 +498,11 @@ allSpecies %>% group_by(generation) %>%
     Median = median(capture_rate), IQR =IQR(capture_rate))
 ```
 
-
-**Speed by Generation**  
-
-
-```{r speed by generation}
-##moreallpoke and species
-comboSpeciesPoke<-inner_join(moreAllPoke,moreAllSpecies,by="species")
-comboSpeciesPoke %>% group_by(generation) %>% 
-  summarise(Avg = mean(speed), Sd = sd(speed), Median =       
-              median(speed), IQR =IQR(speed))
-```
+I did not spot a clear pattern over time in the capture rates.  I did notice the IQR varied a lot from year to year meaning variability of capture rate did change a lot over time but in no clear pattern.  
 
 **Height to Weight Ration by Common Status**
+
+I next looked at height to weight ratio by the common categories.  
 
 ```{r hgtwgt_ratio by common}
 #using hgtwgt_ratio
@@ -518,15 +512,20 @@ comboSpeciesPoke %>% group_by(common)  %>%
       Median =  median(hgtwgt_ratio), IQR =IQR(hgtwgt_ratio))  
 ```
 
+From this summary, I noticed the regular category had the highest average but the regular median was not too different from mythical.  I'd really hoped to see more with this particular summary.  
+
 **Total Points by Common Status**  
 
+For my third numerical summary, I looked at total points by common types.  
+
 ```{r total points by common status}
+
 comboSpeciesPoke %>% group_by(common) %>% 
     summarise(Avg = mean(totalPts), Sd = sd(totalPts), Median =       
               median(totalPts), IQR =IQR(totalPts))
 ```
 
-
+As expected the legendary and mythical types have much higher total points(a measure of power) than the other types with baby having the least points.  
 
 ### Bar Plot  
 
