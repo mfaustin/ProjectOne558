@@ -8,9 +8,9 @@
 #  
 #########################
 
-getwd()
+#getwd()
 
-library(rmarkdown)
+#library(rmarkdown)
 
 
 rmarkdown::render("Vignette.Rmd", 
