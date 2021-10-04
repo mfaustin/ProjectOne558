@@ -15,11 +15,12 @@ Mark Austin
     -   [Creating New Variables](#creating-new-variables)
     -   [Contingency Tables](#contingency-tables)
     -   [Numerical Summaries](#numerical-summaries)
-    -   [Box Plot](#box-plot)
     -   [Bar Plot](#bar-plot)
+    -   [Box Plot](#box-plot)
     -   [Histogram](#histogram)
+    -   [Histogram Plus Density](#histogram-plus-density)
     -   [Scatter Plot](#scatter-plot)
-    -   [Facet Scatter Plot](#facet-scatter-plot)
+    -   [Facet Wrapped Scatter Plot](#facet-wrapped-scatter-plot)
 
 ## Required R Packages
 
@@ -729,6 +730,23 @@ comboSpeciesPoke %>% group_by(common) %>%
 
 </div>
 
+### Bar Plot
+
+``` r
+###evolution stages and generations  
+##create a new regular/special variable then 
+##do a geom_bar of evolution stages with dodge of regular/special
+#like following crab example
+combineSpeciesStage<-inner_join(moreAllSpecies,allStages,by="species")
+
+
+g <- ggplot(combineSpeciesStage, aes(x = stages))
+g + geom_bar(aes(fill=(rare)),position = "dodge") + scale_fill_discrete(name="Species\nCategories")   + labs(x="Evolution Stages", y="Count",
+  title = "Bar Plot of Evolution Stages for Rare and Regular Species")
+```
+
+![](images/bar%20plot-1.png)<!-- -->
+
 ### Box Plot
 
 I was interested in investigating the relationship between pokemon total
@@ -752,23 +770,6 @@ more evolved pokemon are more powerful and power is quantified by total
 points. In addition, I could see that the no evolving pokemon are also
 mainly very powerful too.
 
-### Bar Plot
-
-``` r
-###evolution stages and generations  
-##create a new regular/special variable then 
-##do a geom_bar of evolution stages with dodge of regular/special
-#like following crab example
-combineSpeciesStage<-inner_join(moreAllSpecies,allStages,by="species")
-
-
-g <- ggplot(combineSpeciesStage, aes(x = stages))
-g + geom_bar(aes(fill=(rare)),position = "dodge") + scale_fill_discrete(name="Species\nCategories")   + labs(x="Evolution Stages", y="Count",
-  title = "Bar Plot of Evolution Stages for Rare and Regular Species")
-```
-
-![](images/bar%20plot-1.png)<!-- -->
-
 ### Histogram
 
 “Initial hatch counter: one must walk 255 × (hatch\_counter + 1) steps
@@ -776,14 +777,26 @@ before this Pokémon’s egg hatches, unless utilizing bonuses like Flame
 Body’s.”
 
 ``` r
-###creating histogam of hatch_counter data 
-g <- ggplot(moreAllSpecies, aes(x = hatch_counter))
+###creating histogram of hatch_counter data 
+g <- ggplot(moreAllSpecies, aes( x = hatch_counter))
 g + geom_histogram(binwidth=8,color = "brown", fill = "green", 
                                      size = 1)  + labs(x="Hatch Counter", y="Count",
-  title = "Histogram of Pokemon Hatch Counter")
+  title = "Histogram of Pokemon Hatch Counter") 
 ```
 
 ![](images/histogram-1.png)<!-- -->
+
+### Histogram Plus Density
+
+``` r
+###creating histogram of hatch_counter data 
+g <- ggplot(moreAllSpecies, aes(y=..density.., x = hatch_counter))
+g + geom_histogram(binwidth=8,color = "brown", fill = "green", 
+                                     size = 1)  + labs(x="Hatch Counter", y="Density",
+  title = "Histogram of Pokemon Hatch Counter\nWith Pokemon Category Density", fill="Species\nCategories") + geom_density(adjust = 0.5, alpha = 0.5, aes(fill = common), position = "stack")
+```
+
+![](images/histogramplusdensity-1.png)<!-- -->
 
 ### Scatter Plot
 
@@ -810,7 +823,7 @@ g+geom_point(aes(color=common))  + geom_smooth(method = lm) +geom_text(x=50,y=95
 
 ![](images/scatter%20plotpointsbyCapture-1.png)<!-- -->
 
-### Facet Scatter Plot
+### Facet Wrapped Scatter Plot
 
 ``` r
 g<-ggplot(data = comboSpeciesPoke,aes(x=capture_rate,y=totalPts))

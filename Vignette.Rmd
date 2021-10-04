@@ -524,6 +524,23 @@ comboSpeciesPoke %>% group_by(common) %>%
 
 
 
+### Bar Plot  
+
+```{r bar plot}
+###evolution stages and generations  
+##create a new regular/special variable then 
+##do a geom_bar of evolution stages with dodge of regular/special
+#like following crab example
+combineSpeciesStage<-inner_join(moreAllSpecies,allStages,by="species")
+
+
+g <- ggplot(combineSpeciesStage, aes(x = stages))
+g + geom_bar(aes(fill=(rare)),position = "dodge") + scale_fill_discrete(name="Species\nCategories")   + labs(x="Evolution Stages", y="Count",
+  title = "Bar Plot of Evolution Stages for Rare and Regular Species")
+
+
+```
+
 ### Box Plot  
 
 I was interested in investigating the relationship between pokemon total points and evolution stage in a box plot.  I needed to manually adjust the colors because the automatic colors were blending into the background.  
@@ -542,22 +559,6 @@ g + geom_boxplot(fill="green1") +
 <br>  
 The boxplot confirmed my expectation that total points would be higher for higher pokemon evolution stages.  This outcome makes sense because more evolved pokemon are more powerful and power is quantified by total points.  In addition, I could see that the no evolving pokemon are also mainly very powerful too.  
 
-### Bar Plot  
-
-```{r bar plot}
-###evolution stages and generations  
-##create a new regular/special variable then 
-##do a geom_bar of evolution stages with dodge of regular/special
-#like following crab example
-combineSpeciesStage<-inner_join(moreAllSpecies,allStages,by="species")
-
-
-g <- ggplot(combineSpeciesStage, aes(x = stages))
-g + geom_bar(aes(fill=(rare)),position = "dodge") + scale_fill_discrete(name="Species\nCategories")   + labs(x="Evolution Stages", y="Count",
-  title = "Bar Plot of Evolution Stages for Rare and Regular Species")
-
-
-```
 
 ### Histogram  
 
@@ -565,15 +566,24 @@ g + geom_bar(aes(fill=(rare)),position = "dodge") + scale_fill_discrete(name="Sp
 
 
 ```{r histogram}
-###creating histogam of hatch_counter data 
-g <- ggplot(moreAllSpecies, aes(x = hatch_counter))
+###creating histogram of hatch_counter data 
+g <- ggplot(moreAllSpecies, aes( x = hatch_counter))
 g + geom_histogram(binwidth=8,color = "brown", fill = "green", 
 									 size = 1)  + labs(x="Hatch Counter", y="Count",
-  title = "Histogram of Pokemon Hatch Counter")
+  title = "Histogram of Pokemon Hatch Counter") 
 
 
 ```
 
+### Histogram Plus Density
+
+```{r histogramplusdensity}
+###creating histogram of hatch_counter data 
+g <- ggplot(moreAllSpecies, aes(y=..density.., x = hatch_counter))
+g + geom_histogram(binwidth=8,color = "brown", fill = "green", 
+									 size = 1)  + labs(x="Hatch Counter", y="Density",
+  title = "Histogram of Pokemon Hatch Counter\nWith Pokemon Category Density", fill="Species\nCategories") + geom_density(adjust = 0.5, alpha = 0.5, aes(fill = common), position = "stack")
+```
 
 
 ### Scatter Plot  
@@ -604,7 +614,7 @@ g+geom_point(aes(color=common))  + geom_smooth(method = lm) +geom_text(x=50,y=95
 ```
 
 
-### Facet Scatter Plot  
+### Facet Wrapped Scatter Plot  
 
 ```{r facet scatter plot }
 g<-ggplot(data = comboSpeciesPoke,aes(x=capture_rate,y=totalPts))
