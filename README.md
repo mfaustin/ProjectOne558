@@ -690,6 +690,26 @@ comboSpeciesPoke %>% group_by(generation) %>%
 
 </div>
 
+**Height to Weight Ration by Common Status**
+
+``` r
+#using hgtwgt_ratio
+comboSpeciesPoke<-inner_join(moreAllPoke,moreAllSpecies,by="species")
+comboSpeciesPoke %>% group_by(common)  %>% 
+  summarise(Avg = mean(hgtwgt_ratio), Sd = sd(hgtwgt_ratio), Median =            median(hgtwgt_ratio), IQR =IQR(hgtwgt_ratio))  
+```
+
+<div class="kable-table">
+
+| common    |       Avg |        Sd |    Median |       IQR |
+|:----------|----------:|----------:|----------:|----------:|
+| baby      | 0.0950516 | 0.0979774 | 0.0445055 | 0.1046340 |
+| legendary | 0.0800844 | 0.2755390 | 0.0181102 | 0.0232564 |
+| mythical  | 0.0589330 | 0.0606246 | 0.0292845 | 0.0673077 |
+| regular   | 0.1145914 | 0.6820708 | 0.0368272 | 0.0450000 |
+
+</div>
+
 **Total Points by Common Status**
 
 ``` r

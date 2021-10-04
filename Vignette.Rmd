@@ -493,6 +493,7 @@ allSpecies %>% group_by(generation) %>%
     Median = median(capture_rate), IQR =IQR(capture_rate))
 ```
 
+
 **Speed by Generation**  
 
 
@@ -502,6 +503,15 @@ comboSpeciesPoke<-inner_join(moreAllPoke,moreAllSpecies,by="species")
 comboSpeciesPoke %>% group_by(generation) %>% 
   summarise(Avg = mean(speed), Sd = sd(speed), Median =       
               median(speed), IQR =IQR(speed))
+```
+
+**Height to Weight Ration by Common Status**
+
+```{r hgtwgt_ratio by common}
+#using hgtwgt_ratio
+comboSpeciesPoke<-inner_join(moreAllPoke,moreAllSpecies,by="species")
+comboSpeciesPoke %>% group_by(common)  %>% 
+  summarise(Avg = mean(hgtwgt_ratio), Sd = sd(hgtwgt_ratio), Median =            median(hgtwgt_ratio), IQR =IQR(hgtwgt_ratio))  
 ```
 
 **Total Points by Common Status**  
