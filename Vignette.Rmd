@@ -586,7 +586,7 @@ g + geom_histogram(binwidth=8,color = "brown", fill = "green",
 ```
 
 
-### Scatter Plot  
+### Scatter Plot One  
 
 ```{r scatter plot experience by points, message=FALSE}
 #height weight with facet of common categorical 
@@ -599,7 +599,7 @@ g+geom_point(aes(color=rare)) + geom_smooth(method = lm) +geom_text(x=350,y=500,
 
 ```
 
-
+### Scatter Plot Two  
 
 ```{r  scatter plotpointsbyCapture, message=FALSE}
 

@@ -19,7 +19,8 @@ Mark Austin
     -   [Box Plot](#box-plot)
     -   [Histogram](#histogram)
     -   [Histogram Plus Density](#histogram-plus-density)
-    -   [Scatter Plot](#scatter-plot)
+    -   [Scatter Plot One](#scatter-plot-one)
+    -   [Scatter Plot Two](#scatter-plot-two)
     -   [Facet Wrapped Scatter Plot](#facet-wrapped-scatter-plot)
 
 ## Required R Packages
@@ -798,7 +799,7 @@ g + geom_histogram(binwidth=8,color = "brown", fill = "green",
 
 ![](images/histogramplusdensity-1.png)<!-- -->
 
-### Scatter Plot
+### Scatter Plot One
 
 ``` r
 #height weight with facet of common categorical 
@@ -810,6 +811,8 @@ g+geom_point(aes(color=rare)) + geom_smooth(method = lm) +geom_text(x=350,y=500,
 ```
 
 ![](images/scatter%20plot%20experience%20by%20points-1.png)<!-- -->
+
+### Scatter Plot Two
 
 ``` r
 ###Try total points by capture rate
