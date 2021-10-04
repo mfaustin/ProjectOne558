@@ -800,8 +800,12 @@ g + geom_histogram(binwidth=8,color = "brown", fill = "green",
 ###creating histogram of hatch_counter data 
 g <- ggplot(moreAllSpecies, aes(y=..density.., x = hatch_counter))
 g + geom_histogram(binwidth=8,color = "brown", fill = "green", 
-                                     size = 1)  + labs(x="Hatch Counter", y="Density",
-  title = "Histogram of Pokemon Hatch Counter\nWith Pokemon Category Density", fill="Species\nCategories") + geom_density(adjust = 0.5, alpha = 0.5, aes(fill = common), position = "stack")
+    size = 1)  + labs(x="Hatch Counter", y="Density", 
+      title = 
+      "Histogram of Pokemon Hatch Counter\nWith Pokemon Category Density",
+       fill="Species\nCategories") + 
+  geom_density(adjust = 0.5, alpha = 0.5, aes(fill = common), 
+    position = "stack")
 ```
 
 ![](images/histogramplusdensity-1.png)<!-- -->
