@@ -44,8 +44,8 @@ Vignette and/or create this document.
 I created the following functions to query and process data from the
 [Pokemon API](https://pokeapi.co/) using [Pokemon API
 Documentation](https://pokeapi.co/docs/v2). I found that I could use
-`fromJSON()` directly with the Pokemon API and directly assign API
-calls.
+`fromJSON()` directly with the Pokemon API and directly assign API calls
+to list of list objects.
 
 ### Pokemon Endpoint Functions.
 
@@ -532,7 +532,10 @@ species to either rare of regular status.
 
 ``` r
 ###total points
-moreAllPoke<-allPoke %>% mutate(totalPts=(hp+attack+defense+special_attack   +special_defense +speed)) %>% select(name,id,species,height,weight,base_experience,totalPts,everything()) 
+moreAllPoke<-allPoke %>% 
+  mutate(totalPts=(hp+attack+defense+special_attack +special_defense
+  +speed)) %>% 
+  select(name,id,species,height,weight,base_experience,totalPts,everything())
 
 ###height to weight ratio
 moreAllPoke<-moreAllPoke %>%mutate(hgtwgt_ratio=height/weight)
@@ -698,7 +701,8 @@ comboSpeciesPoke %>% group_by(generation) %>%
 #using hgtwgt_ratio
 comboSpeciesPoke<-inner_join(moreAllPoke,moreAllSpecies,by="species")
 comboSpeciesPoke %>% group_by(common)  %>% 
-  summarise(Avg = mean(hgtwgt_ratio), Sd = sd(hgtwgt_ratio), Median =            median(hgtwgt_ratio), IQR =IQR(hgtwgt_ratio))  
+  summarise(Avg = mean(hgtwgt_ratio), Sd = sd(hgtwgt_ratio), 
+      Median =  median(hgtwgt_ratio), IQR =IQR(hgtwgt_ratio))  
 ```
 
 <div class="kable-table">
@@ -742,7 +746,9 @@ combineSpeciesStage<-inner_join(moreAllSpecies,allStages,by="species")
 
 
 g <- ggplot(combineSpeciesStage, aes(x = stages))
-g + geom_bar(aes(fill=(rare)),position = "dodge") + scale_fill_discrete(name="Species\nCategories")   + labs(x="Evolution Stages", y="Count",
+g + geom_bar(aes(fill=(rare)),position = "dodge") +
+  scale_fill_discrete(name="Species\nCategories") + 
+  labs(x="Evolution Stages", y="Count",
   title = "Bar Plot of Evolution Stages for Rare and Regular Species")
 ```
 
@@ -759,7 +765,8 @@ background.
 ###Create a boxplot with added points for stage and total points  
 g <- ggplot(combinePoke, aes(x = stages, y = totalPts))
 g + geom_boxplot(fill="green1") + 
-  geom_point((aes(color = stages)), size=1,position = "jitter",alpha = 0.1)    + labs(x="Evolution Stages", y="Total Points",
+  geom_point((aes(color = stages)), size=1,position = "jitter",alpha = 0.1) +
+  labs(x="Evolution Stages", y="Total Points",
   title = "Boxplot of Total Points for Different Evolution Stages") + 
   scale_color_manual(values = c("red", "blue", "orangered","purple"),name =    "Evolution\nStages") 
 ```
@@ -781,7 +788,7 @@ Body’s.”
 ###creating histogram of hatch_counter data 
 g <- ggplot(moreAllSpecies, aes( x = hatch_counter))
 g + geom_histogram(binwidth=8,color = "brown", fill = "green", 
-                                     size = 1)  + labs(x="Hatch Counter", y="Count",
+     size = 1)  + labs(x="Hatch Counter", y="Count",
   title = "Histogram of Pokemon Hatch Counter") 
 ```
 
