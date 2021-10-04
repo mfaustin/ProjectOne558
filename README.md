@@ -768,7 +768,7 @@ g + geom_boxplot(fill="green1") +
   geom_point((aes(color = stages)), size=1,position = "jitter",alpha = 0.1) +
   labs(x="Evolution Stages", y="Total Points",
   title = "Boxplot of Total Points for Different Evolution Stages") + 
-  scale_color_manual(values = c("red", "blue", "orangered","purple"),name =    "Evolution\nStages") 
+  scale_color_manual(values = c("red", "blue", "orangered","purple"),name ="Evolution\nStages") 
 ```
 
 ![](images/Box%20Plot-1.png)<!-- --> <br>  
