@@ -788,17 +788,24 @@ g + geom_histogram(binwidth=8,color = "brown", fill = "green",
 ### Scatter Plot
 
 ``` r
+#height weight with facet of common categorical 
+# to see if different by mythical etc
+corExpPts<-cor(comboSpeciesPoke$base_experience,comboSpeciesPoke$totalPts)
+g<-ggplot(data = comboSpeciesPoke,aes(x=totalPts,y=base_experience))
+g+geom_point(aes(color=rare)) + geom_smooth(method = lm) +geom_text(x=350,y=500,size=4,label = paste0("Correlation = ",round(corExpPts, 2))) + labs(x="Total Points", y="Base Experience",
+  title = "Scatter Plot of Pokemon Base Exerience Versus Total Points", color="Species\nCategories")
+```
+
+![](images/scatter%20plot%20experience%20by%20points-1.png)<!-- -->
+
+``` r
 ###Try total points by capture rate
 ###Add correlation as text
 
-cor(comboSpeciesPoke$capture_rate,comboSpeciesPoke$totalPts)
-```
+corrCapPts<-cor(comboSpeciesPoke$capture_rate,comboSpeciesPoke$totalPts)
 
-    ## [1] -0.6869356
-
-``` r
 g<-ggplot(data = comboSpeciesPoke,aes(x=capture_rate,y=totalPts))
-g+geom_point(aes(color=common))  + labs(x="Capture Rate",y="Total Points",color='Species\nCategories',title = "Scatter Plot of Pokemon Total Points Versus Capture Rate ") 
+g+geom_point(aes(color=common))  + geom_smooth(method = lm) +geom_text(x=50,y=950,size=4,label = paste0("Correlation = ",round(corrCapPts, 2))) + labs(x="Capture Rate",y="Total Points",color='Species\nCategories',title = "Scatter Plot of Pokemon Total Points Versus Capture Rate ") 
 ```
 
 ![](images/scatter%20plotpointsbyCapture-1.png)<!-- -->
@@ -806,10 +813,8 @@ g+geom_point(aes(color=common))  + labs(x="Capture Rate",y="Total Points",color=
 ### Facet Scatter Plot
 
 ``` r
-#height weight with facet of common categorial 
-# to see if different by mythical etc
-g<-ggplot(data = comboSpeciesPoke,aes(x=weight,y=height))
-g+geom_point(aes(color=type_one))
+g<-ggplot(data = comboSpeciesPoke,aes(x=capture_rate,y=totalPts))
+g+geom_point() + facet_wrap(~common) + labs(x="Capture Rate",y="Total Points",color='Species\nCategories',title = "Facet Wrapped\nScatter Plots of Pokemon Total Points Versus Capture Rate ") 
 ```
 
 ![](images/facet%20scatter%20plot-1.png)<!-- -->
