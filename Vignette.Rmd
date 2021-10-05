@@ -173,9 +173,9 @@ getEveryPokeData<-function(basestat=FALSE,type=FALSE){
 
 ```
 Example of `getEveryPokeData` data frame data.  
-```{r getEveryPokeData output,cache=TRUE}
+```{r getEveryPokeData output,cache=TRUE,eval=FALSE}
 everyPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
-head(everyPoke)
+kable(head(everyPoke))
 ```
 
 
