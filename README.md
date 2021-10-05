@@ -122,7 +122,7 @@ head(getPokeNameID(sortName = TRUE))
     few options for the amount of data returned. The default option
     returns top level data including
     `species,height,weight,base_experience`. Turning the basestat
-    function additionally returns
+    function option on additionally returns
     `hp,attack,defense,special_attack,special_defense ,speed`. Finally,
     turning the type option on additionally returns primary and
     secondary types `type_one,type_two`.
@@ -187,7 +187,7 @@ getOnePokeData<-function(pokemon,basestat=FALSE,type=FALSE){
 }
 ```
 
-Examples of ways to use `getOnePokeData`.
+Examples of ways to call `getOnePokeData`.
 
 ``` r
 getOnePokeData("Venusaur")
@@ -254,7 +254,7 @@ frames.
 
 1.  `getSpeciesNameID` This function returns a data frame with a list of
     possible species names and id values so that the user will know what
-    is available. Optional sorting my name is provided.
+    is available. Optional sorting by name is provided.
 
 ``` r
 getSpeciesNameID <- function(sortName=FALSE){
@@ -598,7 +598,7 @@ getOneBerryData<-function(berry,variables){
 }
 ```
 
-Example `getOneBerryData` usage with output.
+Examples of `getOneBerryData` usage with output.
 
 ``` r
 getOneBerryData(34,"full")  
@@ -624,7 +624,7 @@ getOneBerryData(22,c("name","size","smoothness"))
 
 </div>
 
-3.  `getEveryBerryData` This function returns data for every berry as a
+3.  `getEveryBerryData` This function returns data for every name as a
     data frame with optional sorting of the data based on the sortName
     option.
 
@@ -871,7 +871,8 @@ Every individual pokemon has one of 18 different [pokemon
 types](https://bulbapedia.bulbagarden.net/wiki/Type). I created my first
 contingency table to examine how many pokemon were part of each type by
 the evolution stage for that pokemon. I included non evolving pokemon
-because many pokemon do not evolve.
+because many pokemon do not evolve. I added margin sums to help spot
+trends between categories.
 
 ``` r
 ###combine needed tables to get data together for table
@@ -1086,15 +1087,15 @@ The boxplot confirmed my expectation that total points would be higher
 for higher pokemon evolution stages. This outcome makes sense because
 more evolved pokemon are more powerful and power is quantified by total
 points. In addition, I could see that the no evolving pokemon are also
-mainly very powerful too.
+mainly very powerful too and have a lot of variability.
 
 ### Histogram
 
 I learned that the pokemon hatch counter variable determines how long it
 takes for pokemon eggs to hatch. Per the doc, “Initial hatch counter:
-one must walk 255 × (hatch\_counter + 1) steps before this Pokémon’s egg
+one must walk 255 × (hatch\_counter + 1) steps before this Pokemon’s egg
 hatches, unless utilizing bonuses like Flame Body’s.” I wanted to get an
-idea what of the distribution of hatch count is by doing a histogram.
+graph of the distribution of hatch count by creating a histogram.
 
 ``` r
 ###creating histogram of hatch_counter data 

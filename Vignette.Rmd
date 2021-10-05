@@ -73,7 +73,7 @@ head(getPokeNameID(sortName = TRUE))
 ```
 
 
-2. `getOnePokeData`  Given a pokemon name or id, this function returns a data frame with data for that pokemon.  Given how much data is available and the complexity of processing data, I give the user a few options for the amount of data returned.  The default option returns top level data including `species,height,weight,base_experience`.  Turning the basestat function additionally returns `hp,attack,defense,special_attack,special_defense ,speed`.  Finally, turning the type option on additionally returns primary and secondary types `type_one,type_two`.   
+2. `getOnePokeData`  Given a pokemon name or id, this function returns a data frame with data for that pokemon.  Given how much data is available and the complexity of processing data, I give the user a few options for the amount of data returned.  The default option returns top level data including `species,height,weight,base_experience`.  Turning the basestat function option on additionally returns `hp,attack,defense,special_attack,special_defense ,speed`.  Finally, turning the type option on additionally returns primary and secondary types `type_one,type_two`.   
 
 
 
@@ -138,7 +138,7 @@ getOnePokeData<-function(pokemon,basestat=FALSE,type=FALSE){
 }
 ```
 
-Examples of ways to use `getOnePokeData`.  
+Examples of ways to call `getOnePokeData`.  
 
 ```{r getOnePokeExample, eval=FALSE}
 getOnePokeData("Venusaur")
@@ -184,7 +184,7 @@ head(everyPoke)
 Most pokemon species map to one individual pokemon but there are some species that map to several individual pokemon.  Collective species data is obtained from the [Pokemon Species endpoint](https://pokeapi.co/docs/v2#pokemon-species).  Because species data is less complex, I was able to return more default data from this endpoint than the pokemon endpoint.  I've provided three functions to query and process pokemon endpoint data.  The functions all return data frames.  
 
 
-1. `getSpeciesNameID`  This function returns a data frame with a list of possible species names and id values so that the user will know what is available.  Optional sorting my name is provided.  
+1. `getSpeciesNameID`  This function returns a data frame with a list of possible species names and id values so that the user will know what is available.  Optional sorting by name is provided.  
 
 ```{r getSpeciesNameID Function}
 getSpeciesNameID <- function(sortName=FALSE){
@@ -485,7 +485,7 @@ getOneBerryData<-function(berry,variables){
 }
 ```
 
-Example `getOneBerryData` usage with output.  
+Examples of `getOneBerryData` usage with output.  
 
 ```{r getOneBerryData example}
 getOneBerryData(34,"full")  
@@ -493,7 +493,7 @@ getOneBerryData(22,c("name","size","smoothness"))
 ```
 
 
-3. `getEveryBerryData`  This function returns data for every berry as a data frame with optional sorting of the data based on the sortName option.  
+3. `getEveryBerryData`  This function returns data for every name as a data frame with optional sorting of the data based on the sortName option.  
 
 The user must select the variables returned by providing a character vector with variable names from this set.  
 `name`,`growth_time`,`max_harvest`,`natural_gift_power`,
@@ -697,7 +697,7 @@ moreAllSpecies<-moreAllSpecies %>%
 
 **Contingency Table One**  
 
-Every individual pokemon  has one of 18 different [pokemon types](https://bulbapedia.bulbagarden.net/wiki/Type).  I created my first contingency table to examine how many pokemon were part of each type by the evolution stage for that pokemon.  I included non evolving pokemon because many pokemon do not evolve.  
+Every individual pokemon  has one of 18 different [pokemon types](https://bulbapedia.bulbagarden.net/wiki/Type).  I created my first contingency table to examine how many pokemon were part of each type by the evolution stage for that pokemon.  I included non evolving pokemon because many pokemon do not evolve.  I added margin sums to help spot trends between categories.  
 
 
 ```{r contingencytables}
@@ -808,12 +808,12 @@ g + geom_boxplot(fill="green1") +
 
 ```  
 <br>  
-The boxplot confirmed my expectation that total points would be higher for higher pokemon evolution stages.  This outcome makes sense because more evolved pokemon are more powerful and power is quantified by total points.  In addition, I could see that the no evolving pokemon are also mainly very powerful too.  
+The boxplot confirmed my expectation that total points would be higher for higher pokemon evolution stages.  This outcome makes sense because more evolved pokemon are more powerful and power is quantified by total points.  In addition, I could see that the no evolving pokemon are also mainly very powerful too and have a lot of variability.  
 
 
 ### Histogram  
 
-I learned that the pokemon hatch counter variable determines how long it takes for pokemon eggs to hatch.  Per the doc, "Initial hatch counter: one must walk 255 × (hatch_counter + 1) steps before this Pokémon's egg hatches, unless utilizing bonuses like Flame Body's."  I wanted to get an idea what of the distribution of hatch count is by doing a histogram.  
+I learned that the pokemon hatch counter variable determines how long it takes for pokemon eggs to hatch.  Per the doc, "Initial hatch counter: one must walk 255 × (hatch_counter + 1) steps before this Pokemon's egg hatches, unless utilizing bonuses like Flame Body's."  I wanted to get an graph of the distribution of hatch count by creating a histogram.  
 
 
 ```{r histogram}
