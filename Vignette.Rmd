@@ -8,6 +8,11 @@ date: "10/05/2021"
 knitr::opts_chunk$set(fig.path = "images/")
 ```
 
+## Introduction  
+
+This is a vignette for reading and summarizing data from the [Pokemon API](https://pokeapi.co/) using [Pokemon API Documentation](https://pokeapi.co/docs/v2).  After describing many API query functions with accompanying R code, the vignette presents exploratory data analysis again using R code.  
+
+
 ## Required R Packages 
 
 The following R packages are required to run R code used in this Vignette and/or create this document.  
@@ -33,9 +38,9 @@ The following R packages are required to run R code used in this Vignette and/or
 
 I created the following functions to query and process data from the [Pokemon API](https://pokeapi.co/) using [Pokemon API Documentation](https://pokeapi.co/docs/v2).  I found that I could use `fromJSON()` directly with the Pokemon API and directly assign API calls to list of list objects.  
 
-For each endpoint, users can customize their query to return specific data based on names or ids relevant to that endpoint.  I provide metadata functions so that users will know what names and ids are valid for a given endpoint.  
+For each endpoint, users can customize their query to return specific data based on names or ids relevant to that endpoint.  I provide metadata functions so that users will know what names and ids are valid for a given endpoint.  I also tried different approaches to giving the user flexibility in the data returned with some functions returning groups of data and other letting the user do more customization.  
 
-### Pokemon Endpoint Functions.  
+### Pokemon Endpoint Functions  
 
 Most data relevant to individual pokemon is obtained from the [Pokemon endpoint](https://pokeapi.co/docs/v2#pokemon).  This endpoint returns a complex list of lists with more data than most users would need.  I've provided three functions to query and process pokemon endpoint data.  The functions all return data frames.  
 
@@ -285,7 +290,7 @@ head(everyPokeSpecies)
   
 
 
-### Evolution Chain Endpoint Functions.  
+### Evolution Chain Endpoint Functions  
 
 Many pokemon can [evolve](https://pokemondb.net/evolution) into another more powerful pokemon.  Evolution chain data is obtained from the [Pokemon Evolution Chain Endpoint](https://pokeapi.co/docs/v2#evolution-chains).  This endpoint only takes ID and those IDs are linked to one part of a chain.
 
@@ -407,15 +412,15 @@ An example of output from `getAllEvolveStages`.
 ```
 
 
-### Berries Endpoint Functions.  
+### Berries Endpoint Functions  
 
 [Berries](https://pokeapi.co/docs/v2#berries-section) can provide various benefits to pokemon when they eat berries.  
 
-I've provided two functions to query and process berries data.  The functions both return data frames.  
+I've provided three functions to query and process berries data.  The functions all return data frames.  
 
-1. `getBerryNameID`  This function returns a data frame with a list of possible berry names and id values so that the user will know what is available.  Optional sorting my name is provided.  
+1. `getBerryNameID`  This function returns a data frame with a list of possible berry names and id values so that the user will know what is available.  Optional sorting by name is provided.  
 
-```{r getBerryNameID}
+```{r getBerryNameID Function}
 getBerryNameID <- function(sortName=FALSE){
   
   apiData<-fromJSON("https://pokeapi.co/api/v2/berry/?limit=1222")
@@ -434,14 +439,14 @@ getBerryNameID <- function(sortName=FALSE){
 ```
 
 
-2. `getOneBerryData`  Given species name or id this function returns a data frame for one species  
+2. `getOneBerryData`  Given berry name or id this function returns a data frame for one berry.  
 
 The user must select the variables returned by providing a character vector with variable names from this set.  
 `name`,`growth_time`,`max_harvest`,`natural_gift_power`,
                       `size`,`smoothness`,`soil_drynes`  
 To select all variables, only assign "full" to the vector.  
 
-```{r getOneBerryData}
+```{r getOneBerryData Function}
 getOneBerryData<-function(berry,variables){
   
   ##Get list of berries and process user berry input
@@ -495,7 +500,7 @@ The user must select the variables returned by providing a character vector with
                       `size`,`smoothness`,`soil_drynes`  
 To select all variables, only assign "full" to the vector.  
 
-```{r getEveryBerryData}
+```{r getEveryBerryData Function}
 
 getEveryBerryData<-function(sortName=FALSE,variables){
   
@@ -528,6 +533,111 @@ head(getEveryBerryData(sortName = TRUE,"full"))
 ```
 
 
+### Forms Endpoint Functions  
+
+[Pokemon Forms](https://pokeapi.co/docs/v2#pokemon-forms) are ways different pokemon might appear visually and can differ in different situations like battle.  
+
+I've provided three functions to query and process forms data.  The functions all return data frames.  
+
+1. `getFormNameID`  This function returns a data frame with a list of possible names and id values so that the user will know what is available.  Optional sorting by name is provided.  
+
+```{r getFormNameID Function}
+getFormNameID <- function(sortName=FALSE){
+  
+  apiData<-fromJSON("https://pokeapi.co/api/v2/pokemon-form/?limit=1300")
+  
+  allNames<-as_tibble(apiData$results)
+  
+  allNames<-allNames %>% mutate(ID=as.numeric(basename(url)))
+  
+  if (sortName) {
+    allNames<-allNames %>% arrange(name)
+  }
+  
+  return(allNames)
+  
+}
+```
+
+2. `getOneFormData`  Given pokemon name or id this function returns a data frame for one species form.  Be aware that many pokemon were not assigned a form by the pokemon API and those pokemon forms return "".  
+
+The user must select the variables returned by providing a character vector with variable names from this set.  
+`name`,`form_name`,`is_battle_only`,`is_default`,`is_mega`,`version_group`  
+
+To select all variables, only assign "full" to the vector.  
+
+```{r getOneFormData}
+getOneFormData<-function(form,variables){
+  
+  ##Get list of forms and process user species input
+  pokeFormID<-getFormNameID()
+  
+  if (is.numeric(form)){
+    pokeFormID<-pokeFormID%>%filter(ID==form)
+  } else if (is.character(species)){
+    pokeFormID<-pokeFormID%>%filter(name==tolower(form))
+  } else {
+    stop("Please enter either species integer or quoated name value")
+  }
+  
+  FormList<- fromJSON(pokeFormID$url,flatten = TRUE)
+  
+  ###Function Data to return
+  name<-FormList$name
+  form_name<-FormList$form_name
+  is_battle_only<-FormList$is_battle_only
+  is_default<-FormList$is_default
+  is_mega<-FormList$is_mega
+  version_group<-FormList$version_group$name
+  
+  LocalDF<-data.frame(name,form_name,is_battle_only,is_default,is_mega,version_group)
+  
+  if (variables[1]!="full"){
+    LocalDF<-LocalDF%>%select(all_of(variables))
+  }
+  
+  return(LocalDF)
+  
+}
+
+```
+
+```{r getOneFormData example}
+getOneFormData(413,"full")
+```
+
+3. `getEveryFormData`  This function returns data for every berry as a data frame with optional sorting of the data based on the sortName option.  
+
+The user must select the variables returned by providing a character vector with variable names from this set.  
+`name`,`form_name`,`is_battle_only`,`is_default`,`is_mega`,`version_group`  
+
+To select all variables, only assign "full" to the vector.  
+
+```{r getEveryFormData Function}
+getEveryFormData<-function(sortName=FALSE,variables){
+  
+  ###Get current number of forms to process
+  pokeFormID<-getFormNameID()
+  idVals<-pokeFormID$ID
+  
+  ###Loop through every form and build data frame
+  ###by adding new rows
+  ###Most of the time spent here is in the numerous 
+  ###   calls to API address since there are so many species
+  allForm<-data.frame()
+  for (i in idVals) {
+    allForm<-rbind(allForm,getOneFormData(i,variables))
+  }
+  
+  if (sortName) {
+    allForm<-allForm %>% arrange(name)
+  }
+  
+  return(allForm)
+}
+```
+
+
 <br>  
 
 
@@ -536,7 +646,7 @@ head(getEveryBerryData(sortName = TRUE,"full"))
 
 ### Get Full Data Frames  
 
-I started by pulling data from the three endpoints I wrote functions for earlier.  I pull all the data here so that I'll have it stored in objects for later use.  
+I started by pulling data from the first three endpoints I wrote functions for earlier.  I found that those three endpoints had enough relevant data for all the required analysis.  I pull all the data here so that I'll have it stored in objects for later use.  
 
 ```{r getData, cache=TRUE}
 ###Get all the data needed for data exploration
