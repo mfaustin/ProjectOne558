@@ -103,18 +103,15 @@ Example `getPokeNameIDFunction` usage with output.
 head(getPokeNameID(sortName = TRUE))
 ```
 
-<div class="kable-table">
-
-| name           | url                                        |    ID |
-|:---------------|:-------------------------------------------|------:|
-| abomasnow      | <https://pokeapi.co/api/v2/pokemon/460/>   |   460 |
-| abomasnow-mega | <https://pokeapi.co/api/v2/pokemon/10060/> | 10060 |
-| abra           | <https://pokeapi.co/api/v2/pokemon/63/>    |    63 |
-| absol          | <https://pokeapi.co/api/v2/pokemon/359/>   |   359 |
-| absol-mega     | <https://pokeapi.co/api/v2/pokemon/10057/> | 10057 |
-| accelgor       | <https://pokeapi.co/api/v2/pokemon/617/>   |   617 |
-
-</div>
+    ## # A tibble: 6 x 3
+    ##   name           url                                         ID
+    ##   <chr>          <chr>                                    <dbl>
+    ## 1 abomasnow      https://pokeapi.co/api/v2/pokemon/460/     460
+    ## 2 abomasnow-mega https://pokeapi.co/api/v2/pokemon/10060/ 10060
+    ## 3 abra           https://pokeapi.co/api/v2/pokemon/63/       63
+    ## 4 absol          https://pokeapi.co/api/v2/pokemon/359/     359
+    ## 5 absol-mega     https://pokeapi.co/api/v2/pokemon/10057/ 10057
+    ## 6 accelgor       https://pokeapi.co/api/v2/pokemon/617/     617
 
 2.  `getOnePokeData` Given a pokemon name or id, this function returns a
     data frame with data for that pokemon. Given how much data is
@@ -421,13 +418,10 @@ An example of data frame returned from `getOneEvolveData`
   getOneEvolveData(57)
 ```
 
-<div class="kable-table">
-
-| stageOne | stageTwo | stageThree |
-|:---------|:---------|:-----------|
-| mime-jr  | mr-mime  | mr-rime    |
-
-</div>
+    ## # A tibble: 1 x 3
+    ##   stageOne stageTwo stageThree
+    ##   <chr>    <chr>    <chr>     
+    ## 1 mime-jr  mr-mime  mr-rime
 
 2.  `getAllEvolveSeries` This function returns a data frame of all the
     evolve stage items. The function will optionally sort on the first
@@ -604,25 +598,19 @@ Examples of `getOneBerryData` usage with output.
 getOneBerryData(34,"full")  
 ```
 
-<div class="kable-table">
-
-| name  | growth\_time | max\_harvest | natural\_gift\_power | size | smoothness | soil\_drynes |
-|:------|-------------:|-------------:|---------------------:|-----:|-----------:|-------------:|
-| durin |           15 |           15 |                   80 |  280 |         35 |            8 |
-
-</div>
+    ## # A tibble: 1 x 7
+    ##   name  growth_time max_harvest natural_gift_power  size smoothness soil_drynes
+    ##   <chr>       <int>       <int>              <int> <int>      <int>       <int>
+    ## 1 durin          15          15                 80   280         35           8
 
 ``` r
 getOneBerryData(22,c("name","size","smoothness"))
 ```
 
-<div class="kable-table">
-
-| name   | size | smoothness |
-|:-------|-----:|-----------:|
-| kelpsy |  150 |         20 |
-
-</div>
+    ## # A tibble: 1 x 3
+    ##   name    size smoothness
+    ##   <chr>  <int>      <int>
+    ## 1 kelpsy   150         20
 
 3.  `getEveryBerryData` This function returns data for every name as a
     data frame with optional sorting of the data based on the sortName
@@ -759,13 +747,10 @@ getOneFormData<-function(form,variables){
 getOneFormData(413,"full")
 ```
 
-<div class="kable-table">
-
-| name           | form\_name | is\_battle\_only | is\_default | is\_mega | version\_group |
-|:---------------|:-----------|:-----------------|:------------|:---------|:---------------|
-| wormadam-plant | plant      | FALSE            | TRUE        | FALSE    | diamond-pearl  |
-
-</div>
+    ## # A tibble: 1 x 6
+    ##   name           form_name is_battle_only is_default is_mega version_group
+    ##   <chr>          <chr>     <lgl>          <lgl>      <lgl>   <chr>        
+    ## 1 wormadam-plant plant     FALSE          TRUE       FALSE   diamond-pearl
 
 3.  `getEveryFormData` This function returns data for every berry as a
     data frame with optional sorting of the data based on the sortName
@@ -967,20 +952,17 @@ allSpecies %>% group_by(generation) %>%
     Median = median(capture_rate), IQR =IQR(capture_rate))
 ```
 
-<div class="kable-table">
-
-| generation      |       Avg |       Sd | Median |   IQR |
-|:----------------|----------:|---------:|-------:|------:|
-| generation-i    | 106.18543 | 77.10654 |   75.0 | 145.0 |
-| generation-ii   |  91.90000 | 71.67611 |   60.0 |  75.0 |
-| generation-iii  | 113.35556 | 83.82003 |   90.0 | 145.0 |
-| generation-iv   |  78.85981 | 69.46174 |   45.0 |  75.0 |
-| generation-v    | 103.10256 | 76.61131 |   75.0 | 145.0 |
-| generation-vi   | 100.40278 | 72.47664 |   62.5 | 120.0 |
-| generation-vii  |  77.72727 | 67.96918 |   45.0 |  47.5 |
-| generation-viii |  97.28090 | 82.43262 |   60.0 |  82.0 |
-
-</div>
+    ## # A tibble: 8 x 5
+    ##   generation        Avg    Sd Median   IQR
+    ##   <chr>           <dbl> <dbl>  <dbl> <dbl>
+    ## 1 generation-i    106.   77.1   75   145  
+    ## 2 generation-ii    91.9  71.7   60    75  
+    ## 3 generation-iii  113.   83.8   90   145  
+    ## 4 generation-iv    78.9  69.5   45    75  
+    ## 5 generation-v    103.   76.6   75   145  
+    ## 6 generation-vi   100.   72.5   62.5 120  
+    ## 7 generation-vii   77.7  68.0   45    47.5
+    ## 8 generation-viii  97.3  82.4   60    82
 
 I did not spot a clear pattern over time in the capture rates. I did
 notice the IQR varied a lot from year to year meaning variability of
@@ -998,16 +980,13 @@ comboSpeciesPoke %>% group_by(common)  %>%
       Median =  median(hgtwgt_ratio), IQR =IQR(hgtwgt_ratio))  
 ```
 
-<div class="kable-table">
-
-| common    |       Avg |        Sd |    Median |       IQR |
-|:----------|----------:|----------:|----------:|----------:|
-| baby      | 0.0950516 | 0.0979774 | 0.0445055 | 0.1046340 |
-| legendary | 0.0800844 | 0.2755390 | 0.0181102 | 0.0232564 |
-| mythical  | 0.0589330 | 0.0606246 | 0.0292845 | 0.0673077 |
-| regular   | 0.1145914 | 0.6820708 | 0.0368272 | 0.0450000 |
-
-</div>
+    ## # A tibble: 4 x 5
+    ##   common       Avg     Sd Median    IQR
+    ##   <chr>      <dbl>  <dbl>  <dbl>  <dbl>
+    ## 1 baby      0.0951 0.0980 0.0445 0.105 
+    ## 2 legendary 0.0801 0.276  0.0181 0.0233
+    ## 3 mythical  0.0589 0.0606 0.0293 0.0673
+    ## 4 regular   0.115  0.682  0.0368 0.045
 
 From this summary, I noticed the regular category had the highest
 average but the regular median was not too different from mythical. I’d
@@ -1024,16 +1003,13 @@ comboSpeciesPoke %>% group_by(common) %>%
               median(totalPts), IQR =IQR(totalPts))
 ```
 
-<div class="kable-table">
-
-| common    |      Avg |        Sd | Median |    IQR |
-|:----------|---------:|----------:|-------:|-------:|
-| baby      | 276.2778 |  61.34263 |  282.5 |  90.25 |
-| legendary | 627.3333 | 103.11584 |  600.0 | 100.00 |
-| mythical  | 595.0000 |  66.04007 |  600.0 |   0.00 |
-| regular   | 422.1835 | 102.83936 |  440.0 | 175.00 |
-
-</div>
+    ## # A tibble: 4 x 5
+    ##   common      Avg    Sd Median   IQR
+    ##   <chr>     <dbl> <dbl>  <dbl> <dbl>
+    ## 1 baby       276.  61.3   282.  90.2
+    ## 2 legendary  627. 103.    600  100  
+    ## 3 mythical   595   66.0   600    0  
+    ## 4 regular    422. 103.    440  175
 
 As expected the legendary and mythical types have much higher total
 points(a measure of power) than the other types with baby having the
