@@ -434,10 +434,15 @@ getBerryNameID <- function(sortName=FALSE){
 ```
 
 
-2. `getOneBerryData`  Given species name or id this function returns a data frame for one species with the following data.  
+2. `getOneBerryData`  Given species name or id this function returns a data frame for one species  
+
+The user must select the variables returned by providing a character vector with variable names from this set.  
+`name`,`growth_time`,`max_harvest`,`natural_gift_power`,
+                      `size`,`smoothness`,`soil_drynes`  
+To select all variables, only assign "full" to the vector.  
 
 ```{r getOneBerryData}
-getOneBerryData<-function(berry){
+getOneBerryData<-function(berry,variables){
   
   ##Get list of berries and process user berry input
   pokeBerryID<-getBerryNameID()
@@ -466,6 +471,9 @@ getOneBerryData<-function(berry){
   LocalDF<-data.frame(name,growth_time,max_harvest,natural_gift_power,
                       size,smoothness,soil_drynes)
   
+   if (variables[1]!="full"){
+      LocalDF<-LocalDF%>%select(all_of(variables))
+   }
   
   return(LocalDF)
   
@@ -475,17 +483,21 @@ getOneBerryData<-function(berry){
 Example `getOneBerryData` usage with output.  
 
 ```{r getOneBerryData example}
-head(getOneBerryData(34))
+getOneBerryData(34,"full")  
+getOneBerryData(22,c("name","size","smoothness"))
 ```
 
 
-3. `getEveryBerryData`  This function returns data for every berry as a data frame with optional sorting of the data based on the sortName option.  The following data is returned  
+3. `getEveryBerryData`  This function returns data for every berry as a data frame with optional sorting of the data based on the sortName option.  
+
+The user must select the variables returned by providing a character vector with variable names from this set.  
 `name`,`growth_time`,`max_harvest`,`natural_gift_power`,
                       `size`,`smoothness`,`soil_drynes`  
+To select all variables, only assign "full" to the vector.  
 
 ```{r getEveryBerryData}
 
-getEveryBerryData<-function(sortName=FALSE){
+getEveryBerryData<-function(sortName=FALSE,variables){
   
   ###Get current number of berries to process
   pokeBerryID<-getBerryNameID()
@@ -497,7 +509,7 @@ getEveryBerryData<-function(sortName=FALSE){
   ###   calls to API address since there are so many species
   allBerry<-data.frame()
   for (i in idVals) {
-    allBerry<-rbind(allBerry,getOneBerryData(i))
+    allBerry<-rbind(allBerry,getOneBerryData(i,variables))
   }
   
   if (sortName) {
@@ -506,8 +518,14 @@ getEveryBerryData<-function(sortName=FALSE){
   
   return(allBerry)
 }
+
 ```
 
+An example of `getEveryBerryData` usage to return all data sorted by berry name.  
+
+```{r getEveryBerryData example, cache=TRUE}
+getEveryBerryData(sortName = TRUE,"full")
+```
 
 
 <br>  
