@@ -232,8 +232,8 @@ head(everyPoke)
 ### Species Endpoint Functions
 
 Most pokemon species map to one individual pokemon but there are some
-species that map to several indidual pokemon. Collective species data is
-obtained from the [Pokemon Species
+species that map to several individual pokemon. Collective species data
+is obtained from the [Pokemon Species
 endpoint](https://pokeapi.co/docs/v2#pokemon-species). Because species
 data is less complex, I was able to return more default data from this
 endpoint than the pokemon endpoint. I’ve provided three functions to
@@ -264,10 +264,12 @@ getSpeciesNameID <- function(sortName=FALSE){
 
 2.  `getOneSpeciesData` Given species name or id this function returns a
     data frame for one species with the following data.
-    `species,shape,generation,base_happiness,capture_rate,gender_rate,hatch_counter,is_baby,is_legendary,is_mythical`.
+    `species,shape,generation,base_happiness,capture_rate,gender_rate,hatch_counter,is_baby,is_legendary,is_mythical`.  
+    Optionally, the user can select to return only the categorical data
+    for this endpoint by turning on the onlyCat option.
 
 ``` r
-getOneSpeciesData<-function(species){
+getOneSpeciesData<-function(species,onlyCat=FALSE){
    
    ##Get list of species and process user species input
    pokeSpeciesID<-getSpeciesNameID()
@@ -299,7 +301,10 @@ getOneSpeciesData<-function(species){
             capture_rate,gender_rate,hatch_counter,  
             is_baby,is_legendary,is_mythical)
    
-
+   if(onlyCat){
+     LocalDF<-LocalDF %>% select(-base_happiness,-capture_rate,
+                        -gender_rate,-hatch_counter)
+   }
    
    return(LocalDF)
    
@@ -309,10 +314,12 @@ getOneSpeciesData<-function(species){
 3.  `getEverySpeciesData` This function returns data for every species
     as a data frame with optional sorting of the data based on the
     sortName option. The following data is returned  
-    `species,shape,generation,base_happiness,capture_rate,gender_rate,hatch_counter,is_baby,is_legendary,is_mythical`.
+    `species,shape,generation,base_happiness,capture_rate,gender_rate,hatch_counter,is_baby,is_legendary,is_mythical`.  
+    Optionally, the user can select to return only the categorical data
+    for this endpoint by turning on the onlyCat option.
 
 ``` r
-getEverySpeciesData<-function(sortName=FALSE){
+getEverySpeciesData<-function(sortName=FALSE,onlyCat=FALSE){
    
    ###Get current number of species to process
    pokeSpeciesID<-getSpeciesNameID()
@@ -325,7 +332,7 @@ getEverySpeciesData<-function(sortName=FALSE){
    ###   calls to API address since there are so many species
    allPoke<-data.frame()
    for (i in idVals) {
-     allPoke<-rbind(allPoke,getOneSpeciesData(i))
+     allPoke<-rbind(allPoke,getOneSpeciesData(i,onlyCat))
    }
    
    if (sortName) {
