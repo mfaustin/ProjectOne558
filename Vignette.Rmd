@@ -524,7 +524,7 @@ getEveryBerryData<-function(sortName=FALSE,variables){
 An example of `getEveryBerryData` usage to return all data sorted by berry name.  
 
 ```{r getEveryBerryData example, cache=TRUE}
-getEveryBerryData(sortName = TRUE,"full")
+head(getEveryBerryData(sortName = TRUE,"full"))
 ```
 
 
