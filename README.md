@@ -100,18 +100,17 @@ getPokeNameID <- function(sortName=FALSE){
 Example `getPokeNameIDFunction` usage with output.
 
 ``` r
-head(getPokeNameID(sortName = TRUE))
+kable(head(getPokeNameID(sortName = TRUE)))
 ```
 
-    ## # A tibble: 6 x 3
-    ##   name           url                                         ID
-    ##   <chr>          <chr>                                    <dbl>
-    ## 1 abomasnow      https://pokeapi.co/api/v2/pokemon/460/     460
-    ## 2 abomasnow-mega https://pokeapi.co/api/v2/pokemon/10060/ 10060
-    ## 3 abra           https://pokeapi.co/api/v2/pokemon/63/       63
-    ## 4 absol          https://pokeapi.co/api/v2/pokemon/359/     359
-    ## 5 absol-mega     https://pokeapi.co/api/v2/pokemon/10057/ 10057
-    ## 6 accelgor       https://pokeapi.co/api/v2/pokemon/617/     617
+| name           | url                                        |    ID |
+|:---------------|:-------------------------------------------|------:|
+| abomasnow      | <https://pokeapi.co/api/v2/pokemon/460/>   |   460 |
+| abomasnow-mega | <https://pokeapi.co/api/v2/pokemon/10060/> | 10060 |
+| abra           | <https://pokeapi.co/api/v2/pokemon/63/>    |    63 |
+| absol          | <https://pokeapi.co/api/v2/pokemon/359/>   |   359 |
+| absol-mega     | <https://pokeapi.co/api/v2/pokemon/10057/> | 10057 |
+| accelgor       | <https://pokeapi.co/api/v2/pokemon/617/>   |   617 |
 
 2.  `getOnePokeData` Given a pokemon name or id, this function returns a
     data frame with data for that pokemon. Given how much data is

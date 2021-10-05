@@ -69,7 +69,7 @@ getPokeNameID <- function(sortName=FALSE){
 Example `getPokeNameIDFunction` usage with output.  
 
 ```{r getPokeNameIDExample}
-head(getPokeNameID(sortName = TRUE))
+kable(head(getPokeNameID(sortName = TRUE)))
 ```
 
 
