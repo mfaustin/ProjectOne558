@@ -173,7 +173,7 @@ getEveryPokeData<-function(basestat=FALSE,type=FALSE){
 
 ```
 Example of `getEveryPokeData` data frame data.  
-```{r getEveryPokeData output,cache=TRUE,eval=FALSE}
+```{r getEveryPokeData output,cache=TRUE}
 everyPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
 kable(head(everyPoke))
 ```
@@ -284,7 +284,7 @@ getEverySpeciesData<-function(sortName=FALSE,onlyCat=FALSE){
 Example of `getEverySpeciesData` data frame data.  
 ```{r getEverySpeciesData output,cache=TRUE}
 everyPokeSpecies<-getEverySpeciesData(sortName = TRUE)
-head(everyPokeSpecies)
+kable(head(everyPokeSpecies))
 ```
 
   
@@ -408,7 +408,7 @@ getAllEvolveStages<-function(sortName=FALSE){
 An example of output from `getAllEvolveStages`.  
 ```{r getAllEvolveStages Example,cache=TRUE}
   evolveStages<-getAllEvolveStages(sortName = TRUE)
-  head(evolveStages)
+  kable(head(evolveStages))
 ```
 
 
@@ -529,7 +529,7 @@ getEveryBerryData<-function(sortName=FALSE,variables){
 An example of `getEveryBerryData` usage to return all data sorted by berry name.  
 
 ```{r getEveryBerryData example, cache=TRUE}
-head(getEveryBerryData(sortName = TRUE,"full"))
+kable(head(getEveryBerryData(sortName = TRUE,"full")))
 ```
 
 

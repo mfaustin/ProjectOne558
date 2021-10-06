@@ -224,6 +224,15 @@ everyPoke<-getEveryPokeData(basestat = TRUE,type = TRUE)
 kable(head(everyPoke))
 ```
 
+| name       |  id | species    | height | weight | base\_experience |  hp | attack | defense | special\_attack | special\_defense | speed | type\_one | type\_two |
+|:-----------|----:|:-----------|-------:|-------:|-----------------:|----:|-------:|--------:|----------------:|-----------------:|------:|:----------|:----------|
+| bulbasaur  |   1 | bulbasaur  |      7 |     69 |               64 |  45 |     49 |      49 |              65 |               65 |    45 | grass     | poison    |
+| ivysaur    |   2 | ivysaur    |     10 |    130 |              142 |  60 |     62 |      63 |              80 |               80 |    60 | grass     | poison    |
+| venusaur   |   3 | venusaur   |     20 |   1000 |              236 |  80 |     82 |      83 |             100 |              100 |    80 | grass     | poison    |
+| charmander |   4 | charmander |      6 |     85 |               62 |  39 |     52 |      43 |              60 |               50 |    65 | fire      | None      |
+| charmeleon |   5 | charmeleon |     11 |    190 |              142 |  58 |     64 |      58 |              80 |               65 |    80 | fire      | None      |
+| charizard  |   6 | charizard  |     17 |    905 |              240 |  78 |     84 |      78 |             109 |               85 |   100 | fire      | flying    |
+
 ### Species Endpoint Functions
 
 Most pokemon species map to one individual pokemon but there are some
@@ -342,10 +351,8 @@ Example of `getEverySpeciesData` data frame data.
 
 ``` r
 everyPokeSpecies<-getEverySpeciesData(sortName = TRUE)
-head(everyPokeSpecies)
+kable(head(everyPokeSpecies))
 ```
-
-<div class="kable-table">
 
 | species    | shape     | generation     | base\_happiness | capture\_rate | gender\_rate | hatch\_counter | is\_baby | is\_legendary | is\_mythical |
 |:-----------|:----------|:---------------|----------------:|--------------:|-------------:|---------------:|:---------|:--------------|:-------------|
@@ -355,8 +362,6 @@ head(everyPokeSpecies)
 | accelgor   | arms      | generation-v   |              70 |            75 |            4 |             15 | FALSE    | FALSE         | FALSE        |
 | aegislash  | blob      | generation-vi  |              70 |            45 |            4 |             20 | FALSE    | FALSE         | FALSE        |
 | aerodactyl | wings     | generation-i   |              70 |            45 |            1 |             35 | FALSE    | FALSE         | FALSE        |
-
-</div>
 
 ### Evolution Chain Endpoint Functions
 
@@ -484,10 +489,8 @@ An example of output from `getAllEvolveStages`.
 
 ``` r
   evolveStages<-getAllEvolveStages(sortName = TRUE)
-  head(evolveStages)
+  kable(head(evolveStages))
 ```
-
-<div class="kable-table">
 
 | species    | stages   |
 |:-----------|:---------|
@@ -497,8 +500,6 @@ An example of output from `getAllEvolveStages`.
 | accelgor   | two      |
 | aegislash  | three    |
 | aerodactyl | noEvolve |
-
-</div>
 
 ### Berries Endpoint Functions
 
@@ -636,10 +637,8 @@ An example of `getEveryBerryData` usage to return all data sorted by
 berry name.
 
 ``` r
-head(getEveryBerryData(sortName = TRUE,"full"))
+kable(head(getEveryBerryData(sortName = TRUE,"full")))
 ```
-
-<div class="kable-table">
 
 | name   | growth\_time | max\_harvest | natural\_gift\_power | size | smoothness | soil\_drynes |
 |:-------|-------------:|-------------:|---------------------:|-----:|-----------:|-------------:|
@@ -649,8 +648,6 @@ head(getEveryBerryData(sortName = TRUE,"full"))
 | babiri |           18 |            5 |                   60 |  265 |         35 |            6 |
 | belue  |           15 |           15 |                   80 |  300 |         35 |            8 |
 | bluk   |            2 |           10 |                   70 |  108 |         20 |           35 |
-
-</div>
 
 ### Forms Endpoint Functions
 
