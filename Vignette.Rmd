@@ -328,7 +328,7 @@ getOneEvolveData<-function(ID){
 
 An example of data frame returned from `getOneEvolveData`  
 ```{r getOneEvolveData Example}
-  getOneEvolveData(57)
+  kable(getOneEvolveData(57))
 ```
 
 

@@ -406,13 +406,12 @@ getOneEvolveData<-function(ID){
 An example of data frame returned from `getOneEvolveData`
 
 ``` r
-  getOneEvolveData(57)
+  kable(getOneEvolveData(57))
 ```
 
-    ## # A tibble: 1 x 3
-    ##   stageOne stageTwo stageThree
-    ##   <chr>    <chr>    <chr>     
-    ## 1 mime-jr  mr-mime  mr-rime
+| stageOne | stageTwo | stageThree |
+|:---------|:---------|:-----------|
+| mime-jr  | mr-mime  | mr-rime    |
 
 2.  `getAllEvolveSeries` This function returns a data frame of all the
     evolve stage items. The function will optionally sort on the first
