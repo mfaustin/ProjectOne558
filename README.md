@@ -1114,7 +1114,7 @@ Although I was not surprised to see a linear relationship, I was
 surprised to see just how strong the positive correlation was between
 these variables. This did confirm players are rewarded based in
 proportion to total power. The other interesting trend in this graph was
-how there are four almost straight lines with very similar slopes.  
+how there are four almost straight lines with very similar slopes.
 
 ### Scatter Plot Two
 
