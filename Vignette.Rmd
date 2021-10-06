@@ -488,8 +488,8 @@ getOneBerryData<-function(berry,variables){
 Examples of `getOneBerryData` usage with output.  
 
 ```{r getOneBerryData example}
-getOneBerryData(34,"full")  
-getOneBerryData(22,c("name","size","smoothness"))
+kable(getOneBerryData(34,"full"))  
+kable(getOneBerryData(22,c("name","size","smoothness")))
 ```
 
 
@@ -603,7 +603,7 @@ getOneFormData<-function(form,variables){
 ```
 
 ```{r getOneFormData example}
-getOneFormData(413,"full")
+kable(getOneFormData(413,"full"))
 ```
 
 3. `getEveryFormData`  This function returns data for every berry as a data frame with optional sorting of the data based on the sortName option.  
@@ -737,7 +737,7 @@ I learned that [capture rate](https://bulbapedia.bulbagarden.net/wiki/Catch_rate
 ```{r capture rate by generation}
 allSpecies %>% group_by(generation) %>% 
   summarise(Avg = mean(capture_rate), Sd = sd(capture_rate), 
-    Median = median(capture_rate), IQR =IQR(capture_rate))
+    Median = median(capture_rate), IQR =IQR(capture_rate)) %>% kable()
 ```
 
 I did not spot a clear pattern over time in the capture rates.  I did notice the IQR varied a lot from year to year meaning variability of capture rate did change a lot over time but in no clear pattern.  
@@ -751,7 +751,7 @@ I next looked at height to weight ratio by the common categories.
 comboSpeciesPoke<-inner_join(moreAllPoke,moreAllSpecies,by="species")
 comboSpeciesPoke %>% group_by(common)  %>% 
   summarise(Avg = mean(hgtwgt_ratio), Sd = sd(hgtwgt_ratio), 
-      Median =  median(hgtwgt_ratio), IQR =IQR(hgtwgt_ratio))  
+      Median =  median(hgtwgt_ratio), IQR =IQR(hgtwgt_ratio)) %>% kable() 
 ```
 
 From this summary, I noticed the regular category had the highest average but the regular median was not too different from mythical.  I'd really hoped to see more with this particular summary.  
@@ -764,7 +764,7 @@ For my third numerical summary, I looked at total points by common types.
 
 comboSpeciesPoke %>% group_by(common) %>% 
     summarise(Avg = mean(totalPts), Sd = sd(totalPts), Median =       
-              median(totalPts), IQR =IQR(totalPts))
+              median(totalPts), IQR =IQR(totalPts)) %>% kable()
 ```
 
 As expected the legendary and mythical types have much higher total points(a measure of power) than the other types with baby having the least points.  
@@ -774,7 +774,7 @@ As expected the legendary and mythical types have much higher total points(a mea
 I was curious to learn more about the pokemon species that do not evolve.  I first needed to join data so I'd have what I needed together for a bar plot.  
 
 ```{r bar plot}
-###combine data framesso to give access to rare and species data
+###combine data frames to give access to rare and species data
 ###Then create bar plot of this data.  
 combineSpeciesStage<-inner_join(moreAllSpecies,allStages,by="species")
 
