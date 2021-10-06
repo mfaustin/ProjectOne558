@@ -1111,7 +1111,7 @@ g+geom_point(aes(color=rare)) +
 ![](images/scatter%20plot%20experience%20by%20points-1.png)<!-- -->
 
 Although I was not surprised to see a linear relationship, I was
-surprised to see just how strong the postie correlation was between
+surprised to see just how strong the positive correlation was between
 these variables. This did confirm players are rewarded based in
 proportion to total power. The other interesting trend in this graph was
 how there are four almost straight lines with very similar slopes.
