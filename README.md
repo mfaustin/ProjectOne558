@@ -244,7 +244,7 @@ endpoint than the pokemon endpoint. I’ve provided three functions to
 query and process pokemon endpoint data. The functions all return data
 frames.
 
-1.  `getSpeciesNameID` This function returns a data frame with a list of
+-   `getSpeciesNameID` This function returns a data frame with a list of
     possible species names and id values so that the user will know what
     is available. Optional sorting by name is provided.
 
@@ -266,7 +266,7 @@ getSpeciesNameID <- function(sortName=FALSE){
 }
 ```
 
-2.  `getOneSpeciesData` Given species name or id this function returns a
+-   `getOneSpeciesData` Given species name or id this function returns a
     data frame for one species with the following data.
     `species,shape,generation,base_happiness,capture_rate,gender_rate,hatch_counter,is_baby,is_legendary,is_mythical`.  
     Optionally, the user can select to return only the categorical data
@@ -315,7 +315,7 @@ getOneSpeciesData<-function(species,onlyCat=FALSE){
  }
 ```
 
-3.  `getEverySpeciesData` This function returns data for every species
+-   `getEverySpeciesData` This function returns data for every species
     as a data frame with optional sorting of the data based on the
     sortName option. The following data is returned  
     `species,shape,generation,base_happiness,capture_rate,gender_rate,hatch_counter,is_baby,is_legendary,is_mythical`.  
@@ -374,7 +374,7 @@ only takes ID and those IDs are linked to one part of a chain.
 I’ve provided three functions to query and process pokemon evolution
 chain endpoint data. The functions both return data frames.
 
-1.  `getOneEvolveData` This function takes an ID number for one of the
+-   `getOneEvolveData` This function takes an ID number for one of the
     chains and returns the chain data for that chain as data frame. Each
     data frame row has a value for a chain level or None if that chain
     does not have all three stages.
@@ -413,7 +413,7 @@ An example of data frame returned from `getOneEvolveData`
 |:---------|:---------|:-----------|
 | mime-jr  | mr-mime  | mr-rime    |
 
-2.  `getAllEvolveSeries` This function returns a data frame of all the
+-   `getAllEvolveSeries` This function returns a data frame of all the
     evolve stage items. The function will optionally sort on the first
     stage value.
 
@@ -441,7 +441,7 @@ getAllEvolveSeries<-function(sortName=FALSE){
 }
 ```
 
-3.  `getAllEvolveStages` This function takes data parsed by chain and
+-   `getAllEvolveStages` This function takes data parsed by chain and
     converts the data into a data frame containing species name and
     stage value for that species. The function will optionally sort on
     species.
@@ -508,7 +508,7 @@ various benefits to pokemon when they eat berries.
 I’ve provided three functions to query and process berries data. The
 functions all return data frames.
 
-1.  `getBerryNameID` This function returns a data frame with a list of
+-   `getBerryNameID` This function returns a data frame with a list of
     possible berry names and id values so that the user will know what
     is available. Optional sorting by name is provided.
 
@@ -530,7 +530,7 @@ getBerryNameID <- function(sortName=FALSE){
 }
 ```
 
-2.  `getOneBerryData` Given berry name or id this function returns a
+-   `getOneBerryData` Given berry name or id this function returns a
     data frame for one berry.
 
 The user must select the variables returned by providing a character
@@ -596,7 +596,7 @@ kable(getOneBerryData(22,c("name","size","smoothness")))
 |:-------|-----:|-----------:|
 | kelpsy |  150 |         20 |
 
-3.  `getEveryBerryData` This function returns data for every name as a
+-   `getEveryBerryData` This function returns data for every name as a
     data frame with optional sorting of the data based on the sortName
     option.
 
@@ -655,7 +655,7 @@ situations like battle.
 I’ve provided three functions to query and process forms data. The
 functions all return data frames.
 
-1.  `getFormNameID` This function returns a data frame with a list of
+-   `getFormNameID` This function returns a data frame with a list of
     possible names and id values so that the user will know what is
     available. Optional sorting by name is provided.
 
@@ -677,7 +677,7 @@ getFormNameID <- function(sortName=FALSE){
 }
 ```
 
-2.  `getOneFormData` Given pokemon name or id this function returns a
+-   `getOneFormData` Given pokemon name or id this function returns a
     data frame for one species form. Be aware that many pokemon were not
     assigned a form by the pokemon API and those pokemon forms return
     "".
@@ -731,7 +731,7 @@ kable(getOneFormData(413,"full"))
 |:---------------|:-----------|:-----------------|:------------|:---------|:---------------|
 | wormadam-plant | plant      | FALSE            | TRUE        | FALSE    | diamond-pearl  |
 
-3.  `getEveryFormData` This function returns data for every berry as a
+-   `getEveryFormData` This function returns data for every berry as a
     data frame with optional sorting of the data based on the sortName
     option.
 
