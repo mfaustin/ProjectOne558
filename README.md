@@ -73,13 +73,7 @@ complex list of lists with more data than most users would need. I’ve
 provided three functions to query and process pokemon endpoint data. The
 functions all return data frames.
 
-Note: I intended to use ordered lists for the functions in the query
-sections. However, on the due date after I was able to make the repo
-public I discovered that github pages removes the ol start tag. That
-made every item display as 1. Thus I switched to using a different way
-that would show numbers again.
-
-1.  `getPokeNameIDFunction` In order to query individual pokemon, the
+-   `getPokeNameIDFunction` In order to query individual pokemon, the
     user must provide either a name or id value. This function returns a
     list of all possible pokemon for this endpoint so that the user will
     know what pokemon are available. The names can be sorted as an
@@ -118,7 +112,7 @@ kable(head(getPokeNameID(sortName = TRUE)))
 | absol-mega     | <https://pokeapi.co/api/v2/pokemon/10057/> | 10057 |
 | accelgor       | <https://pokeapi.co/api/v2/pokemon/617/>   |   617 |
 
-2.  `getOnePokeData` Given a pokemon name or id, this function returns a
+-   `getOnePokeData` Given a pokemon name or id, this function returns a
     data frame with data for that pokemon. Given how much data is
     available and the complexity of processing data, I give the user a
     few options for the amount of data returned. The default option
@@ -198,7 +192,7 @@ getOnePokeData(435,type = TRUE)
 getOnePokeData(10032,basestat = TRUE,type = TRUE)
 ```
 
-3.  `getEveryPokeData` This function returns data for ALL pokemon and
+-   `getEveryPokeData` This function returns data for ALL pokemon and
     returns one data frame. The amount of data returned is dependent on
     the basetat and type options as described in `getOnePokeData`.
 
